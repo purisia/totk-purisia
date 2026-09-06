@@ -82,6 +82,13 @@
   function $(sel) { return document.querySelector(sel); }
   function $$(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
 
+  /** 있으면 리스너를 달고, 없으면 조용히 넘어간다 */
+  function on(sel, ev, fn) {
+    var el = $(sel);
+    if (el) el.addEventListener(ev, fn);
+    return el;
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -481,7 +488,7 @@
     if (!o || !state.map) return;
 
     openScreen(null);
-    openSearch(false);
+    openDrawer(false);
 
     if (state.mapLayer !== o.layer) {
       state.mapLayer = o.layer;
@@ -731,10 +738,11 @@
     openDrawer(false);
   }
 
-  function openSearch(on) {
-    $('#searchPane').hidden = !on;
-    if (on) $('#mapSearch').focus();
-    else { $('#mapSearch').value = ''; renderSearch(''); }
+  function clearSearch() {
+    var input = $('#mapSearch');
+    if (!input) return;
+    input.value = '';
+    renderSearch('');
   }
 
   /* ───────────────────────────── 이벤트 ───────────────────────────── */
@@ -856,13 +864,9 @@
       b.addEventListener('click', function () { openScreen(null); });
     });
 
-    $('#searchBtn').addEventListener('click', function () { openSearch($('#searchPane').hidden); });
-    $('#searchClose').addEventListener('click', function () { openSearch(false); });
-
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
-      if (!$('#searchPane').hidden) openSearch(false);
-      else if ($$('.screen').some(function (v) { return !v.hidden; })) openScreen(null);
+      if ($$('.screen').some(function (v) { return !v.hidden; })) openScreen(null);
       else if (!$('#drawer').hidden) openDrawer(false);
       else if (state.sel) { state.sel = null; renderMap(); renderMapInfo(); }
     });
@@ -947,13 +951,17 @@
 
     bindMapGestures();
 
-    $('#zoomIn').addEventListener('click', function () {
+    on('#zoomIn', 'click', function () {
       zoomAt(1.6, state.view.x + state.view.w / 2, state.view.y + state.view.h / 2);
     });
-    $('#zoomOut').addEventListener('click', function () {
+    on('#zoomOut', 'click', function () {
       zoomAt(1 / 1.6, state.view.x + state.view.w / 2, state.view.y + state.view.h / 2);
     });
-    $('#zoomReset').addEventListener('click', function () { resetView('fit'); applyView(); });
+    on('#zoomReset', 'click', function () {
+      resetView('fit');
+      applyView();
+      openDrawer(false);
+    });
 
     // 카드에서 지도로 보내기
     $('#bossList').addEventListener('click', function (e) {
@@ -989,7 +997,7 @@
       var btn = e.target.closest('[data-goto]');
       if (!btn) return;
       var parts = btn.dataset.goto.split(':');
-      openSearch(false);
+      clearSearch();
       focusOnMap(parts[0], parts[1], 8);
     });
 

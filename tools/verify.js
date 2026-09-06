@@ -206,6 +206,19 @@ check('지도가 기본 화면 (전체 화면 패널은 모두 닫힌 채 시작
 check('메뉴가 햄버거 안에 들어감',
   htmlIds.has('menuBtn') && htmlIds.has('drawer') && !html.includes('class="tabs"'));
 
+// 지도 화면에 떠 있는 것은 햄버거와 (숨겨진) 선택 시트뿐이어야 한다
+const mapwrap = html.slice(html.indexOf('<div class="mapwrap">'), html.indexOf('</main>'));
+const floating = [...mapwrap.matchAll(/<(button|div|svg)[^>]*\sid="([\w-]+)"/g)].map(m => m[2]);
+check('지도 위에는 햄버거와 선택 시트만',
+  floating.length === 3 && floating.includes('mapSvg') &&
+  floating.includes('menuBtn') && floating.includes('mapInfo'),
+  floating.join(', '));
+
+check('계층 · 찾기 · 전체 보기는 서랍 안',
+  html.indexOf('id="mapLayerChips"') > html.indexOf('<aside id="drawer"') &&
+  html.indexOf('id="mapSearch"') > html.indexOf('<aside id="drawer"') &&
+  html.indexOf('id="zoomReset"') > html.indexOf('<aside id="drawer"'));
+
 check('첫 실행에 워프 포인트를 전부 해금',
   appJs.includes('KEY.seeded') &&
   /seeded[\s\S]{0,400}state\.waypoints\.map/.test(appJs));

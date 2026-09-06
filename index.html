@@ -38,59 +38,30 @@
   </symbol>
 </svg>
 
-<!-- ─────────────────────────── 상단바 ─────────────────────────── -->
-<header class="topbar">
-  <button id="menuBtn" class="iconbtn" type="button" aria-label="메뉴 열기" aria-expanded="false">
-    <span class="burger"></span>
-  </button>
-  <h1 class="topbar__title">하이랄 필드 보스 트래커</h1>
-  <button id="searchBtn" class="iconbtn" type="button" aria-label="찾기">⌕</button>
-</header>
-
-<!-- ─────────────────────── 지도 — 이 앱의 본 화면 ─────────────────────── -->
+<!-- ───────────────── 지도 — 화면 전체가 지도다 ───────────────── -->
 <main class="stage">
   <div class="mapwrap">
     <svg id="mapSvg" role="img" aria-label="하이랄 보스 분포도"></svg>
 
-    <div class="chips chips--float" id="mapLayerChips" data-group="mapLayer">
-      <button class="chip" data-value="Sky" type="button">하늘</button>
-      <button class="chip is-active" data-value="Surface" type="button">지상</button>
-      <button class="chip" data-value="Depths" type="button">지저</button>
-    </div>
-
-    <div class="compass" aria-hidden="true"><span>N</span>▲</div>
-    <div id="coordBox" class="coordbox">— | —</div>
-
-    <div class="mapzoom">
-      <button id="zoomIn" class="zbtn" type="button" aria-label="확대">+</button>
-      <button id="zoomOut" class="zbtn" type="button" aria-label="축소">−</button>
-      <button id="zoomReset" class="zbtn" type="button" aria-label="전체 보기">⤢</button>
-    </div>
+    <!-- 지도 위에 보이는 것은 이 버튼 하나뿐. 나머지 조작은 전부 서랍 안에. -->
+    <button id="menuBtn" class="fab" type="button" aria-label="메뉴 열기" aria-expanded="false">
+      <span class="burger"></span>
+    </button>
 
     <!-- 마커를 누르면 지도 위로 올라오는 시트 -->
     <div id="mapInfo" class="sheet" hidden></div>
   </div>
 </main>
 
-<!-- ─────────────────────────── 찾기 ─────────────────────────── -->
-<div id="searchPane" class="searchpane" hidden>
-  <div class="searchpane__bar">
-    <input id="mapSearch" class="searchpane__input" type="search"
-           placeholder="보스 · 사당 · 조망대 · 지역 이름" autocomplete="off">
-    <button id="searchClose" class="iconbtn" type="button" aria-label="닫기">✕</button>
-  </div>
-  <div id="mapSearchResults" class="searchres"></div>
-</div>
-
-<!-- ─────────────────────────── 서랍 ─────────────────────────── -->
 <div id="scrim" class="scrim" hidden></div>
 
 <aside id="drawer" class="drawer" hidden aria-label="메뉴">
   <div class="drawer__head">
-    <span class="drawer__mark">◈</span>
     <div class="drawer__sum">
+      <span class="drawer__title"><span class="drawer__mark">◈</span> 하이랄 필드 보스 트래커</span>
       <b id="progressText">0 / 0 처치</b>
       <span id="unlockText">워프 0곳 해금</span>
+      <span class="drawer__coord">지도 중심 <span id="coordBox">— | —</span></span>
     </div>
     <button id="drawerClose" class="iconbtn" type="button" aria-label="닫기">✕</button>
   </div>
@@ -98,9 +69,25 @@
 
   <div class="drawer__body">
     <section class="drawer__sec">
+      <input id="mapSearch" class="filters__search" type="search"
+             placeholder="보스 · 사당 · 조망대 · 지역 찾기" autocomplete="off">
+      <div id="mapSearchResults" class="searchres"></div>
+    </section>
+
+    <section class="drawer__sec">
+      <h2 class="drawer__h">계층</h2>
+      <div class="chips chips--seg" id="mapLayerChips" data-group="mapLayer">
+        <button class="chip" data-value="Sky" type="button">하늘</button>
+        <button class="chip is-active" data-value="Surface" type="button">지상</button>
+        <button class="chip" data-value="Depths" type="button">지저</button>
+      </div>
+    </section>
+
+    <section class="drawer__sec">
       <h2 class="drawer__h">지도에 표시</h2>
       <div class="cats" id="mapCats"></div>
       <button id="hideDoneBtn" class="btn btn--ghost btn--wide" type="button">처치 완료 숨기기</button>
+      <button id="zoomReset" class="btn btn--ghost btn--wide" type="button">지도 전체 보기</button>
     </section>
 
     <section class="drawer__sec">
@@ -117,7 +104,7 @@
   </div>
 </aside>
 
-<!-- ─────────────────────── 서랍에서 여는 전체 화면 ─────────────────────── -->
+<!-- 서랍에서 여는 전체 화면 -->
 <section id="view-bosses" class="screen" hidden>
   <header class="screen__bar">
     <button class="iconbtn" type="button" data-screen-close aria-label="닫기">‹</button>
