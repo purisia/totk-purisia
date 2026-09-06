@@ -13,7 +13,8 @@
   var KEY = {
     kills: 'totk-tracker:kills',
     unlocked: 'totk-tracker:unlocked',
-    seen: 'totk-tracker:seen'
+    seen: 'totk-tracker:seen',
+    seeded: 'totk-tracker:allwarps'   // 사당까지 기본 해금으로 맞춘 시점 표시
   };
 
   var TYPE_KO = { Lynel: '라이넬', Hinox: '히녹스', Talus: '바위록' };
@@ -279,20 +280,45 @@
 
   /** 화면에서 보고 싶은 마커 크기(px) — 축소했을 때는 작게, 확대하면 크게 */
   function markerScale() {
-    var zoom = state.map.width / state.view.w;             // 1 = 전체 보기
+    var zoom = fitWidth() / state.view.w;                  // 1 = 전체 보기
     var px = Math.max(11, Math.min(26, 11 * Math.pow(zoom, 0.45)));
     var rect = $('#mapSvg').getBoundingClientRect();
     var perPx = (rect.width || 360) / state.view.w;         // 화면 px / 지도 단위
     return px / perPx / 24;                                 // 심볼 viewBox 가 24
   }
 
+  /** 지도 영역의 화면 비율 (세로/가로) */
+  function stageRatio() {
+    var r = $('#mapSvg').getBoundingClientRect();
+    return r.width > 0 ? r.height / r.width : state.map.height / state.map.width;
+  }
+
+  /** 지도 전체가 들어오는 뷰 폭 (가장 많이 축소한 상태) */
+  function fitWidth() {
+    var m = state.map;
+    return Math.max(m.width, m.height / stageRatio());
+  }
+
+  /** 화면을 빈틈없이 채우는 뷰 폭 — 세로 화면에서 검은 여백을 없앤다 */
+  function coverWidth() {
+    var m = state.map;
+    return Math.min(m.width, m.height / stageRatio());
+  }
+
+  /**
+   * 지도는 화면을 꽉 채우므로 viewBox 의 비율을 화면 비율에 맞춘다
+   * (preserveAspectRatio="none" + 이미지가 지도 좌표 그대로라 왜곡은 없다).
+   */
   function clampView() {
     var v = state.view;
     var m = state.map;
-    v.w = Math.max(m.width / 14, Math.min(m.width, v.w));
-    v.h = v.w * (m.height / m.width);
-    v.x = Math.max(-v.w * 0.15, Math.min(m.width - v.w * 0.85, v.x));
-    v.y = Math.max(-v.h * 0.15, Math.min(m.height - v.h * 0.85, v.y));
+    var fit = fitWidth();
+    v.w = Math.max(fit / 14, Math.min(fit, v.w));
+    v.h = v.w * stageRatio();
+    var padX = Math.max(0, (v.w - m.width) / 2);
+    var padY = Math.max(0, (v.h - m.height) / 2);
+    v.x = Math.max(-padX - v.w * 0.1, Math.min(m.width - v.w + padX + v.w * 0.1, v.x));
+    v.y = Math.max(-padY - v.h * 0.1, Math.min(m.height - v.h + padY + v.h * 0.1, v.y));
   }
 
   function applyView() {
@@ -313,8 +339,17 @@
     syncUrl();
   }
 
-  function resetView() {
-    state.view = { x: 0, y: 0, w: state.map.width, h: state.map.height };
+  /**
+   * mode 'fit' 이면 지도 전체가 보이게, 그 밖에는 화면을 채우게 맞춘다.
+   * 세로로 긴 화면에서 지도 전체를 넣으면 위아래가 대부분 빈 공간이라
+   * 처음 화면은 '채우기'로 두고, 전체 보기는 ⤢ 버튼에 맡긴다.
+   */
+  function resetView(mode) {
+    var m = state.map;
+    state.view = { x: 0, y: 0, w: mode === 'fit' ? fitWidth() : coverWidth(), h: 0 };
+    clampView();
+    state.view.x = (m.width - state.view.w) / 2;
+    state.view.y = (m.height - state.view.h) / 2;
     clampView();
   }
 
@@ -445,8 +480,8 @@
     var o = kind === 'boss' ? findBoss(id) : findWaypoint(id);
     if (!o || !state.map) return;
 
-    var tab = document.querySelector('.tab[data-view="map"]');
-    if (tab && $('#view-map').hidden) tab.click();
+    openScreen(null);
+    openSearch(false);
 
     if (state.mapLayer !== o.layer) {
       state.mapLayer = o.layer;
@@ -460,7 +495,7 @@
       renderCats();
     }
     state.sel = { kind: kind, id: id };
-    state.view.w = state.map.width / (zoom || 6);
+    state.view.w = fitWidth() / (zoom || 6);
     clampView();
     state.view.x = toMapX(o.coords[0]) - state.view.w / 2;
     state.view.y = toMapY(o.coords[1]) - state.view.h / 2;
@@ -545,21 +580,7 @@
         : '<p class="panel__warn">아직 해금하지 않은 곳입니다. 해금하면 추천 경로 계산에 포함됩니다.</p>');
   }
 
-  function emptyPanel() {
-    var n = state.bosses.filter(mapShowsBoss).length;
-    if (state.mapLayer === 'Sky') {
-      var open = state.waypoints.filter(function (w) {
-        return w.layer === 'Sky' && state.unlocked.has(w.id);
-      }).length;
-      return '<p>하늘에는 필드 보스가 없습니다. 하늘 사당 <b>' + open + '/32</b>곳 해금 — ' +
-             '사당 아이콘을 누르면 해금하거나 그곳에서 가까운 보스를 볼 수 있습니다.</p>';
-    }
-    return '<p>' + LAYER_KO[state.mapLayer] + ' 보스 <b>' + n + '기</b> 표시 중. ' +
-           '아이콘을 누르면 방향과 추천 경로가 나오고, 처치·해금도 바로 체크할 수 있습니다.<br>' +
-           '<span class="muted">끌어서 이동 · 휠이나 두 손가락으로 확대 · 더블클릭으로 전체 보기</span></p>';
-  }
-
-  /** 카테고리 토글 그리드 (켜기/끄기 + 진행도) */
+  /** 서랍의 카테고리 토글 (켜기/끄기 + 진행도) */
   function renderCats() {
     $('#mapCats').innerHTML = CATS.map(function (c) {
       var total, done;
@@ -580,25 +601,22 @@
         '<span class="cat__num">' + done + '/' + total + '</span>' +
         '</button>';
     }).join('');
-    $('#hideDoneBtn').classList.toggle('btn--on', state.hideDone);
-    $('#hideDoneBtn').textContent = state.hideDone ? '완료 항목 표시' : '처치 완료 숨기기';
+    var hd = $('#hideDoneBtn');
+    hd.classList.toggle('btn--on', state.hideDone);
+    hd.textContent = state.hideDone ? '완료 항목 표시' : '처치 완료 숨기기';
   }
 
   function renderMapInfo() {
     var el = $('#mapInfo');
     if (!state.sel) {
-      el.className = 'mapinfo';
-      el.innerHTML = emptyPanel();
+      el.hidden = true;
+      el.innerHTML = '';
       return;
     }
-    el.className = 'mapinfo mapinfo--panel';
-    if (state.sel.kind === 'boss') {
-      var b = findBoss(state.sel.id);
-      el.innerHTML = b ? bossPanel(b) : emptyPanel();
-    } else {
-      var w = findWaypoint(state.sel.id);
-      el.innerHTML = w ? waypointPanel(w) : emptyPanel();
-    }
+    var o = state.sel.kind === 'boss' ? findBoss(state.sel.id) : findWaypoint(state.sel.id);
+    if (!o) { el.hidden = true; el.innerHTML = ''; return; }
+    el.hidden = false;
+    el.innerHTML = state.sel.kind === 'boss' ? bossPanel(o) : waypointPanel(o);
   }
 
   function renderAll() {
@@ -622,7 +640,7 @@
       q.set('layer', state.mapLayer);
       q.set('x', Math.round(c[0]));
       q.set('y', Math.round(c[1]));
-      q.set('z', (state.map.width / state.view.w).toFixed(2));
+      q.set('z', (fitWidth() / state.view.w).toFixed(2));
       if (state.sel) q.set('sel', state.sel.kind + ':' + state.sel.id);
       try {
         history.replaceState(null, '', location.pathname + '?' + q.toString());
@@ -652,8 +670,8 @@
 
   function renderSearch(q) {
     var box = $('#mapSearchResults');
-    q = q.trim().toLowerCase();
-    if (!q) { box.hidden = true; box.innerHTML = ''; return; }
+    q = (q || '').trim().toLowerCase();
+    if (!q) { box.innerHTML = ''; return; }
 
     var hits = [];
     state.bosses.forEach(function (b) {
@@ -670,7 +688,6 @@
       }
     });
 
-    box.hidden = false;
     box.innerHTML = hits.length
       ? hits.slice(0, 30).map(function (h) {
           return '<button class="sr" type="button" data-goto="' + h.kind + ':' + h.id + '">' +
@@ -695,6 +712,29 @@
     writeSet(KEY.unlocked, state.unlocked);
     recomputeRoutes();
     renderAll();
+  }
+
+  /* ─────────────────────── 서랍과 전체 화면 ─────────────────────── */
+
+  function openDrawer(on) {
+    $('#drawer').hidden = !on;
+    $('#scrim').hidden = !on;
+    $('#menuBtn').setAttribute('aria-expanded', String(on));
+  }
+
+  function openScreen(name) {
+    $$('.screen').forEach(function (v) { v.hidden = true; });
+    if (name) {
+      $('#view-' + name).hidden = false;
+      $('#view-' + name).querySelector('.screen__body').scrollTop = 0;
+    }
+    openDrawer(false);
+  }
+
+  function openSearch(on) {
+    $('#searchPane').hidden = !on;
+    if (on) $('#mapSearch').focus();
+    else { $('#mapSearch').value = ''; renderSearch(''); }
   }
 
   /* ───────────────────────────── 이벤트 ───────────────────────────── */
@@ -791,7 +831,7 @@
       zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, at[0], at[1]);
     }, { passive: false });
 
-    svg.addEventListener('dblclick', function () { resetView(); applyView(); });
+    svg.addEventListener('dblclick', function () { resetView('fit'); applyView(); });
   }
 
   function bindChips(container, group, onChange) {
@@ -805,15 +845,26 @@
   }
 
   function bindEvents() {
-    // 탭
-    $$('.tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        $$('.tab').forEach(function (t) { t.classList.remove('is-active'); });
-        tab.classList.add('is-active');
-        $$('.view').forEach(function (v) { v.hidden = true; });
-        $('#view-' + tab.dataset.view).hidden = false;
-        if (tab.dataset.view === 'map' && state.map) applyView();
-      });
+    $('#menuBtn').addEventListener('click', function () { openDrawer($('#drawer').hidden); });
+    $('#drawerClose').addEventListener('click', function () { openDrawer(false); });
+    $('#scrim').addEventListener('click', function () { openDrawer(false); });
+
+    $$('[data-screen]').forEach(function (b) {
+      b.addEventListener('click', function () { openScreen(b.dataset.screen); });
+    });
+    $$('[data-screen-close]').forEach(function (b) {
+      b.addEventListener('click', function () { openScreen(null); });
+    });
+
+    $('#searchBtn').addEventListener('click', function () { openSearch($('#searchPane').hidden); });
+    $('#searchClose').addEventListener('click', function () { openSearch(false); });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (!$('#searchPane').hidden) openSearch(false);
+      else if ($$('.screen').some(function (v) { return !v.hidden; })) openScreen(null);
+      else if (!$('#drawer').hidden) openDrawer(false);
+      else if (state.sel) { state.sel = null; renderMap(); renderMapInfo(); }
     });
 
     bindChips($('#typeChips'), 'type', function (v) { state.filter.type = v; renderBosses(); });
@@ -902,7 +953,7 @@
     $('#zoomOut').addEventListener('click', function () {
       zoomAt(1 / 1.6, state.view.x + state.view.w / 2, state.view.y + state.view.h / 2);
     });
-    $('#zoomReset').addEventListener('click', function () { resetView(); applyView(); });
+    $('#zoomReset').addEventListener('click', function () { resetView('fit'); applyView(); });
 
     // 카드에서 지도로 보내기
     $('#bossList').addEventListener('click', function (e) {
@@ -932,24 +983,14 @@
       renderMapInfo();
     });
 
-    // 이름으로 찾기
-    $('#mapSearchBtn').addEventListener('click', function () {
-      var input = $('#mapSearch');
-      input.hidden = !input.hidden;
-      $('#mapSearchResults').hidden = input.hidden || !input.value.trim();
-      if (!input.hidden) input.focus();
-    });
-
     $('#mapSearch').addEventListener('input', function (e) { renderSearch(e.target.value); });
 
     $('#mapSearchResults').addEventListener('click', function (e) {
       var btn = e.target.closest('[data-goto]');
       if (!btn) return;
       var parts = btn.dataset.goto.split(':');
+      openSearch(false);
       focusOnMap(parts[0], parts[1], 8);
-      $('#mapSearchResults').hidden = true;
-      $('#mapSearch').hidden = true;
-      $('#mapSearch').value = '';
     });
 
     // 선택 패널 — 지도에서 처치 체크 · 해금 · 이동을 모두 처리한다
@@ -985,7 +1026,9 @@
     });
 
     window.addEventListener('resize', function () {
-      if (state.map && !$('#view-map').hidden) applyView();
+      if (!state.map) return;
+      clampView();
+      applyView();
     });
 
     // 내보내기 / 불러오기 / 초기화
@@ -1052,10 +1095,7 @@
     var params = new URLSearchParams(location.search);
 
     var view = params.get('view');
-    if (view && $('#view-' + view)) {
-      var tab = document.querySelector('.tab[data-view="' + view + '"]');
-      if (tab) tab.click();
-    }
+    if (view && $('#view-' + view)) openScreen(view);
 
     var filter = params.get('filter');
     if (filter === 'alive' || filter === 'killed') {
@@ -1082,7 +1122,7 @@
     var y = parseFloat(params.get('y'));
     var z = parseFloat(params.get('z'));
     if (isFinite(z) && z > 0) {
-      state.view.w = state.map.width / Math.min(14, Math.max(1, z));
+      state.view.w = fitWidth() / Math.min(14, Math.max(1, z));
       clampView();
     }
     if (isFinite(x) && isFinite(y)) {
@@ -1108,14 +1148,15 @@
     state.kills = readSet(KEY.kills);
     state.unlocked = readSet(KEY.unlocked);
 
-    // 최초 실행: 조망대 15곳을 미리 해금해 두면 바로 추천을 볼 수 있다.
-    if (!localStorage.getItem(KEY.seen)) {
-      state.unlocked = new Set(state.waypoints
-        .filter(function (w) { return w.type === 'Tower'; })
-        .map(function (w) { return w.id; }));
+    // 기본값은 "전부 해금". 사당·조망대를 다 연 상태를 가정해야 추천 경로가
+    // 곧바로 쓸모 있고, 잠그고 싶은 곳만 워프 포인트 화면에서 끄면 된다.
+    if (!localStorage.getItem(KEY.seeded)) {
+      state.unlocked = new Set(state.waypoints.map(function (w) { return w.id; }));
       writeSet(KEY.unlocked, state.unlocked);
-      try { localStorage.setItem(KEY.seen, '1'); } catch (e) { /* 무시 */ }
-      setTimeout(function () { toast('조망대 15곳을 기본 해금했습니다 — 사당은 “워프 포인트” 탭에서'); }, 700);
+      try {
+        localStorage.setItem(KEY.seeded, '1');
+        localStorage.setItem(KEY.seen, '1');
+      } catch (e) { /* 무시 */ }
     }
 
     $('#buildInfo').textContent =

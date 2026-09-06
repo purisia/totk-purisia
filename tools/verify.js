@@ -193,11 +193,22 @@ const missingIds = [...wanted].filter(id => !htmlIds.has(id));
 check('app.js 가 참조하는 모든 id 가 index.html 에 존재', missingIds.length === 0,
   missingIds.join(', '));
 
-// 탭 버튼과 뷰 섹션이 짝을 이루는지
-const views = [...html.matchAll(/data-view="([\w-]+)"/g)].map(m => m[1]);
-check('탭마다 대응하는 뷰 섹션이 존재',
-  views.length > 0 && views.every(v => htmlIds.has('view-' + v)),
-  views.filter(v => !htmlIds.has('view-' + v)).join(', '));
+// 서랍 메뉴와 전체 화면이 짝을 이루는지
+const screens = [...html.matchAll(/data-screen="([\w-]+)"/g)].map(m => m[1]);
+check('서랍 메뉴마다 대응하는 화면이 존재',
+  screens.length === 3 && screens.every(v => htmlIds.has('view-' + v)),
+  screens.filter(v => !htmlIds.has('view-' + v)).join(', '));
+
+check('지도가 기본 화면 (전체 화면 패널은 모두 닫힌 채 시작)',
+  /<section id="view-\w+" class="screen" hidden>/.test(html) &&
+  (html.match(/class="screen" hidden/g) || []).length === screens.length);
+
+check('메뉴가 햄버거 안에 들어감',
+  htmlIds.has('menuBtn') && htmlIds.has('drawer') && !html.includes('class="tabs"'));
+
+check('첫 실행에 워프 포인트를 전부 해금',
+  appJs.includes('KEY.seeded') &&
+  /seeded[\s\S]{0,400}state\.waypoints\.map/.test(appJs));
 
 // manifest 의 아이콘·시작 경로가 실제로 존재하는지
 const manifest = readJson('manifest.json');

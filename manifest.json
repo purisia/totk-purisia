@@ -17,7 +17,7 @@
     { "src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "미처치 보스", "url": "./?filter=alive" },
-    { "name": "워프 포인트 관리", "url": "./?view=waypoints" }
+    { "name": "보스 목록", "url": "./?view=bosses&filter=alive" },
+    { "name": "워프 포인트", "url": "./?view=waypoints" }
   ]
 }
