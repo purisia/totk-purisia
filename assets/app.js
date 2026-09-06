@@ -705,6 +705,9 @@
     var pointers = new Map();
     var dragged = 0;
     var pinch = 0;
+    // setPointerCapture 를 걸면 이후 pointerup 의 target 이 캡처 대상(svg)으로
+    // 바뀐다. 그래서 어떤 마커를 눌렀는지는 pointerdown 시점에 기억해 둔다.
+    var downMarker = null;
 
     function toMapUnits(dx, dy) {
       var rect = svg.getBoundingClientRect();
@@ -718,6 +721,7 @@
     }
 
     svg.addEventListener('pointerdown', function (e) {
+      downMarker = e.target.closest ? e.target.closest('.mk') : null;
       svg.setPointerCapture(e.pointerId);
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
       dragged = 0;
@@ -754,7 +758,7 @@
     function release(e) {
       pointers.delete(e.pointerId);
       if (pointers.size === 0 && dragged < 6 && !pinch) {
-        var hit = e.target.closest('.mk');
+        var hit = downMarker;
         state.sel = hit ? { kind: hit.dataset.kind, id: hit.dataset.id } : null;
         $$('#mapSvg .mk').forEach(function (g) {
           g.classList.toggle('is-sel', !!hit && g === hit);
@@ -763,6 +767,7 @@
         renderMapInfo();
         applyView();
       }
+      if (pointers.size === 0) downMarker = null;
     }
 
     svg.addEventListener('pointermove', function (e) {
@@ -1124,8 +1129,15 @@
     $('#bossList').innerHTML = '<p class="empty">데이터를 불러오지 못했습니다.<br>' + esc(err.message) + '</p>';
   });
 
-  // PWA
+  // PWA. 서비스 워커가 캐시 우선이라, 새 버전이 활성화되면 한 번 새로고침해
+  // 그 방문에서 바로 최신 코드가 뜨게 한다 (묵은 캐시로 계속 도는 것 방지).
   if ('serviceWorker' in navigator) {
+    var reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (reloading || !navigator.serviceWorker.controller) return;
+      reloading = true;
+      location.reload();
+    });
     window.addEventListener('load', function () {
       navigator.serviceWorker.register('./sw.js').catch(function () { /* 오프라인 지원만 실패 */ });
     });
