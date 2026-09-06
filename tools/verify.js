@@ -146,6 +146,24 @@ check('모든 보스가 유한한 추천 시간을 가짐', bosses.every(b => {
 
 check('가이드 문구 형식', /^🚀 추천: \[.+\] \(.+\)$/.test(RC.describe(tRoute)), RC.describe(tRoute));
 
+check('방위 계산: 북 / 동 / 남 / 서', (() => {
+  const b = (dx, dy) => RC.bearingText(RC.bearing([0, 0], [dx, dy]));
+  return b(0, 100) === '↑ 북' && b(100, 0) === '→ 동' &&
+         b(0, -100) === '↓ 남' && b(-100, 0) === '← 서';
+})(), ['북', '동', '남', '서'].map((_, i) =>
+  RC.bearingText(RC.bearing([0, 0], [[0, 100], [100, 0], [0, -100], [-100, 0]][i]))).join(' '));
+
+check('방위 계산: 대각선 4방위', (() => {
+  const b = (dx, dy) => RC.bearingText(RC.bearing([0, 0], [dx, dy]));
+  return b(100, 100) === '↗ 북동' && b(100, -100) === '↘ 남동' &&
+         b(-100, -100) === '↙ 남서' && b(-100, 100) === '↖ 북서';
+})());
+
+check('경로 결과에 방위가 들어 있음', (() => {
+  const r = RC.estimateRoute(waypoints[0], bosses[0]);
+  return Number.isFinite(r.bearing) && r.bearing >= 0 && r.bearing < 360;
+})());
+
 check('워프 지점 이름은 한글 표기를 사용', (() => {
   const tower = waypoints.find(w => w.type === 'Tower');
   return RC.waypointLabel(tower) === tower.nameKo && hangul(RC.waypointLabel(tower));
@@ -189,6 +207,25 @@ check('manifest 경로가 상대 경로 (하위 경로 배포 대응)',
   manifest.start_url.startsWith('./') && manifest.scope.startsWith('./'));
 check('manifest 바로가기의 쿼리를 app.js 가 처리',
   appJs.includes('applyLaunchParams') && appJs.includes('URLSearchParams'));
+
+// 지도 카테고리가 실제 데이터의 종류와 맞는지
+const catKeys = [...appJs.matchAll(/\{ key: '(\w+)'/g)].map(m => m[1]);
+const realTypes = new Set([...bosses.map(b => b.type), ...waypoints.map(w => w.type)]);
+check('지도 카테고리 5종이 데이터의 종류와 일치',
+  catKeys.length === 5 && catKeys.every(k => realTypes.has(k)) &&
+  realTypes.size === catKeys.length,
+  catKeys.join(',') + ' vs ' + [...realTypes].join(','));
+
+// 지도에서 조작하는 버튼들이 실제로 처리되는지
+for (const [attr, handler] of [['data-kill', 'toggleKill'], ['data-unlock', 'toggleWaypoint'],
+                               ['data-center', 'focusOnMap'], ['data-close', 'state.sel = null']]) {
+  check('지도 패널의 ' + attr + ' 를 처리함',
+    appJs.includes(attr) && appJs.includes(handler));
+}
+check('지도 상태가 주소창에 반영됨',
+  appJs.includes('syncUrl') && appJs.includes('history.replaceState'));
+check('주소창의 layer/x/y/z/sel 을 복원함',
+  ['layer', 'sel', 'x', 'y', 'z'].every(k => appJs.includes("params.get('" + k + "')")));
 
 // 아이콘 심볼을 app.js 와 index.html 이 같은 이름으로 쓰는지
 const symbols = new Set([...html.matchAll(/<symbol id="([\w-]+)"/g)].map(m => m[1]));

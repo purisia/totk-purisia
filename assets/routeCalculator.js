@@ -51,6 +51,34 @@
     return Object.prototype.hasOwnProperty.call(LAYER_PENALTY, key) ? LAYER_PENALTY[key] : 300;
   }
 
+  /** 8방위 표기 (지도의 위쪽이 북) */
+  var COMPASS = [
+    { ko: '북', arrow: '↑' }, { ko: '북동', arrow: '↗' },
+    { ko: '동', arrow: '→' }, { ko: '남동', arrow: '↘' },
+    { ko: '남', arrow: '↓' }, { ko: '남서', arrow: '↙' },
+    { ko: '서', arrow: '←' }, { ko: '북서', arrow: '↖' }
+  ];
+
+  /**
+   * from 에서 to 를 바라보는 방위각. 0 = 북, 시계 방향, 도 단위.
+   * 게임 좌표는 X가 동(+), Y가 북(+)이다.
+   */
+  function bearing(from, to) {
+    var deg = Math.atan2(to[0] - from[0], to[1] - from[1]) * 180 / Math.PI;
+    return (deg + 360) % 360;
+  }
+
+  /** 방위각 → { ko, arrow } */
+  function compass(deg) {
+    return COMPASS[Math.round(deg / 45) % 8];
+  }
+
+  /** "↘ 남동" 형태의 표기 */
+  function bearingText(deg) {
+    var c = compass(deg);
+    return c.arrow + ' ' + c.ko;
+  }
+
   /** 워프 지점의 표시 이름 (예: "감시 요새 조망대") */
   function waypointLabel(w) {
     if (w.nameKo) return w.nameKo;
@@ -142,6 +170,7 @@
       label: waypointLabel(w),
       hDist: hDist,
       zDiff: zDiff,
+      bearing: bearing(w.coords, b.coords),
       drop: drop,
       mode: mode,
       legs: legs,
@@ -198,7 +227,10 @@
     recommendRoutes: recommendRoutes,
     waypointLabel: waypointLabel,
     formatDuration: formatDuration,
-    describe: describe
+    describe: describe,
+    bearing: bearing,
+    compass: compass,
+    bearingText: bearingText
   };
 
   if (typeof module === 'object' && module.exports) module.exports = global.RouteCalculator;

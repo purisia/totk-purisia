@@ -55,15 +55,15 @@
 </header>
 
 <nav class="tabs" role="tablist">
-  <button class="tab is-active" role="tab" data-view="bosses" type="button">보스</button>
+  <button class="tab is-active" role="tab" data-view="map" type="button">지도</button>
+  <button class="tab" role="tab" data-view="bosses" type="button">목록</button>
   <button class="tab" role="tab" data-view="waypoints" type="button">워프 포인트</button>
-  <button class="tab" role="tab" data-view="map" type="button">지도</button>
   <button class="tab" role="tab" data-view="about" type="button">정보</button>
 </nav>
 
 <main>
   <!-- ─────────────────────────────── 보스 ─────────────────────────────── -->
-  <section id="view-bosses" class="view">
+  <section id="view-bosses" class="view" hidden>
     <div class="filters">
       <input id="search" class="filters__search" type="search" placeholder="이름 · 지역 검색 (예: 라이넬, 하테노, Lynel)" autocomplete="off">
       <div class="chips" id="typeChips" data-group="type">
@@ -117,30 +117,33 @@
   </section>
 
   <!-- ─────────────────────────────── 지도 ─────────────────────────────── -->
-  <section id="view-map" class="view" hidden>
+  <section id="view-map" class="view">
     <div class="chips chips--wide" id="mapLayerChips" data-group="mapLayer">
       <button class="chip" data-value="Sky" type="button">하늘</button>
       <button class="chip is-active" data-value="Surface" type="button">지상</button>
       <button class="chip" data-value="Depths" type="button">지저</button>
     </div>
-    <div class="maplegend">
-      <span><svg class="ico ico--Lynel"><use href="#i-lynel"/></svg>라이넬</span>
-      <span><svg class="ico ico--Hinox"><use href="#i-hinox"/></svg>히녹스</span>
-      <span><svg class="ico ico--Talus"><use href="#i-talus"/></svg>바위록</span>
-      <span><svg class="ico ico--tower"><use href="#i-tower"/></svg>조망대</span>
-      <span><svg class="ico ico--shrine"><use href="#i-shrine"/></svg>해금 사당</span>
-      <span><svg class="ico ico--locked"><use href="#i-shrine"/></svg>미해금</span>
-      <span><svg class="ico ico--dead"><use href="#i-hinox"/></svg>처치 완료</span>
+    <div class="cats" id="mapCats"></div>
+    <div class="mapopts">
+      <button id="hideDoneBtn" class="btn btn--ghost" type="button">처치 완료 숨기기</button>
+      <button id="mapSearchBtn" class="btn btn--ghost" type="button">이름으로 찾기</button>
     </div>
+    <input id="mapSearch" class="filters__search" type="search" hidden
+           placeholder="보스 · 사당 · 조망대 · 지역 이름" autocomplete="off">
+    <div id="mapSearchResults" class="searchres" hidden></div>
+
     <div class="mapwrap">
       <svg id="mapSvg" role="img" aria-label="하이랄 보스 분포도"></svg>
+      <div class="compass" aria-hidden="true"><span>N</span>▲</div>
+      <div id="coordBox" class="coordbox">— | —</div>
       <div class="mapzoom">
         <button id="zoomIn" class="zbtn" type="button" aria-label="확대">+</button>
         <button id="zoomOut" class="zbtn" type="button" aria-label="축소">−</button>
         <button id="zoomReset" class="zbtn" type="button" aria-label="전체 보기">⤢</button>
       </div>
     </div>
-    <div id="mapInfo" class="mapinfo">지도의 아이콘을 누르면 추천 경로가 표시됩니다. 끌어서 이동, 휠·손가락으로 확대.</div>
+
+    <div id="mapInfo" class="mapinfo"></div>
   </section>
 
   <!-- ─────────────────────────────── 정보 ─────────────────────────────── -->
