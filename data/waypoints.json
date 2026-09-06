@@ -1,0 +1,2173 @@
+[
+ {
+  "id": "shrine-001",
+  "type": "Shrine",
+  "name": "Tajikats Shrine",
+  "internalName": "Dungeon000",
+  "region": "Riverside Stable",
+  "layer": "Surface",
+  "coords": [
+   343.9,
+   -1009.0,
+   30.2
+  ]
+ },
+ {
+  "id": "shrine-002",
+  "type": "Shrine",
+  "name": "Jochi-iu Shrine",
+  "internalName": "Dungeon001",
+  "region": "East Akkala Stable",
+  "layer": "Surface",
+  "coords": [
+   4346.6,
+   2876.2,
+   178.7
+  ]
+ },
+ {
+  "id": "shrine-003",
+  "type": "Shrine",
+  "name": "Sitsum Shrine",
+  "internalName": "Dungeon002",
+  "region": "Death Mountain West Site",
+  "layer": "Surface",
+  "coords": [
+   2369.1,
+   2596.4,
+   803.9
+  ]
+ },
+ {
+  "id": "shrine-004",
+  "type": "Shrine",
+  "name": "Oromuwak Shrine",
+  "internalName": "Dungeon003",
+  "region": "Lucky Clover Gazette",
+  "layer": "Surface",
+  "coords": [
+   -3078.5,
+   1617.3,
+   256.5
+  ]
+ },
+ {
+  "id": "shrine-005",
+  "type": "Shrine",
+  "name": "Mayachin Shrine",
+  "internalName": "Dungeon004",
+  "region": "Exchange Ruins",
+  "layer": "Surface",
+  "coords": [
+   -705.5,
+   -868.5,
+   45.1
+  ]
+ },
+ {
+  "id": "shrine-006",
+  "type": "Shrine",
+  "name": "Musanokir Shrine",
+  "internalName": "Dungeon005",
+  "region": "Korok Forest",
+  "layer": "Surface",
+  "coords": [
+   407.8,
+   2133.7,
+   157.7
+  ]
+ },
+ {
+  "id": "shrine-007",
+  "type": "Shrine",
+  "name": "Ren-iz Shrine",
+  "internalName": "Dungeon006",
+  "region": "Orsedd Bridge",
+  "layer": "Surface",
+  "coords": [
+   756.5,
+   823.9,
+   95.8
+  ]
+ },
+ {
+  "id": "shrine-008",
+  "type": "Shrine",
+  "name": "Sahirow Shrine",
+  "internalName": "Dungeon007",
+  "region": "Hebra Trailhead Lodge",
+  "layer": "Surface",
+  "coords": [
+   -3354.1,
+   2386.3,
+   374.4
+  ]
+ },
+ {
+  "id": "shrine-009",
+  "type": "Shrine",
+  "name": "Rotsumamu Shrine",
+  "internalName": "Dungeon008",
+  "region": "Yiga Clan Hideout",
+  "layer": "Surface",
+  "coords": [
+   -3407.0,
+   -1363.1,
+   348.9
+  ]
+ },
+ {
+  "id": "shrine-010",
+  "type": "Shrine",
+  "name": "Mayamats Shrine",
+  "internalName": "Dungeon009",
+  "region": "Yiga Clan Hideout",
+  "layer": "Surface",
+  "coords": [
+   -4637.6,
+   -1513.3,
+   466.3
+  ]
+ },
+ {
+  "id": "shrine-011",
+  "type": "Shrine",
+  "name": "Serutabomac Shrine",
+  "internalName": "Dungeon010",
+  "region": "King's Study",
+  "layer": "Surface",
+  "coords": [
+   -178.8,
+   1170.1,
+   293.6
+  ]
+ },
+ {
+  "id": "shrine-012",
+  "type": "Shrine",
+  "name": "Mogawak Shrine",
+  "internalName": "Dungeon011",
+  "region": "Zora's Domain",
+  "layer": "Surface",
+  "coords": [
+   3299.9,
+   423.8,
+   125.8
+  ]
+ },
+ {
+  "id": "shrine-013",
+  "type": "Shrine",
+  "name": "Zanmik Shrine",
+  "internalName": "Dungeon012",
+  "region": "Hateno Village",
+  "layer": "Surface",
+  "coords": [
+   3469.5,
+   -2180.8,
+   161.7
+  ]
+ },
+ {
+  "id": "shrine-014",
+  "type": "Shrine",
+  "name": "Jiukoum Shrine",
+  "internalName": "Dungeon013",
+  "region": "Spring of Courage",
+  "layer": "Surface",
+  "coords": [
+   867.5,
+   -2278.4,
+   155.0
+  ]
+ },
+ {
+  "id": "shrine-015",
+  "type": "Shrine",
+  "name": "Iun-orok Shrine",
+  "internalName": "Dungeon014",
+  "region": "Ultra Ball Haul Check-In",
+  "layer": "Surface",
+  "coords": [
+   -3538.9,
+   851.0,
+   -119.8
+  ]
+ },
+ {
+  "id": "shrine-016",
+  "type": "Shrine",
+  "name": "Rakashog Shrine",
+  "internalName": "Dungeon015",
+  "region": "East Gerudo Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   -1715.4,
+   -2118.7,
+   1163.0
+  ]
+ },
+ {
+  "id": "shrine-017",
+  "type": "Shrine",
+  "name": "Soryotanog Shrine",
+  "internalName": "Dungeon016",
+  "region": "Gerudo Town",
+  "layer": "Surface",
+  "coords": [
+   -3882.2,
+   -2962.6,
+   136.7
+  ]
+ },
+ {
+  "id": "shrine-018",
+  "type": "Shrine",
+  "name": "Mayak Shrine",
+  "internalName": "Dungeon017",
+  "region": "Eldin Great Skeleton",
+  "layer": "Surface",
+  "coords": [
+   1269.9,
+   3733.4,
+   119.4
+  ]
+ },
+ {
+  "id": "shrine-019",
+  "type": "Shrine",
+  "name": "Gemimik Shrine",
+  "internalName": "Dungeon018",
+  "region": "Rist Mine",
+  "layer": "Surface",
+  "coords": [
+   4512.7,
+   2115.7,
+   15.2
+  ]
+ },
+ {
+  "id": "shrine-020",
+  "type": "Shrine",
+  "name": "Orochium Shrine",
+  "internalName": "Dungeon019",
+  "region": "Snowfield Stable",
+  "layer": "Surface",
+  "coords": [
+   -1636.8,
+   2641.8,
+   252.8
+  ]
+ },
+ {
+  "id": "shrine-021",
+  "type": "Shrine",
+  "name": "Sinakawak Shrine",
+  "internalName": "Dungeon020",
+  "region": "New Serenne Stable",
+  "layer": "Surface",
+  "coords": [
+   -1414.6,
+   756.8,
+   102.5
+  ]
+ },
+ {
+  "id": "shrine-022",
+  "type": "Shrine",
+  "name": "Tauyosipun Shrine",
+  "internalName": "Dungeon021",
+  "region": "Sturnida Secret Hot Spring",
+  "layer": "Surface",
+  "coords": [
+   -4538.6,
+   2880.5,
+   276.1
+  ]
+ },
+ {
+  "id": "shrine-023",
+  "type": "Shrine",
+  "name": "Tukarok Shrine",
+  "internalName": "Dungeon022",
+  "region": "Wetland Stable",
+  "layer": "Surface",
+  "coords": [
+   915.5,
+   -251.0,
+   47.5
+  ]
+ },
+ {
+  "id": "shrine-024",
+  "type": "Shrine",
+  "name": "Sikukuu Shrine",
+  "internalName": "Dungeon023",
+  "region": "Thyphlo Ruins",
+  "layer": "Surface",
+  "coords": [
+   698.5,
+   2793.1,
+   239.4
+  ]
+ },
+ {
+  "id": "shrine-025",
+  "type": "Shrine",
+  "name": "Siwakama Shrine",
+  "internalName": "Dungeon024",
+  "region": "East Gerudo Ruins",
+  "layer": "Surface",
+  "coords": [
+   -2445.7,
+   -3344.3,
+   55.3
+  ]
+ },
+ {
+  "id": "shrine-026",
+  "type": "Shrine",
+  "name": "Turakawak Shrine",
+  "internalName": "Dungeon025",
+  "region": "Ancient Columns",
+  "layer": "Surface",
+  "coords": [
+   -3497.7,
+   -197.2,
+   79.5
+  ]
+ },
+ {
+  "id": "shrine-027",
+  "type": "Shrine",
+  "name": "Riogok Shrine",
+  "internalName": "Dungeon026",
+  "region": "Digdogg Suspension Bridge",
+  "layer": "Surface",
+  "coords": [
+   -1441.4,
+   -1616.1,
+   102.9
+  ]
+ },
+ {
+  "id": "shrine-028",
+  "type": "Shrine",
+  "name": "Anedamimik Shrine",
+  "internalName": "Dungeon027",
+  "region": "Hateno Ancient Tech Lab",
+  "layer": "Surface",
+  "coords": [
+   4232.2,
+   -2178.2,
+   1.2
+  ]
+ },
+ {
+  "id": "shrine-029",
+  "type": "Shrine",
+  "name": "Mayausiy Shrine",
+  "internalName": "Dungeon028",
+  "region": "Cliff Bargainer Statue",
+  "layer": "Surface",
+  "coords": [
+   -1166.9,
+   2602.4,
+   -70.5
+  ]
+ },
+ {
+  "id": "shrine-030",
+  "type": "Shrine",
+  "name": "Ishodag Shrine",
+  "internalName": "Dungeon029",
+  "region": "Carok Bridge",
+  "layer": "Surface",
+  "coords": [
+   -879.4,
+   422.5,
+   62.9
+  ]
+ },
+ {
+  "id": "shrine-031",
+  "type": "Shrine",
+  "name": "Kiuyoyou Shrine",
+  "internalName": "Dungeon030",
+  "region": "Forgotten Temple",
+  "layer": "Surface",
+  "coords": [
+   -1106.7,
+   2087.8,
+   118.0
+  ]
+ },
+ {
+  "id": "shrine-032",
+  "type": "Shrine",
+  "name": "Ekochiu Shrine",
+  "internalName": "Dungeon031",
+  "region": "Woodland Stable",
+  "layer": "Surface",
+  "coords": [
+   1062.7,
+   1280.5,
+   59.3
+  ]
+ },
+ {
+  "id": "shrine-033",
+  "type": "Shrine",
+  "name": "Tadarok Shrine",
+  "internalName": "Dungeon032",
+  "region": "Great Plateau",
+  "layer": "Surface",
+  "coords": [
+   -1081.9,
+   -2186.9,
+   142.6
+  ]
+ },
+ {
+  "id": "shrine-034",
+  "type": "Shrine",
+  "name": "Karahatag Shrine",
+  "internalName": "Dungeon033",
+  "region": "Southern Oasis Training Area",
+  "layer": "Surface",
+  "coords": [
+   -3727.7,
+   -3625.1,
+   57.1
+  ]
+ },
+ {
+  "id": "shrine-035",
+  "type": "Shrine",
+  "name": "Tenbez Shrine",
+  "internalName": "Dungeon034",
+  "region": "North Lomei Castle Top Floor",
+  "layer": "Sky",
+  "coords": [
+   -970.2,
+   3535,
+   1025.2
+  ]
+ },
+ {
+  "id": "shrine-036",
+  "type": "Shrine",
+  "name": "Kisinona Shrine",
+  "internalName": "Dungeon035",
+  "region": "Foothill Stable",
+  "layer": "Surface",
+  "coords": [
+   2567.8,
+   1245.9,
+   186.6
+  ]
+ },
+ {
+  "id": "shrine-037",
+  "type": "Shrine",
+  "name": "Oshozan-u Shrine",
+  "internalName": "Dungeon036",
+  "region": "North Lomei Labyrinth",
+  "layer": "Surface",
+  "coords": [
+   -1404.5,
+   3677.9,
+   301.4
+  ]
+ },
+ {
+  "id": "shrine-038",
+  "type": "Shrine",
+  "name": "Gasas Shrine",
+  "internalName": "Dungeon037",
+  "region": "Ancient Columns",
+  "layer": "Surface",
+  "coords": [
+   -4153.2,
+   98.3,
+   54.2
+  ]
+ },
+ {
+  "id": "shrine-039",
+  "type": "Shrine",
+  "name": "Ijo-o Shrine",
+  "internalName": "Dungeon038",
+  "region": "Sturnida Secret Hot Spring",
+  "layer": "Sky",
+  "coords": [
+   -3861.1,
+   2681.5,
+   716.3
+  ]
+ },
+ {
+  "id": "shrine-040",
+  "type": "Shrine",
+  "name": "Turakamik Shrine",
+  "internalName": "Dungeon039",
+  "region": "Gerudo Canyon Stable",
+  "layer": "Surface",
+  "coords": [
+   -2657.3,
+   -2237.3,
+   81.3
+  ]
+ },
+ {
+  "id": "shrine-041",
+  "type": "Shrine",
+  "name": "Gatakis Shrine",
+  "internalName": "Dungeon040",
+  "region": "Rito Village",
+  "layer": "Surface",
+  "coords": [
+   -3651.7,
+   1806.0,
+   182.1
+  ]
+ },
+ {
+  "id": "shrine-042",
+  "type": "Shrine",
+  "name": "Ihen-a Shrine",
+  "internalName": "Dungeon041",
+  "region": "Mipha Court",
+  "layer": "Surface",
+  "coords": [
+   3786.2,
+   577.8,
+   499.4
+  ]
+ },
+ {
+  "id": "shrine-043",
+  "type": "Shrine",
+  "name": "Tsutsu-um Shrine",
+  "internalName": "Dungeon042",
+  "region": "Outskirt Stable",
+  "layer": "Surface",
+  "coords": [
+   -1423.2,
+   -1350.8,
+   81.4
+  ]
+ },
+ {
+  "id": "shrine-044",
+  "type": "Shrine",
+  "name": "Mayaumekis Shrine",
+  "internalName": "Dungeon043",
+  "region": "Selmie's Spot",
+  "layer": "Sky",
+  "coords": [
+   -2947.9,
+   3050.7,
+   910.4
+  ]
+ },
+ {
+  "id": "shrine-045",
+  "type": "Shrine",
+  "name": "Kamatukis Shrine",
+  "internalName": "Dungeon044",
+  "region": "Akkala House of Bones",
+  "layer": "Surface",
+  "coords": [
+   3431.1,
+   3356.7,
+   84.5
+  ]
+ },
+ {
+  "id": "shrine-046",
+  "type": "Shrine",
+  "name": "Jirutagumac Shrine",
+  "internalName": "Dungeon045",
+  "region": "Zora's Domain",
+  "layer": "Sky",
+  "coords": [
+   2915.9,
+   534.3,
+   964.8
+  ]
+ },
+ {
+  "id": "shrine-047",
+  "type": "Shrine",
+  "name": "Sepapa Shrine",
+  "internalName": "Dungeon046",
+  "region": "Hyrule Forest Park",
+  "layer": "Surface",
+  "coords": [
+   221.7,
+   1085.1,
+   41.5
+  ]
+ },
+ {
+  "id": "shrine-048",
+  "type": "Shrine",
+  "name": "Mayatat Shrine",
+  "internalName": "Dungeon047",
+  "region": "Kara Kara Bazaar",
+  "layer": "Surface",
+  "coords": [
+   -3290.6,
+   -2512.2,
+   37.9
+  ]
+ },
+ {
+  "id": "shrine-049",
+  "type": "Shrine",
+  "name": "Susuyai Shrine",
+  "internalName": "Dungeon048",
+  "region": "Hyrule Garrison Ruins",
+  "layer": "Surface",
+  "coords": [
+   -785.4,
+   -434.0,
+   31.9
+  ]
+ },
+ {
+  "id": "shrine-050",
+  "type": "Shrine",
+  "name": "Apogek Shrine",
+  "internalName": "Dungeon049",
+  "region": "East Reservoir Lake",
+  "layer": "Surface",
+  "coords": [
+   3886.7,
+   -216.8,
+   177.7
+  ]
+ },
+ {
+  "id": "shrine-051",
+  "type": "Shrine",
+  "name": "Kadaunar Shrine",
+  "internalName": "Dungeon050",
+  "region": "South Eldin Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   1882.0,
+   1202.8,
+   1264.6
+  ]
+ },
+ {
+  "id": "shrine-052",
+  "type": "Shrine",
+  "name": "Domizuin Shrine",
+  "internalName": "Dungeon051",
+  "region": "Akkala Citadel Ruins",
+  "layer": "Surface",
+  "coords": [
+   3304.9,
+   1443.0,
+   439.6
+  ]
+ },
+ {
+  "id": "shrine-053",
+  "type": "Shrine",
+  "name": "Mogisari Shrine",
+  "internalName": "Dungeon052",
+  "region": "Lomei Sky Labyrinth",
+  "layer": "Sky",
+  "coords": [
+   4655,
+   3499.5,
+   1024.3
+  ]
+ },
+ {
+  "id": "shrine-054",
+  "type": "Shrine",
+  "name": "Kikakin Shrine",
+  "internalName": "Dungeon053",
+  "region": "North Lomei Labyrinth",
+  "layer": "Surface",
+  "coords": [
+   -395.9,
+   2735.8,
+   301.1
+  ]
+ },
+ {
+  "id": "shrine-055",
+  "type": "Shrine",
+  "name": "Sibajitak Shrine",
+  "internalName": "Dungeon054",
+  "region": "Gut Check Rock",
+  "layer": "Surface",
+  "coords": [
+   2400.3,
+   3275.1,
+   416.2
+  ]
+ },
+ {
+  "id": "shrine-056",
+  "type": "Shrine",
+  "name": "Siyamotsus Shrine",
+  "internalName": "Dungeon055",
+  "region": "South Lomei Castle Top Floor",
+  "layer": "Sky",
+  "coords": [
+   -1795,
+   -3294.6,
+   1024.8
+  ]
+ },
+ {
+  "id": "shrine-057",
+  "type": "Shrine",
+  "name": "Utsushok Shrine",
+  "internalName": "Dungeon056",
+  "region": "Highland Stable",
+  "layer": "Surface",
+  "coords": [
+   670.0,
+   -3358.4,
+   85.4
+  ]
+ },
+ {
+  "id": "shrine-058",
+  "type": "Shrine",
+  "name": "Jikais Shrine",
+  "internalName": "Dungeon057",
+  "region": "Spring of Wisdom",
+  "layer": "Surface",
+  "coords": [
+   4266.9,
+   -1673.4,
+   195.5
+  ]
+ },
+ {
+  "id": "shrine-059",
+  "type": "Shrine",
+  "name": "Kitawak Shrine",
+  "internalName": "Dungeon058",
+  "region": "South Lomei Labyrinth",
+  "layer": "Surface",
+  "coords": [
+   -1530.2,
+   -2928.8,
+   334.8
+  ]
+ },
+ {
+  "id": "shrine-060",
+  "type": "Shrine",
+  "name": "Sonapan Shrine",
+  "internalName": "Dungeon059",
+  "region": "Jeddo Bridge",
+  "layer": "Surface",
+  "coords": [
+   -1921.5,
+   -358.5,
+   242.0
+  ]
+ },
+ {
+  "id": "shrine-061",
+  "type": "Shrine",
+  "name": "Ukouh Shrine",
+  "internalName": "Dungeon060",
+  "region": "Temple of Time",
+  "layer": "Sky",
+  "coords": [
+   274.9,
+   -912.7,
+   1473.8
+  ]
+ },
+ {
+  "id": "shrine-062",
+  "type": "Shrine",
+  "name": "Gutanbac Shrine",
+  "internalName": "Dungeon061",
+  "region": "Great Sky Island",
+  "layer": "Sky",
+  "coords": [
+   709.1,
+   -1382.7,
+   1598.2
+  ]
+ },
+ {
+  "id": "shrine-063",
+  "type": "Shrine",
+  "name": "In-isa Shrine",
+  "internalName": "Dungeon062",
+  "region": "Great Sky Island",
+  "layer": "Sky",
+  "coords": [
+   26.1,
+   -1503.6,
+   1422.2
+  ]
+ },
+ {
+  "id": "shrine-064",
+  "type": "Shrine",
+  "name": "Nachoyah Shrine",
+  "internalName": "Dungeon063",
+  "region": "Great Sky Island",
+  "layer": "Sky",
+  "coords": [
+   389.6,
+   -1661.5,
+   2312.4
+  ]
+ },
+ {
+  "id": "shrine-065",
+  "type": "Shrine",
+  "name": "Marakuguc Shrine",
+  "internalName": "Dungeon064",
+  "region": "Stolock Bridge",
+  "layer": "Surface",
+  "coords": [
+   1762.5,
+   2509.7,
+   450.4
+  ]
+ },
+ {
+  "id": "shrine-066",
+  "type": "Shrine",
+  "name": "Runakit Shrine",
+  "internalName": "Dungeon065",
+  "region": "Thundra Plateau",
+  "layer": "Surface",
+  "coords": [
+   -2530.0,
+   1170.2,
+   191.4
+  ]
+ },
+ {
+  "id": "shrine-067",
+  "type": "Shrine",
+  "name": "Mayanas Shrine",
+  "internalName": "Dungeon066",
+  "region": "South Lanayru Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   4613.3,
+   -947.1,
+   1803.4
+  ]
+ },
+ {
+  "id": "shrine-068",
+  "type": "Shrine",
+  "name": "Wao-os Shrine",
+  "internalName": "Dungeon067",
+  "region": "Dragon Bone Mire",
+  "layer": "Surface",
+  "coords": [
+   -4058.4,
+   1990.0,
+   196.9
+  ]
+ },
+ {
+  "id": "shrine-069",
+  "type": "Shrine",
+  "name": "Kyokugon Shrine",
+  "internalName": "Dungeon068",
+  "region": "Gatepost Town Ruins",
+  "layer": "Surface",
+  "coords": [
+   -709.2,
+   -1551.0,
+   19.8
+  ]
+ },
+ {
+  "id": "shrine-070",
+  "type": "Shrine",
+  "name": "Igoshon Shrine",
+  "internalName": "Dungeon069",
+  "region": "Wellspring Island",
+  "layer": "Sky",
+  "coords": [
+   3480.7,
+   665.9,
+   1339.1
+  ]
+ },
+ {
+  "id": "shrine-071",
+  "type": "Shrine",
+  "name": "Nouda Shrine",
+  "internalName": "Dungeon070",
+  "region": "Tabantha Village Ruins",
+  "layer": "Surface",
+  "coords": [
+   -2318.2,
+   2201.2,
+   187.2
+  ]
+ },
+ {
+  "id": "shrine-072",
+  "type": "Shrine",
+  "name": "Joku-usin Shrine",
+  "internalName": "Dungeon071",
+  "region": "Sarjon Bridge",
+  "layer": "Sky",
+  "coords": [
+   1075.3,
+   -3347.8,
+   799.6
+  ]
+ },
+ {
+  "id": "shrine-073",
+  "type": "Shrine",
+  "name": "Eutoum Shrine",
+  "internalName": "Dungeon072",
+  "region": "Goflam's Secret Hot Spring",
+  "layer": "Surface",
+  "coords": [
+   -3506.9,
+   3570.0,
+   400.7
+  ]
+ },
+ {
+  "id": "shrine-074",
+  "type": "Shrine",
+  "name": "Isisim Shrine",
+  "internalName": "Dungeon073",
+  "region": "YunoboCo HQ",
+  "layer": "Surface",
+  "coords": [
+   1842.0,
+   2842.0,
+   377.1
+  ]
+ },
+ {
+  "id": "shrine-075",
+  "type": "Shrine",
+  "name": "Mayachideg Shrine",
+  "internalName": "Dungeon074",
+  "region": "South Akkala Stable",
+  "layer": "Surface",
+  "coords": [
+   3061.0,
+   1824.0,
+   230.0
+  ]
+ },
+ {
+  "id": "shrine-076",
+  "type": "Shrine",
+  "name": "Otutsum Shrine",
+  "internalName": "Dungeon075",
+  "region": "Statue of the Eighth Heroine",
+  "layer": "Surface",
+  "coords": [
+   -4469.0,
+   -671.5,
+   523.0
+  ]
+ },
+ {
+  "id": "shrine-077",
+  "type": "Shrine",
+  "name": "Utojis Shrine",
+  "internalName": "Dungeon076",
+  "region": "Spring of Courage",
+  "layer": "Surface",
+  "coords": [
+   1218.4,
+   -2543.2,
+   110.3
+  ]
+ },
+ {
+  "id": "shrine-078",
+  "type": "Shrine",
+  "name": "Kamizun Shrine",
+  "internalName": "Dungeon077",
+  "region": "Outpost Ruins",
+  "layer": "Surface",
+  "coords": [
+   -177.8,
+   -1558.3,
+   36.4
+  ]
+ },
+ {
+  "id": "shrine-079",
+  "type": "Shrine",
+  "name": "Suariwak Shrine",
+  "internalName": "Dungeon078",
+  "region": "Gerudo Canyon Stable",
+  "layer": "Surface",
+  "coords": [
+   -2524.3,
+   -1770.1,
+   145.0
+  ]
+ },
+ {
+  "id": "shrine-080",
+  "type": "Shrine",
+  "name": "Rakakudaj Shrine",
+  "internalName": "Dungeon079",
+  "region": "Mini Stable",
+  "layer": "Surface",
+  "coords": [
+   -2037.0,
+   -1853.4,
+   78.4
+  ]
+ },
+ {
+  "id": "shrine-081",
+  "type": "Shrine",
+  "name": "Rasitakiwak Shrine",
+  "internalName": "Dungeon080",
+  "region": "Tarrey Town",
+  "layer": "Surface",
+  "coords": [
+   4166.7,
+   1322.7,
+   242.9
+  ]
+ },
+ {
+  "id": "shrine-082",
+  "type": "Shrine",
+  "name": "Zakusu Shrine",
+  "internalName": "Dungeon081",
+  "region": "Lanayru Road - East Gate",
+  "layer": "Surface",
+  "coords": [
+   3526.2,
+   -1482.3,
+   181.4
+  ]
+ },
+ {
+  "id": "shrine-083",
+  "type": "Shrine",
+  "name": "Simosiwak Shrine",
+  "internalName": "Dungeon082",
+  "region": "Lurker in the Lost Woods",
+  "layer": "Sky",
+  "coords": [
+   162.5,
+   1971.7,
+   772.4
+  ]
+ },
+ {
+  "id": "shrine-084",
+  "type": "Shrine",
+  "name": "Yansamin Shrine",
+  "internalName": "Dungeon083",
+  "region": "Necluda Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   2351.0,
+   -1782.8,
+   1489.3
+  ]
+ },
+ {
+  "id": "shrine-085",
+  "type": "Shrine",
+  "name": "Jojon Shrine",
+  "internalName": "Dungeon084",
+  "region": "Moor Garrison Ruins",
+  "layer": "Surface",
+  "coords": [
+   1202.1,
+   329.7,
+   40.5
+  ]
+ },
+ {
+  "id": "shrine-086",
+  "type": "Shrine",
+  "name": "Sifumim Shrine",
+  "internalName": "Dungeon085",
+  "region": "Lurelin Village",
+  "layer": "Surface",
+  "coords": [
+   2825.8,
+   -3270.3,
+   91.5
+  ]
+ },
+ {
+  "id": "shrine-087",
+  "type": "Shrine",
+  "name": "Otak Shrine",
+  "internalName": "Dungeon086",
+  "region": "Sherfin's Secret Hot Spring",
+  "layer": "Surface",
+  "coords": [
+   -4390.6,
+   3714.1,
+   226.0
+  ]
+ },
+ {
+  "id": "shrine-088",
+  "type": "Shrine",
+  "name": "Miryotanog Shrine",
+  "internalName": "Dungeon087",
+  "region": "Gerudo Town",
+  "layer": "Surface",
+  "coords": [
+   -4680.1,
+   -3086.4,
+   68.2
+  ]
+ },
+ {
+  "id": "shrine-089",
+  "type": "Shrine",
+  "name": "Kimayat Shrine",
+  "internalName": "Dungeon088",
+  "region": "Gut Check Rock",
+  "layer": "Surface",
+  "coords": [
+   2864.0,
+   3638.2,
+   254.6
+  ]
+ },
+ {
+  "id": "shrine-090",
+  "type": "Shrine",
+  "name": "Momosik Shrine",
+  "internalName": "Dungeon089",
+  "region": "Shadow Hamlet Ruins",
+  "layer": "Surface",
+  "coords": [
+   2960.0,
+   2758.1,
+   538.0
+  ]
+ },
+ {
+  "id": "shrine-091",
+  "type": "Shrine",
+  "name": "Igashuk Shrine",
+  "internalName": "Dungeon090",
+  "region": "Lomei Labyrinth Island",
+  "layer": "Surface",
+  "coords": [
+   4655.0,
+   3713.8,
+   144.5
+  ]
+ },
+ {
+  "id": "shrine-092",
+  "type": "Shrine",
+  "name": "Taki-ihaban Shrine",
+  "internalName": "Dungeon091",
+  "region": "Maritta Exchange Ruins",
+  "layer": "Surface",
+  "coords": [
+   -1829.7,
+   1195.3,
+   161.3
+  ]
+ },
+ {
+  "id": "shrine-093",
+  "type": "Shrine",
+  "name": "En-oma Shrine",
+  "internalName": "Dungeon092",
+  "region": "Bridge of Hylia",
+  "layer": "Surface",
+  "coords": [
+   103.4,
+   -2518.1,
+   -74.5
+  ]
+ },
+ {
+  "id": "shrine-094",
+  "type": "Shrine",
+  "name": "Kumamayn Shrine",
+  "internalName": "Dungeon093",
+  "region": "Necluda Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   2856.8,
+   -2856.5,
+   1225.5
+  ]
+ },
+ {
+  "id": "shrine-095",
+  "type": "Shrine",
+  "name": "Yomizuk Shrine",
+  "internalName": "Dungeon094",
+  "region": "Spring of Wisdom",
+  "layer": "Surface",
+  "coords": [
+   4413.2,
+   -613.1,
+   48.1
+  ]
+ },
+ {
+  "id": "shrine-096",
+  "type": "Shrine",
+  "name": "Mayahisik Shrine",
+  "internalName": "Dungeon095",
+  "region": "Hateno Ancient Tech Lab",
+  "layer": "Surface",
+  "coords": [
+   3729.4,
+   -2058.7,
+   202.5
+  ]
+ },
+ {
+  "id": "shrine-097",
+  "type": "Shrine",
+  "name": "Motsusis Shrine",
+  "internalName": "Dungeon096",
+  "region": "South Lomei Labyrinth",
+  "layer": "Surface",
+  "coords": [
+   -1795.0,
+   -3486.6,
+   59.2
+  ]
+ },
+ {
+  "id": "shrine-098",
+  "type": "Shrine",
+  "name": "Maoikes Shrine",
+  "internalName": "Dungeon097",
+  "region": "Inogo Bridge",
+  "layer": "Surface",
+  "coords": [
+   2276.2,
+   147.4,
+   92.4
+  ]
+ },
+ {
+  "id": "shrine-099",
+  "type": "Shrine",
+  "name": "Moshapin Shrine",
+  "internalName": "Dungeon098",
+  "region": "South Akkala Stable",
+  "layer": "Surface",
+  "coords": [
+   2679.2,
+   1904.5,
+   144.5
+  ]
+ },
+ {
+  "id": "shrine-100",
+  "type": "Shrine",
+  "name": "Gikaku Shrine",
+  "internalName": "Dungeon099",
+  "region": "Sky Mine",
+  "layer": "Sky",
+  "coords": [
+   4506.0,
+   2166.0,
+   1168.5
+  ]
+ },
+ {
+  "id": "shrine-101",
+  "type": "Shrine",
+  "name": "Usazum Shrine",
+  "internalName": "Dungeon100",
+  "region": "Sanidin Park Ruins",
+  "layer": "Surface",
+  "coords": [
+   -2139.0,
+   -874.4,
+   107.2
+  ]
+ },
+ {
+  "id": "shrine-102",
+  "type": "Shrine",
+  "name": "Joniu Shrine",
+  "internalName": "Dungeon101",
+  "region": "Zora's Domain",
+  "layer": "Surface",
+  "coords": [
+   2918.2,
+   507,
+   168.6
+  ]
+ },
+ {
+  "id": "shrine-103",
+  "type": "Shrine",
+  "name": "Jiotak Shrine",
+  "internalName": "Dungeon102",
+  "region": "YunoboCo HQ",
+  "layer": "Surface",
+  "coords": [
+   1834.4,
+   3180.3,
+   271.3
+  ]
+ },
+ {
+  "id": "shrine-104",
+  "type": "Shrine",
+  "name": "Ikatak Shrine",
+  "internalName": "Dungeon103",
+  "region": "Gisa Crater",
+  "layer": "Surface",
+  "coords": [
+   -3951.1,
+   1139.1,
+   125.4
+  ]
+ },
+ {
+  "id": "shrine-105",
+  "type": "Shrine",
+  "name": "Chichim Shrine",
+  "internalName": "Dungeon104",
+  "region": "Desert Rift",
+  "layer": "Surface",
+  "coords": [
+   -3211,
+   -3006.5,
+   -36.5
+  ]
+ },
+ {
+  "id": "shrine-106",
+  "type": "Shrine",
+  "name": "Kahatanaum Shrine",
+  "internalName": "Dungeon105",
+  "region": "Guardian of the Rising Island Chain",
+  "layer": "Sky",
+  "coords": [
+   -3296.0,
+   3431.5,
+   1361.2
+  ]
+ },
+ {
+  "id": "shrine-107",
+  "type": "Shrine",
+  "name": "Ninjis Shrine",
+  "internalName": "Dungeon106",
+  "region": "Lurker in the Lost Woods",
+  "layer": "Surface",
+  "coords": [
+   354.7,
+   1891.9,
+   192.2
+  ]
+ },
+ {
+  "id": "shrine-108",
+  "type": "Shrine",
+  "name": "Tokiy Shrine",
+  "internalName": "Dungeon107",
+  "region": "Meda Canyon Mine",
+  "layer": "Surface",
+  "coords": [
+   2304.1,
+   -2377.9,
+   -15.5
+  ]
+ },
+ {
+  "id": "shrine-109",
+  "type": "Shrine",
+  "name": "Sakunbomar Shrine",
+  "internalName": "Dungeon108",
+  "region": "Korok Forest",
+  "layer": "Surface",
+  "coords": [
+   166.7,
+   2320.1,
+   192.7
+  ]
+ },
+ {
+  "id": "shrine-110",
+  "type": "Shrine",
+  "name": "Joku-u Shrine",
+  "internalName": "Dungeon109",
+  "region": "Lakeside Stable",
+  "layer": "Sky",
+  "coords": [
+   1376.4,
+   -3339.9,
+   942.5
+  ]
+ },
+ {
+  "id": "shrine-111",
+  "type": "Shrine",
+  "name": "Natak Shrine",
+  "internalName": "Dungeon110",
+  "region": "Akkala Citadel Ruins",
+  "layer": "Sky",
+  "coords": [
+   3670.7,
+   1483.7,
+   1171.4
+  ]
+ },
+ {
+  "id": "shrine-112",
+  "type": "Shrine",
+  "name": "Rutafu-um Shrine",
+  "internalName": "Dungeon111",
+  "region": "Selmie's Spot",
+  "layer": "Surface",
+  "coords": [
+   -2997.8,
+   3101.6,
+   528.4
+  ]
+ },
+ {
+  "id": "shrine-113",
+  "type": "Shrine",
+  "name": "O-ogim Shrine",
+  "internalName": "Dungeon112",
+  "region": "Lanayru Promenade",
+  "layer": "Surface",
+  "coords": [
+   2755.5,
+   -1089.3,
+   113.7
+  ]
+ },
+ {
+  "id": "shrine-114",
+  "type": "Shrine",
+  "name": "Jogou Shrine",
+  "internalName": "Dungeon113",
+  "region": "Lanayru Road - East Gate",
+  "layer": "Surface",
+  "coords": [
+   3346.3,
+   -1186.9,
+   71.1
+  ]
+ },
+ {
+  "id": "shrine-115",
+  "type": "Shrine",
+  "name": "Marari-in Shrine",
+  "internalName": "Dungeon114",
+  "region": "Eventide Island",
+  "layer": "Surface",
+  "coords": [
+   4631.2,
+   -3712.0,
+   31.9
+  ]
+ },
+ {
+  "id": "shrine-116",
+  "type": "Shrine",
+  "name": "Pupunke Shrine",
+  "internalName": "Dungeon115",
+  "region": "Lurker in the Lost Woods",
+  "layer": "Surface",
+  "coords": [
+   621.1,
+   2211.4,
+   178.3
+  ]
+ },
+ {
+  "id": "shrine-117",
+  "type": "Shrine",
+  "name": "Bamitok Shrine",
+  "internalName": "Dungeon116",
+  "region": "Lurelin Village",
+  "layer": "Surface",
+  "coords": [
+   3094.0,
+   -3209.7,
+   95.8
+  ]
+ },
+ {
+  "id": "shrine-118",
+  "type": "Shrine",
+  "name": "Ganos Shrine",
+  "internalName": "Dungeon117",
+  "region": "Tabantha Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   -3369.6,
+   467.5,
+   1709.0
+  ]
+ },
+ {
+  "id": "shrine-119",
+  "type": "Shrine",
+  "name": "Irasak Shrine",
+  "internalName": "Dungeon118",
+  "region": "Arbiter's Grounds",
+  "layer": "Surface",
+  "coords": [
+   -4158.7,
+   -3825.3,
+   41.4
+  ]
+ },
+ {
+  "id": "shrine-120",
+  "type": "Shrine",
+  "name": "Kurakat Shrine",
+  "internalName": "Dungeon119",
+  "region": "Lanayru Road - West Gate",
+  "layer": "Surface",
+  "coords": [
+   2361.2,
+   -510.8,
+   169.9
+  ]
+ },
+ {
+  "id": "shrine-121",
+  "type": "Shrine",
+  "name": "Susub Shrine",
+  "internalName": "Dungeon120",
+  "region": "Deya Village Ruins",
+  "layer": "Surface",
+  "coords": [
+   349.3,
+   -2051.5,
+   -13.4
+  ]
+ },
+ {
+  "id": "shrine-122",
+  "type": "Shrine",
+  "name": "Taunhiy Shrine",
+  "internalName": "Dungeon121",
+  "region": "Courage Island",
+  "layer": "Sky",
+  "coords": [
+   -2401.8,
+   825.2,
+   1128.8
+  ]
+ },
+ {
+  "id": "shrine-123",
+  "type": "Shrine",
+  "name": "Eshos Shrine",
+  "internalName": "Dungeon122",
+  "region": "Dueling Peaks Stable",
+  "layer": "Surface",
+  "coords": [
+   1565.8,
+   -1944.8,
+   171.1
+  ]
+ },
+ {
+  "id": "shrine-124",
+  "type": "Shrine",
+  "name": "Yamiyo Shrine",
+  "internalName": "Dungeon123",
+  "region": "Orsedd Bridge",
+  "layer": "Surface",
+  "coords": [
+   333.2,
+   470.0,
+   42.5
+  ]
+ },
+ {
+  "id": "shrine-125",
+  "type": "Shrine",
+  "name": "Teniten Shrine",
+  "internalName": "Dungeon124",
+  "region": "Riverside Stable",
+  "layer": "Surface",
+  "coords": [
+   -74.9,
+   -1115.7,
+   34.6
+  ]
+ },
+ {
+  "id": "shrine-126",
+  "type": "Shrine",
+  "name": "Mayaotaki Shrine",
+  "internalName": "Dungeon125",
+  "region": "North Lomei Labyrinth",
+  "layer": "Surface",
+  "coords": [
+   -824.8,
+   3535.0,
+   248.3
+  ]
+ },
+ {
+  "id": "shrine-127",
+  "type": "Shrine",
+  "name": "Makurukis Shrine",
+  "internalName": "Dungeon126",
+  "region": "Tabantha Bridge Stable",
+  "layer": "Surface",
+  "coords": [
+   -2847.0,
+   629.8,
+   247.0
+  ]
+ },
+ {
+  "id": "shrine-128",
+  "type": "Shrine",
+  "name": "Josiu Shrine",
+  "internalName": "Dungeon127",
+  "region": "Ring Ruins",
+  "layer": "Sky",
+  "coords": [
+   1758.5,
+   -1208.4,
+   937.5
+  ]
+ },
+ {
+  "id": "shrine-129",
+  "type": "Shrine",
+  "name": "Ga-ahisas Shrine",
+  "internalName": "Dungeon128",
+  "region": "Lightcast Island",
+  "layer": "Sky",
+  "coords": [
+   -3596.1,
+   960.8,
+   1712.5
+  ]
+ },
+ {
+  "id": "shrine-130",
+  "type": "Shrine",
+  "name": "Sinatanika Shrine",
+  "internalName": "Dungeon129",
+  "region": "Spring of Power",
+  "layer": "Surface",
+  "coords": [
+   3842.0,
+   2300.3,
+   61.9
+  ]
+ },
+ {
+  "id": "shrine-131",
+  "type": "Shrine",
+  "name": "Jochisiu Shrine",
+  "internalName": "Dungeon130",
+  "region": "Spring of Courage",
+  "layer": "Surface",
+  "coords": [
+   930.9,
+   -1903.4,
+   43.6
+  ]
+ },
+ {
+  "id": "shrine-132",
+  "type": "Shrine",
+  "name": "Ishokin Shrine",
+  "internalName": "Dungeon131",
+  "region": "Pappetto Grove",
+  "layer": "Surface",
+  "coords": [
+   -565,
+   -3524,
+   142.7
+  ]
+ },
+ {
+  "id": "shrine-133",
+  "type": "Shrine",
+  "name": "Sisuran Shrine",
+  "internalName": "Dungeon132",
+  "region": "Selmie's Spot",
+  "layer": "Surface",
+  "coords": [
+   -2559.4,
+   3353.8,
+   258.5
+  ]
+ },
+ {
+  "id": "shrine-134",
+  "type": "Shrine",
+  "name": "Tenmaten Shrine",
+  "internalName": "Dungeon133",
+  "region": "Docks",
+  "layer": "Surface",
+  "coords": [
+   -594.5,
+   1550.6,
+   -0.9
+  ]
+ },
+ {
+  "id": "shrine-135",
+  "type": "Shrine",
+  "name": "Jochi-ihiga Shrine",
+  "internalName": "Dungeon134",
+  "region": "East Sokkala Bridge",
+  "layer": "Surface",
+  "coords": [
+   3810.5,
+   1219.1,
+   104.2
+  ]
+ },
+ {
+  "id": "shrine-136",
+  "type": "Shrine",
+  "name": "Makasura Shrine",
+  "internalName": "Dungeon135",
+  "region": "Kakariko Village",
+  "layer": "Surface",
+  "coords": [
+   1769.9,
+   -1051.9,
+   179.5
+  ]
+ },
+ {
+  "id": "shrine-137",
+  "type": "Shrine",
+  "name": "Kyononis Shrine",
+  "internalName": "Dungeon136",
+  "region": "Central Square",
+  "layer": "Surface",
+  "coords": [
+   -205.2,
+   451.5,
+   34.4
+  ]
+ },
+ {
+  "id": "shrine-138",
+  "type": "Shrine",
+  "name": "Timawak Shrine",
+  "internalName": "Dungeon137",
+  "region": "Bedrock Bistro",
+  "layer": "Surface",
+  "coords": [
+   1799.5,
+   1639.5,
+   325.2
+  ]
+ },
+ {
+  "id": "shrine-139",
+  "type": "Shrine",
+  "name": "Jonsau Shrine",
+  "internalName": "Dungeon138",
+  "region": "Moor Garrison Ruins",
+  "layer": "Surface",
+  "coords": [
+   1743.7,
+   17.6,
+   39.0
+  ]
+ },
+ {
+  "id": "shrine-140",
+  "type": "Shrine",
+  "name": "Rasiwak Shrine",
+  "internalName": "Dungeon139",
+  "region": "Lomei Labyrinth Island",
+  "layer": "Surface",
+  "coords": [
+   4664.1,
+   3263.2,
+   15.4
+  ]
+ },
+ {
+  "id": "shrine-141",
+  "type": "Shrine",
+  "name": "Kudanisar Shrine",
+  "internalName": "Dungeon140",
+  "region": "Northern Icehouse",
+  "layer": "Surface",
+  "coords": [
+   -4167.1,
+   -2143.2,
+   63.6
+  ]
+ },
+ {
+  "id": "shrine-142",
+  "type": "Shrine",
+  "name": "Joju-u-u Shrine",
+  "internalName": "Dungeon141",
+  "region": "Lakeside Stable",
+  "layer": "Surface",
+  "coords": [
+   1515.2,
+   -3577.1,
+   155.6
+  ]
+ },
+ {
+  "id": "shrine-143",
+  "type": "Shrine",
+  "name": "Jiosin Shrine",
+  "internalName": "Dungeon142",
+  "region": "Mabe Village Ruins",
+  "layer": "Surface",
+  "coords": [
+   -240.7,
+   -371.0,
+   40.4
+  ]
+ },
+ {
+  "id": "shrine-144",
+  "type": "Shrine",
+  "name": "Gatanisis Shrine",
+  "internalName": "Dungeon143",
+  "region": "East Sokkala Bridge",
+  "layer": "Surface",
+  "coords": [
+   4497.8,
+   826.4,
+   109.1
+  ]
+ },
+ {
+  "id": "shrine-145",
+  "type": "Shrine",
+  "name": "Morok Shrine",
+  "internalName": "Dungeon144",
+  "region": "Eagus Bridge",
+  "layer": "Surface",
+  "coords": [
+   1181.6,
+   -779.4,
+   147.0
+  ]
+ },
+ {
+  "id": "shrine-146",
+  "type": "Shrine",
+  "name": "Jinodok Shrine",
+  "internalName": "Dungeon145",
+  "region": "South Hyrule Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   -1257.2,
+   -1487.0,
+   1021.7
+  ]
+ },
+ {
+  "id": "shrine-147",
+  "type": "Shrine",
+  "name": "Sihajog Shrine",
+  "internalName": "Dungeon146",
+  "region": "South Lanayru Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   4545.8,
+   -846.1,
+   1134.4
+  ]
+ },
+ {
+  "id": "shrine-148",
+  "type": "Shrine",
+  "name": "Minetak Shrine",
+  "internalName": "Dungeon147",
+  "region": "Thyphlo Ruins",
+  "layer": "Surface",
+  "coords": [
+   393.9,
+   3484.6,
+   82.0
+  ]
+ },
+ {
+  "id": "shrine-149",
+  "type": "Shrine",
+  "name": "Mayasiar Shrine",
+  "internalName": "Dungeon148",
+  "region": "Starview Island",
+  "layer": "Sky",
+  "coords": [
+   -3546.7,
+   -320.7,
+   1978.5
+  ]
+ },
+ {
+  "id": "shrine-150",
+  "type": "Shrine",
+  "name": "Mayam Shrine",
+  "internalName": "Dungeon149",
+  "region": "North Hyrule Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   340.4,
+   2814.7,
+   1834.4
+  ]
+ },
+ {
+  "id": "shrine-151",
+  "type": "Shrine",
+  "name": "Ukoojisi Shrine",
+  "internalName": "Dungeon150",
+  "region": "West Necluda Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   1468.6,
+   -2168.9,
+   1099.3
+  ]
+ },
+ {
+  "id": "shrine-152",
+  "type": "Shrine",
+  "name": "Taninoud Shrine",
+  "internalName": "Dungeon151",
+  "region": "East Hebra Sky Archipelago",
+  "layer": "Sky",
+  "coords": [
+   -1802.0,
+   3406.8,
+   962.4
+  ]
+ },
+ {
+  "id": "tower-01",
+  "type": "Tower",
+  "name": "Lookout Landing Skyview Tower",
+  "internalName": "Tower01",
+  "region": "Lookout Landing",
+  "layer": "Surface",
+  "coords": [
+   -298.9,
+   142.8,
+   18.4
+  ]
+ },
+ {
+  "id": "tower-02",
+  "type": "Tower",
+  "name": "Lindor's Brow Skyview Tower",
+  "internalName": "Tower02",
+  "region": "Maritta Exchange Ruins",
+  "layer": "Surface",
+  "coords": [
+   -1909.6,
+   1245.3,
+   290.2
+  ]
+ },
+ {
+  "id": "tower-03",
+  "type": "Tower",
+  "name": "Pikida Stonegrove Skyview Tower",
+  "internalName": "Tower03",
+  "region": "Selmie's Spot",
+  "layer": "Surface",
+  "coords": [
+   -2311.5,
+   3062.5,
+   436.5
+  ]
+ },
+ {
+  "id": "tower-04",
+  "type": "Tower",
+  "name": "Eldin Canyon Skyview Tower",
+  "internalName": "Tower04",
+  "region": "Bedrock Bistro",
+  "layer": "Surface",
+  "coords": [
+   1641.8,
+   1190.8,
+   218.9
+  ]
+ },
+ {
+  "id": "tower-05",
+  "type": "Tower",
+  "name": "Ulri Mountain Skyview Tower",
+  "internalName": "Tower05",
+  "region": "Tarrey Town Race",
+  "layer": "Surface",
+  "coords": [
+   3499,
+   2026,
+   181.4
+  ]
+ },
+ {
+  "id": "tower-06",
+  "type": "Tower",
+  "name": "Sahasra Slope Skyview Tower",
+  "internalName": "Tower06",
+  "region": "Eagus Bridge",
+  "layer": "Surface",
+  "coords": [
+   1341.1,
+   -1177.9,
+   159.8
+  ]
+ },
+ {
+  "id": "tower-07",
+  "type": "Tower",
+  "name": "Upland Zorana Skyview Tower",
+  "internalName": "Tower07",
+  "region": "Zora's Domain",
+  "layer": "Surface",
+  "coords": [
+   2866.1,
+   581.2,
+   372.8
+  ]
+ },
+ {
+  "id": "tower-08",
+  "type": "Tower",
+  "name": "Hyrule Field Skyview Tower",
+  "internalName": "Tower08",
+  "region": "Exchange Ruins",
+  "layer": "Surface",
+  "coords": [
+   -761.3,
+   -1019.2,
+   57.9
+  ]
+ },
+ {
+  "id": "tower-09",
+  "type": "Tower",
+  "name": "Gerudo Canyon Skyview Tower",
+  "internalName": "Tower09",
+  "region": "Gerudo Canyon Stable",
+  "layer": "Surface",
+  "coords": [
+   -2438.9,
+   -2182.8,
+   300.1
+  ]
+ },
+ {
+  "id": "tower-10",
+  "type": "Tower",
+  "name": "Gerudo Highlands Skyview Tower",
+  "internalName": "Tower10",
+  "region": "Yiga Clan Hideout",
+  "layer": "Surface",
+  "coords": [
+   -3960.9,
+   -1305.6,
+   415.9
+  ]
+ },
+ {
+  "id": "tower-11",
+  "type": "Tower",
+  "name": "Rabella Wetlands Skyview Tower",
+  "internalName": "Tower11",
+  "region": "Meda Canyon Mine",
+  "layer": "Surface",
+  "coords": [
+   2420,
+   -2754.9,
+   215.5
+  ]
+ },
+ {
+  "id": "tower-12",
+  "type": "Tower",
+  "name": "Thyphlo Ruins Skyview Tower",
+  "internalName": "Tower12",
+  "region": "Thyphlo Ruins",
+  "layer": "Surface",
+  "coords": [
+   343.7,
+   3141.6,
+   173.1
+  ]
+ },
+ {
+  "id": "tower-13",
+  "type": "Tower",
+  "name": "Popla Foothills Skyview Tower",
+  "internalName": "Tower13",
+  "region": "Deya Village Ruins",
+  "layer": "Surface",
+  "coords": [
+   604.8,
+   -2126.9,
+   91.8
+  ]
+ },
+ {
+  "id": "tower-14",
+  "type": "Tower",
+  "name": "Mount Lanayru Skyview Tower",
+  "internalName": "Tower14",
+  "region": "Spring of Wisdom",
+  "layer": "Surface",
+  "coords": [
+   3847.6,
+   -1314.9,
+   532.3
+  ]
+ },
+ {
+  "id": "tower-15",
+  "type": "Tower",
+  "name": "Rospro Pass Skyview Tower",
+  "internalName": "Tower15",
+  "region": "Hebra Trailhead Lodge",
+  "layer": "Surface",
+  "coords": [
+   -3679.6,
+   2346.4,
+   226.2
+  ]
+ }
+]

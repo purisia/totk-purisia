@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>하이랄 필드 보스 트래커</title>
+  <meta name="description" content="젤다의 전설 티어스 오브 더 킹덤 필드 보스 처치 기록과 고도 가중치 기반 최적 워프 경로 추천">
+  <meta name="theme-color" content="#0e1420">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="./assets/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__row">
+    <h1 class="topbar__title"><span class="topbar__mark">◈</span> 하이랄 필드 보스 트래커</h1>
+    <button id="bloodMoonBtn" class="btn btn--moon" type="button">
+      <span class="btn__icon">🌑</span> 붉은 달
+    </button>
+  </div>
+  <div class="progress">
+    <div class="progress__bar"><div id="progressFill" class="progress__fill"></div></div>
+    <div class="progress__labels">
+      <span id="progressText">0 / 0 처치</span>
+      <span id="unlockText">워프 0곳 해금</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab is-active" role="tab" data-view="bosses" type="button">보스</button>
+  <button class="tab" role="tab" data-view="waypoints" type="button">워프 포인트</button>
+  <button class="tab" role="tab" data-view="map" type="button">지도</button>
+  <button class="tab" role="tab" data-view="about" type="button">정보</button>
+</nav>
+
+<main>
+  <!-- ─────────────────────────────── 보스 ─────────────────────────────── -->
+  <section id="view-bosses" class="view">
+    <div class="filters">
+      <input id="search" class="filters__search" type="search" placeholder="이름 · 지역 검색 (예: Lynel, Akkala)" autocomplete="off">
+      <div class="chips" id="typeChips" data-group="type">
+        <button class="chip is-active" data-value="all" type="button">전체</button>
+        <button class="chip" data-value="Lynel" type="button">라이넬</button>
+        <button class="chip" data-value="Hinox" type="button">히녹스</button>
+        <button class="chip" data-value="Talus" type="button">바위록</button>
+      </div>
+      <div class="chips" id="layerChips" data-group="layer">
+        <button class="chip is-active" data-value="all" type="button">전 계층</button>
+        <button class="chip" data-value="Sky" type="button">하늘</button>
+        <button class="chip" data-value="Surface" type="button">지상</button>
+        <button class="chip" data-value="Depths" type="button">지하</button>
+      </div>
+      <div class="chips" id="stateChips" data-group="state">
+        <button class="chip is-active" data-value="all" type="button">전부</button>
+        <button class="chip" data-value="alive" type="button">미처치</button>
+        <button class="chip" data-value="killed" type="button">처치함</button>
+      </div>
+      <label class="sort">
+        정렬
+        <select id="sortSelect">
+          <option value="time">추천 이동 시간</option>
+          <option value="region">지역</option>
+          <option value="name">이름</option>
+          <option value="altitude">고도</option>
+        </select>
+      </label>
+    </div>
+    <p id="bossCount" class="count"></p>
+    <div id="bossList" class="cards"></div>
+  </section>
+
+  <!-- ────────────────────────── 워프 포인트 관리 ────────────────────────── -->
+  <section id="view-waypoints" class="view" hidden>
+    <div class="filters">
+      <input id="wpSearch" class="filters__search" type="search" placeholder="사당 · 조망대 검색" autocomplete="off">
+      <div class="chips" id="wpTypeChips" data-group="wpType">
+        <button class="chip is-active" data-value="all" type="button">전체</button>
+        <button class="chip" data-value="Tower" type="button">조망대</button>
+        <button class="chip" data-value="Shrine" type="button">사당</button>
+      </div>
+      <div class="bulk">
+        <button class="btn btn--ghost" data-bulk="towers" type="button">조망대 전체 해금</button>
+        <button class="btn btn--ghost" data-bulk="all" type="button">전체 해금</button>
+        <button class="btn btn--ghost" data-bulk="none" type="button">전체 잠금</button>
+      </div>
+    </div>
+    <p id="wpCount" class="count"></p>
+    <div id="wpList" class="wplist"></div>
+  </section>
+
+  <!-- ─────────────────────────────── 지도 ─────────────────────────────── -->
+  <section id="view-map" class="view" hidden>
+    <div class="chips chips--wide" id="mapLayerChips" data-group="mapLayer">
+      <button class="chip is-active" data-value="Surface" type="button">지상</button>
+      <button class="chip" data-value="Sky" type="button">하늘</button>
+      <button class="chip" data-value="Depths" type="button">지하</button>
+    </div>
+    <div class="maplegend">
+      <span><i class="dot dot--lynel"></i>라이넬</span>
+      <span><i class="dot dot--hinox"></i>히녹스</span>
+      <span><i class="dot dot--talus"></i>바위록</span>
+      <span><i class="dot dot--tower"></i>조망대</span>
+      <span><i class="dot dot--shrine"></i>해금 사당</span>
+      <span><i class="dot dot--dead"></i>처치 완료</span>
+    </div>
+    <div class="mapwrap"><svg id="mapSvg" viewBox="0 0 1000 1000" role="img" aria-label="하이랄 보스 분포도"></svg></div>
+    <div id="mapInfo" class="mapinfo">지도의 점을 누르면 해당 보스의 추천 경로가 표시됩니다.</div>
+  </section>
+
+  <!-- ─────────────────────────────── 정보 ─────────────────────────────── -->
+  <section id="view-about" class="view" hidden>
+    <article class="prose">
+      <h2>이 앱에 대해</h2>
+      <p>
+        외부 데이터베이스 없이 동작합니다. 보스·워프 포인트 좌표는 저장소 안의 정적 JSON
+        파일에서 읽어오고, 처치 기록과 해금 상태는 이 브라우저의 localStorage에만 저장됩니다.
+        서버로 전송되는 정보는 없습니다.
+      </p>
+
+      <h3>추천 경로 계산 방식</h3>
+      <ul>
+        <li><b>수평 거리</b> H = √((W<sub>x</sub>−B<sub>x</sub>)² + (W<sub>y</sub>−B<sub>y</sub>)²)</li>
+        <li><b>고도차</b> Z<sub>diff</sub> = W<sub>z</sub> − B<sub>z</sub></li>
+        <li><b>조망대</b>는 사출 고도 W<sub>z</sub> + 800m에서 출발해 패러세일 활강(수평 12m/s, 강하 4.5m/s → 활강비 약 2.67)으로 접근합니다.</li>
+        <li><b>사당</b>은 보스보다 높으면 강하 이동(가중치 0.9배 우대), 낮으면 등반 상승에 3배 패널티를 부여합니다.</li>
+        <li>활강으로 닿지 않는 잔여 거리는 도보(5.5m/s)로 계산합니다.</li>
+        <li><b>계층 이동</b> 패널티: 지상→지하 200초, 지하→지상 300초, 지상→하늘 240초 등. 하늘→지상은 그대로 낙하하므로 0초입니다.</li>
+        <li>동굴 내부 보스는 진입 시간 45초를 더합니다.</li>
+      </ul>
+      <p class="muted">
+        계산 결과는 순위를 매기기 위한 추정치이며, 실제 지형(절벽·용암·상승기류)은 반영하지 않습니다.
+      </p>
+
+      <h3>데이터 출처</h3>
+      <ul>
+        <li><a href="https://github.com/lud99/totk-unexplored" rel="noopener">lud99/totk-unexplored</a> — 사당 152곳, 히녹스 69기, 바위록 87기, 빛뿌리 120곳</li>
+        <li><a href="https://github.com/vetyst/TotK-Object-Map" rel="noopener">vetyst/TotK-Object-Map</a> — 라이넬 배치, 보스 종류 판별, 조망대 15곳</li>
+      </ul>
+
+      <h3>데이터 관리</h3>
+      <div class="bulk">
+        <button class="btn btn--ghost" id="exportBtn" type="button">기록 내보내기</button>
+        <label class="btn btn--ghost" for="importInput">기록 불러오기</label>
+        <input id="importInput" type="file" accept="application/json" hidden>
+        <button class="btn btn--danger" id="resetAllBtn" type="button">전체 초기화</button>
+      </div>
+      <p id="ioMsg" class="muted"></p>
+      <p class="muted" id="buildInfo"></p>
+    </article>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="./assets/routeCalculator.js"></script>
+<script src="./assets/app.js"></script>
+</body>
+</html>

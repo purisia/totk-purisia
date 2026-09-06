@@ -1,0 +1,501 @@
+/* 하이랄 필드 보스 트래커 — 시커 스톤 톤의 다크 UI */
+:root {
+  color-scheme: dark;
+
+  --bg: #0b1018;
+  --bg-soft: #121a26;
+  --panel: #161f2d;
+  --panel-2: #1c2736;
+  --line: #263349;
+  --line-soft: #1e293b;
+
+  --text: #e6edf7;
+  --text-dim: #9dabc2;
+  --text-faint: #6b7a92;
+
+  --accent: #46d5e8;          /* 시커 청록 */
+  --accent-dim: #1d6b78;
+  --zonai: #e0b44a;           /* 조나우 금색 */
+  --moon: #e0503c;            /* 붉은 달 */
+  --ok: #62c98a;
+
+  --lynel: #e0503c;
+  --hinox: #c98adb;
+  --talus: #e0b44a;
+  --tower: #46d5e8;
+  --shrine: #7f96b8;
+
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .28);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding-bottom: 3rem;
+  background:
+    radial-gradient(1200px 600px at 50% -200px, #17263a 0%, transparent 70%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI",
+               system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+a { color: var(--accent); }
+
+/* ───────────────────────────── 상단바 ───────────────────────────── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: max(.75rem, env(safe-area-inset-top)) 1rem .6rem;
+  background: rgba(11, 16, 24, .92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.topbar__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.topbar__title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar__mark { color: var(--zonai); }
+
+.progress { margin-top: .55rem; }
+
+.progress__bar {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--line-soft);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  transition: width .35s ease;
+}
+
+.progress__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: .3rem;
+  font-size: .76rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ───────────────────────────── 버튼 ───────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .45rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--panel-2);
+  color: var(--text);
+  font: inherit;
+  font-size: .82rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn:hover { border-color: var(--accent-dim); }
+.btn:active { transform: translateY(1px); }
+
+.btn--moon {
+  border-color: #5a2a24;
+  background: linear-gradient(180deg, #2b1512, #1d100e);
+  color: #ffb9ac;
+  font-weight: 600;
+}
+
+.btn--moon:hover { border-color: var(--moon); }
+.btn--ghost { background: transparent; }
+.btn--danger { border-color: #5a2a24; color: #ffb9ac; }
+
+/* ───────────────────────────── 탭 ───────────────────────────── */
+.tabs {
+  display: flex;
+  gap: .25rem;
+  padding: .6rem 1rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  padding: .45rem .9rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text-faint);
+  font: inherit;
+  font-size: .88rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tab.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+main { padding: .5rem 1rem 0; }
+
+/* ───────────────────────────── 필터 ───────────────────────────── */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin: .6rem 0 .4rem;
+}
+
+.filters__search {
+  width: 100%;
+  padding: .55rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  color: var(--text);
+  font: inherit;
+  font-size: .9rem;
+}
+
+.filters__search:focus {
+  outline: none;
+  border-color: var(--accent-dim);
+}
+
+.chips {
+  display: flex;
+  gap: .3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar { display: none; }
+.chips--wide { margin: .6rem 0; }
+
+.chip {
+  padding: .3rem .7rem;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--bg-soft);
+  color: var(--text-dim);
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chip.is-active {
+  border-color: var(--accent-dim);
+  background: rgba(70, 213, 232, .12);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .8rem;
+  color: var(--text-faint);
+}
+
+.sort select {
+  flex: 1;
+  padding: .35rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-soft);
+  color: var(--text);
+  font: inherit;
+  font-size: .8rem;
+}
+
+.bulk { display: flex; flex-wrap: wrap; gap: .4rem; }
+
+.count {
+  margin: .1rem 0 .6rem;
+  font-size: .78rem;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ───────────────────────────── 보스 카드 ───────────────────────────── */
+.cards { display: grid; gap: .6rem; }
+
+@media (min-width: 720px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  main { max-width: 1100px; margin: 0 auto; }
+  .filters { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .filters__search { flex: 1 1 260px; }
+}
+
+.card {
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--type, var(--line));
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card.is-killed { opacity: .5; }
+.card[data-type="Lynel"] { --type: var(--lynel); }
+.card[data-type="Hinox"] { --type: var(--hinox); }
+.card[data-type="Talus"] { --type: var(--talus); }
+
+.card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  padding: .7rem .8rem;
+}
+
+.card__check {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  margin-top: .1rem;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--bg-soft);
+  color: transparent;
+  font-size: .95rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.card__check[aria-pressed="true"] {
+  border-color: var(--ok);
+  background: rgba(98, 201, 138, .16);
+  color: var(--ok);
+}
+
+.card__body { flex: 1; min-width: 0; }
+
+.card__name {
+  margin: 0;
+  font-size: .96rem;
+  font-weight: 700;
+}
+
+.card__name .en {
+  font-weight: 500;
+  font-size: .8rem;
+  color: var(--text-faint);
+}
+
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem .45rem;
+  margin-top: .25rem;
+  font-size: .78rem;
+  color: var(--text-dim);
+}
+
+.badge {
+  padding: .05rem .4rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: .7rem;
+  color: var(--text-faint);
+}
+
+.badge--Sky { color: #8fd4ff; border-color: #26506e; }
+.badge--Surface { color: #9bd8a8; border-color: #2a5138; }
+.badge--Depths { color: #d8a0e8; border-color: #4c2b57; }
+.badge--cave { color: var(--zonai); border-color: #5a4a1e; }
+
+.coords {
+  font-variant-numeric: tabular-nums;
+  font-size: .74rem;
+  color: var(--text-faint);
+}
+
+.card__route {
+  padding: .55rem .8rem .7rem;
+  border-top: 1px dashed var(--line-soft);
+  background: var(--panel-2);
+}
+
+.route__best {
+  font-size: .84rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.route__legs {
+  margin-top: .25rem;
+  font-size: .74rem;
+  color: var(--text-faint);
+}
+
+.route__alt {
+  margin-top: .35rem;
+  display: grid;
+  gap: .15rem;
+  font-size: .76rem;
+  color: var(--text-dim);
+}
+
+.route__alt b { color: var(--text); font-weight: 600; }
+.route__none { font-size: .8rem; color: var(--zonai); }
+
+.empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--text-faint);
+}
+
+/* ───────────────────────────── 워프 목록 ───────────────────────────── */
+.wplist { display: grid; gap: .3rem; }
+
+@media (min-width: 720px) {
+  .wplist { grid-template-columns: repeat(2, 1fr); }
+}
+
+.wp {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .5rem .7rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: var(--panel);
+  cursor: pointer;
+}
+
+.wp.is-on { border-color: var(--accent-dim); background: var(--panel-2); }
+
+.wp__mark {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: .8rem;
+  color: transparent;
+}
+
+.wp.is-on .wp__mark {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+.wp__name { flex: 1; min-width: 0; font-size: .85rem; }
+.wp__name span { display: block; font-size: .72rem; color: var(--text-faint); }
+.wp__type { font-size: .7rem; color: var(--text-faint); }
+
+/* ───────────────────────────── 지도 ───────────────────────────── */
+.maplegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .9rem;
+  margin-bottom: .5rem;
+  font-size: .74rem;
+  color: var(--text-dim);
+}
+
+.maplegend span { display: inline-flex; align-items: center; gap: .3rem; }
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot--lynel { background: var(--lynel); }
+.dot--hinox { background: var(--hinox); }
+.dot--talus { background: var(--talus); }
+.dot--tower { background: var(--tower); }
+.dot--shrine { background: var(--shrine); }
+.dot--dead { background: #3a4658; }
+
+.mapwrap {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 50% 45%, #16202e 0%, #0d131c 75%);
+  overflow: hidden;
+}
+
+#mapSvg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+#mapSvg circle { cursor: pointer; }
+
+.mapinfo {
+  margin: .6rem 0 0;
+  padding: .6rem .8rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: var(--panel);
+  font-size: .82rem;
+  color: var(--text-dim);
+  min-height: 3rem;
+}
+
+.mapinfo b { color: var(--text); }
+
+/* ───────────────────────────── 정보 ───────────────────────────── */
+.prose { max-width: 62ch; font-size: .88rem; color: var(--text-dim); }
+.prose h2 { font-size: 1.05rem; color: var(--text); margin-top: .8rem; }
+.prose h3 { font-size: .92rem; color: var(--text); margin-top: 1.4rem; }
+.prose li { margin: .2rem 0; }
+.prose b { color: var(--text); }
+.muted { color: var(--text-faint); font-size: .8rem; }
+
+/* ───────────────────────────── 토스트 ───────────────────────────── */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translate(-50%, 1.5rem);
+  padding: .6rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: #1b2432;
+  color: var(--text);
+  font-size: .82rem;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 40;
+}
+
+.toast.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

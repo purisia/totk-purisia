@@ -1,0 +1,23 @@
+{
+  "name": "하이랄 필드 보스 트래커",
+  "short_name": "보스 트래커",
+  "description": "젤다의 전설 티어스 오브 더 킹덤 필드 보스 처치 기록과 고도 가중치 기반 최적 워프 경로 추천",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "id": "totk-field-boss-tracker",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1018",
+  "theme_color": "#0e1420",
+  "categories": ["games", "utilities"],
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "미처치 보스", "url": "./?filter=alive" },
+    { "name": "워프 포인트 관리", "url": "./?view=waypoints" }
+  ]
+}

@@ -1,0 +1,168 @@
+#!/usr/bin/env node
+/*
+ * 데이터 파일과 경로 계산기를 검증한다. CI(deploy.yml)에서 배포 전에 실행된다.
+ *
+ *   node tools/verify.js
+ */
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const root = path.join(__dirname, '..');
+const RC = require(path.join(root, 'assets', 'routeCalculator.js'));
+
+let failures = 0;
+
+function check(label, ok, detail) {
+  if (ok) {
+    console.log('  ok   ' + label);
+  } else {
+    failures++;
+    console.log('  FAIL ' + label + (detail ? ' — ' + detail : ''));
+  }
+}
+
+function readJson(rel) {
+  return JSON.parse(fs.readFileSync(path.join(root, rel), 'utf8'));
+}
+
+/* ────────────────────────────── 데이터 ────────────────────────────── */
+
+const bosses = readJson('data/bosses.json');
+const waypoints = readJson('data/waypoints.json');
+
+console.log('data/bosses.json');
+check('190기 수록', bosses.length === 190, bosses.length + '기');
+
+const byType = bosses.reduce((a, b) => (a[b.type] = (a[b.type] || 0) + 1, a), {});
+check('라이넬 / 히녹스 / 바위록 세 종류만 존재',
+  Object.keys(byType).sort().join(',') === 'Hinox,Lynel,Talus',
+  JSON.stringify(byType));
+
+const bossIds = new Set(bosses.map(b => b.id));
+check('id 중복 없음', bossIds.size === bosses.length);
+
+check('모든 보스에 필수 필드가 있음', bosses.every(b =>
+  b.id && b.type && b.name && b.nameKo && b.region &&
+  ['Sky', 'Surface', 'Depths'].includes(b.layer) &&
+  Array.isArray(b.coords) && b.coords.length === 3 &&
+  b.coords.every(n => typeof n === 'number' && Number.isFinite(n))));
+
+check('지하 보스는 고도가 음수', bosses
+  .filter(b => b.layer === 'Depths')
+  .every(b => b.coords[2] < 0));
+
+console.log('data/waypoints.json');
+check('사당 152곳', waypoints.filter(w => w.type === 'Shrine').length === 152);
+check('조망대 15곳', waypoints.filter(w => w.type === 'Tower').length === 15);
+
+const wpIds = new Set(waypoints.map(w => w.id));
+check('id 중복 없음', wpIds.size === waypoints.length);
+
+check('모든 워프 포인트에 필수 필드가 있음', waypoints.every(w =>
+  w.id && ['Shrine', 'Tower'].includes(w.type) && w.name && w.region &&
+  ['Sky', 'Surface'].includes(w.layer) &&
+  Array.isArray(w.coords) && w.coords.length === 3 &&
+  w.coords.every(n => typeof n === 'number' && Number.isFinite(n))));
+
+check('하늘 사당 32곳 / 지상 사당 120곳',
+  waypoints.filter(w => w.type === 'Shrine' && w.layer === 'Sky').length === 32 &&
+  waypoints.filter(w => w.type === 'Shrine' && w.layer === 'Surface').length === 120);
+
+/* ─────────────────────────── 경로 계산기 ─────────────────────────── */
+
+console.log('assets/routeCalculator.js');
+
+const towerBelow = { type: 'Tower', name: 'Test Skyview Tower', layer: 'Surface', coords: [0, 0, 0] };
+const shrineAbove = { type: 'Shrine', name: 'High Shrine', layer: 'Surface', coords: [0, 0, 400] };
+const shrineBelow = { type: 'Shrine', name: 'Low Shrine', layer: 'Surface', coords: [0, 0, -200] };
+const target = { layer: 'Surface', cave: false, coords: [1000, 0, 100] };
+
+const tRoute = RC.estimateRoute(towerBelow, target);
+const upRoute = RC.estimateRoute(shrineBelow, target);
+const downRoute = RC.estimateRoute(shrineAbove, target);
+
+check('수평 거리를 X·Y 평면에서 계산', Math.abs(tRoute.hDist - 1000) < 0.001,
+  String(tRoute.hDist));
+check('고도차 = W.z − B.z', downRoute.zDiff === 300, String(downRoute.zDiff));
+
+check('조망대는 사출 고도(+800m)로 활강 거리를 확보',
+  tRoute.mode === 'launch-glide' && tRoute.legs.some(l => l.kind === 'launch'),
+  tRoute.mode);
+
+check('높은 사당 → 강하 이동이 낮은 사당 → 등반보다 빠름',
+  downRoute.seconds < upRoute.seconds,
+  Math.round(downRoute.seconds) + 's vs ' + Math.round(upRoute.seconds) + 's');
+
+check('상승 이동에 3배 가중치가 적용됨', (() => {
+  const climbLeg = upRoute.legs.find(l => l.kind === 'climb');
+  const expected = 300 / RC.MOVE.CLIMB * RC.MOVE.CLIMB_WEIGHT;
+  return climbLeg && Math.abs(climbLeg.seconds - expected) < 0.001;
+})());
+
+const depthsBoss = { layer: 'Depths', cave: false, coords: [1000, 0, -600] };
+check('지상 → 지하 계층 패널티가 붙음',
+  RC.estimateRoute(shrineAbove, depthsBoss).layerPenalty === RC.LAYER_PENALTY['Surface>Depths']);
+
+check('하늘 → 지상은 계층 패널티 없음',
+  RC.estimateRoute({ type: 'Shrine', name: 'Sky Shrine', layer: 'Sky', coords: [0, 0, 1200] }, target).layerPenalty === 0);
+
+check('추천 결과는 최대 3개이며 시간 오름차순', (() => {
+  const top = RC.recommendRoutes(bosses[0], waypoints, 3);
+  return top.length === 3 && top[0].seconds <= top[1].seconds && top[1].seconds <= top[2].seconds;
+})());
+
+check('모든 보스가 유한한 추천 시간을 가짐', bosses.every(b => {
+  const top = RC.recommendRoutes(b, waypoints, 1);
+  return top.length === 1 && Number.isFinite(top[0].seconds) && top[0].seconds > 0;
+}));
+
+check('가이드 문구 형식', /^🚀 추천: \[.+\] \(.+\)$/.test(RC.describe(tRoute)), RC.describe(tRoute));
+
+/* ─────────────────────────── 배포 파일 ─────────────────────────── */
+
+console.log('배포 파일');
+for (const f of ['index.html', 'manifest.json', 'sw.js', 'assets/app.js', 'assets/app.css',
+                 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png']) {
+  check(f + ' 존재', fs.existsSync(path.join(root, f)));
+}
+
+const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+const precached = sw.match(/'\.\/[^']*'/g).map(s => s.slice(3, -1)).filter(Boolean);
+check('서비스 워커가 캐시하는 파일이 모두 존재',
+  precached.every(f => fs.existsSync(path.join(root, f))),
+  precached.filter(f => !fs.existsSync(path.join(root, f))).join(', '));
+
+const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const appJs = fs.readFileSync(path.join(root, 'assets', 'app.js'), 'utf8');
+
+const htmlIds = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]));
+// app.js 가 참조하는 #id 셀렉터가 실제로 index.html 에 있는지 (오타 방지)
+const wanted = new Set([...appJs.matchAll(/[$(]\('#([\w-]+)'\)/g)].map(m => m[1]));
+const missingIds = [...wanted].filter(id => !htmlIds.has(id));
+check('app.js 가 참조하는 모든 id 가 index.html 에 존재', missingIds.length === 0,
+  missingIds.join(', '));
+
+// 탭 버튼과 뷰 섹션이 짝을 이루는지
+const views = [...html.matchAll(/data-view="([\w-]+)"/g)].map(m => m[1]);
+check('탭마다 대응하는 뷰 섹션이 존재',
+  views.length > 0 && views.every(v => htmlIds.has('view-' + v)),
+  views.filter(v => !htmlIds.has('view-' + v)).join(', '));
+
+// manifest 의 아이콘·시작 경로가 실제로 존재하는지
+const manifest = readJson('manifest.json');
+const badIcons = manifest.icons.map(i => i.src).filter(src => !fs.existsSync(path.join(root, src)));
+check('manifest 아이콘 파일이 모두 존재', badIcons.length === 0, badIcons.join(', '));
+check('manifest 경로가 상대 경로 (하위 경로 배포 대응)',
+  manifest.start_url.startsWith('./') && manifest.scope.startsWith('./'));
+check('manifest 바로가기의 쿼리를 app.js 가 처리',
+  appJs.includes('applyLaunchParams') && appJs.includes('URLSearchParams'));
+
+// index.html 이 참조하는 로컬 파일이 모두 존재하는지
+const refs = [...html.matchAll(/(?:src|href)="\.\/([^"]+)"/g)].map(m => m[1]);
+const missingRefs = refs.filter(f => !fs.existsSync(path.join(root, f)));
+check('index.html 이 참조하는 파일이 모두 존재', missingRefs.length === 0, missingRefs.join(', '));
+
+console.log(failures === 0 ? '\n전체 통과' : '\n실패 ' + failures + '건');
+process.exit(failures === 0 ? 0 : 1);
