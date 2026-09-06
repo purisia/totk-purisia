@@ -29,6 +29,18 @@ def load(name):
 
 md = load("map_data.json")
 loc = load("locations.json")
+
+# 게임의 한국어 표기 사전 (영문 → 한글). gamertw.com 의 한국어 페이지에 실려
+# 있는 i18n 사전에서 뽑아 tools/ko-dict.json 으로 고정해 두었다.
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "ko-dict.json"),
+          encoding="utf-8") as fh:
+    KO = json.load(fh)
+
+
+def ko(name):
+    """한국어 표기가 있으면 그것을, 없으면 원문을 돌려준다."""
+    return KO.get(name, name)
+
 LAYER_FILES = [("surface.json", "Surface", False),
                ("depths.json", "Depths", False),
                ("sky.json", "Sky", False),
@@ -52,8 +64,10 @@ def vt_ig(l):
 # than places, and they would drown out the real region name.
 NOT_A_REGION = {"Bargainer Statue", "Crystal Refinery", "Forge Construct",
                 "Dragon's Tear", "Great Fairy Fountain", "Device Dispenser"}
+# 한국어 표기가 없는 이름은 지역 후보에서 빼서, 지역명이 반드시 한글로
+# 나오도록 한다 (빠지는 것은 지저의 전투 지점 표식 두 개뿐이다).
 regions = [(e["display_name"], md_ig(e["position"])) for e in md["locations"]
-           if e["display_name"] not in NOT_A_REGION]
+           if e["display_name"] not in NOT_A_REGION and e["display_name"] in KO]
 
 
 def region_of(P):
@@ -83,33 +97,32 @@ golems = collect(["Enemy_Golem_Junior", "Enemy_Golem_Middle", "Enemy_Golem_Senio
                   "Enemy_Golem_Fire", "Enemy_Golem_Ice", "Enemy_Golem_Fort"])
 lynels = collect(["Enemy_Lynel"])
 
+# 액터 이름 → (영문 표기, 한글 접미어). 한글 이름은 KO 사전에서 채운다.
+# "(기갑)" 은 지저 투기장의 방어구를 두른 개체를 가리키는 게임 내 표기.
 ACTOR_NAME = {
-    "Enemy_Giant_Junior": ("Hinox", "히녹스"),
-    "Enemy_Giant_Middle": ("Blue Hinox", "푸른 히녹스"),
-    "Enemy_Giant_Senior": ("Black Hinox", "검은 히녹스"),
-    "Enemy_Giant_Bone": ("Stalnox", "본 히녹스"),
-    "Enemy_Giant_Bone_AllDay": ("Stalnox", "본 히녹스"),
-    "Enemy_Golem_Junior": ("Stone Talus", "바위록"),
-    "Enemy_Golem_Junior_KeyCrystal": ("Stone Talus", "바위록"),
-    "Enemy_Golem_Middle": ("Luminous Talus", "광물 바위록"),
-    "Enemy_Golem_Senior": ("Rare Talus", "희귀 바위록"),
-    "Enemy_Golem_Fire": ("Igneo Talus", "용암 바위록"),
-    "Enemy_Golem_Fire_KeyCrystal": ("Igneo Talus", "용암 바위록"),
-    "Enemy_Golem_Ice": ("Frost Talus", "얼음 바위록"),
-    "Enemy_Golem_Ice_KeyCrystal": ("Frost Talus", "얼음 바위록"),
-    "Enemy_Golem_Fort_A": ("Battle Talus", "요새 바위록"),
-    "Enemy_Golem_Fort_A_Wander": ("Battle Talus", "요새 바위록"),
-    "Enemy_Lynel_Junior": ("Lynel", "라이넬"),
-    "Enemy_Lynel_Middle": ("Blue-Maned Lynel", "푸른 갈기 라이넬"),
-    "Enemy_Lynel_Senior": ("White-Maned Lynel", "흰 갈기 라이넬"),
-    "Enemy_Lynel_Dark": ("Silver Lynel", "은 갈기 라이넬"),
-    "Enemy_Lynel_Boss": ("Lynel (Colosseum)", "라이넬 (투기장)"),
-    "Enemy_Lynel_Boss_Middle": ("Blue-Maned Lynel (Colosseum)",
-                                "푸른 갈기 라이넬 (투기장)"),
-    "Enemy_Lynel_Boss_Senior": ("White-Maned Lynel (Colosseum)",
-                                "흰 갈기 라이넬 (투기장)"),
-    "Enemy_Lynel_Boss_Dark": ("Silver Lynel (Colosseum)",
-                              "은 갈기 라이넬 (투기장)"),
+    "Enemy_Giant_Junior": ("Hinox", ""),
+    "Enemy_Giant_Middle": ("Blue Hinox", ""),
+    "Enemy_Giant_Senior": ("Black Hinox", ""),
+    "Enemy_Giant_Bone": ("Stalnox", ""),
+    "Enemy_Giant_Bone_AllDay": ("Stalnox", ""),
+    "Enemy_Golem_Junior": ("Stone Talus", ""),
+    "Enemy_Golem_Junior_KeyCrystal": ("Stone Talus", ""),
+    "Enemy_Golem_Middle": ("Luminous Talus", ""),
+    "Enemy_Golem_Senior": ("Rare Talus", ""),
+    "Enemy_Golem_Fire": ("Igneo Talus", ""),
+    "Enemy_Golem_Fire_KeyCrystal": ("Igneo Talus", ""),
+    "Enemy_Golem_Ice": ("Frost Talus", ""),
+    "Enemy_Golem_Ice_KeyCrystal": ("Frost Talus", ""),
+    "Enemy_Golem_Fort_A": ("Battle Talus", ""),
+    "Enemy_Golem_Fort_A_Wander": ("Battle Talus", ""),
+    "Enemy_Lynel_Junior": ("Lynel", ""),
+    "Enemy_Lynel_Middle": ("Blue-Maned Lynel", ""),
+    "Enemy_Lynel_Senior": ("White-Maned Lynel", ""),
+    "Enemy_Lynel_Dark": ("Silver Lynel", ""),
+    "Enemy_Lynel_Boss": ("Lynel", " (기갑)"),
+    "Enemy_Lynel_Boss_Middle": ("Blue-Maned Lynel", " (기갑)"),
+    "Enemy_Lynel_Boss_Senior": ("White-Maned Lynel", " (기갑)"),
+    "Enemy_Lynel_Boss_Dark": ("Silver Lynel", " (기갑)"),
 }
 TYPE_KO = {"Lynel": "라이넬", "Hinox": "히녹스", "Talus": "바위록"}
 
@@ -133,13 +146,15 @@ bosses = []
 
 
 def add_boss(btype, actor, P, layer, cave=False):
-    en, ko = ACTOR_NAME.get(actor, (btype, TYPE_KO[btype]))
+    en, suffix = ACTOR_NAME.get(actor, (btype, ""))
+    region = region_of(P)
     bosses.append({
         "type": btype,
-        "name": en,
-        "nameKo": ko,
+        "name": en + ("" if not suffix else " (Colosseum)"),
+        "nameKo": KO.get(en, TYPE_KO[btype]) + suffix,
         "variant": actor,
-        "region": region_of(P),
+        "region": region,
+        "regionKo": ko(region),
         "layer": layer or layer_of(P),
         "cave": cave,
         "coords": list(P),
@@ -176,8 +191,8 @@ for b in bosses:
     seq[b["type"]] += 1
     b["id"] = "%s-%03d" % (b["type"].lower(), seq[b["type"]])
 bosses = [{"id": b["id"], "type": b["type"], "name": b["name"], "nameKo": b["nameKo"],
-           "variant": b["variant"], "region": b["region"], "layer": b["layer"],
-           "cave": b["cave"], "coords": b["coords"]} for b in bosses]
+           "variant": b["variant"], "region": b["region"], "regionKo": b["regionKo"],
+           "layer": b["layer"], "cave": b["cave"], "coords": b["coords"]} for b in bosses]
 
 # ------------------------------------------------------------- waypoints ---
 # Every one of the 120 surface shrines has a Lightroot mirrored directly
@@ -199,12 +214,15 @@ for _, i, j in pairs:
 waypoints = []
 for i, s in enumerate(md["shrines"]):
     P = shrine_pts[i]
+    region = region_of(P)
     waypoints.append({
         "id": "shrine-%03d" % (i + 1),
         "type": "Shrine",
         "name": s["display_name"],
+        "nameKo": ko(s["display_name"]),
         "internalName": s["internal_name"],
-        "region": region_of(P),
+        "region": region,
+        "regionKo": ko(region),
         "layer": "Surface" if i in mirrored else "Sky",
         "coords": list(P),
     })
@@ -216,12 +234,15 @@ for entries in loc.values():
             towers.append((e["raw"], e["name"], vt_ig(e["locations"][0])))
 towers.sort()
 for i, (raw, name, P) in enumerate(towers, 1):
+    region = region_of(P)
     waypoints.append({
         "id": "tower-%02d" % i,
         "type": "Tower",
         "name": name,
+        "nameKo": ko(name),
         "internalName": raw,
-        "region": region_of(P),
+        "region": region,
+        "regionKo": ko(region),
         "layer": "Surface",
         "coords": list(P),
     })

@@ -5,7 +5,7 @@
  * 한 번 설치되면 네트워크 없이도 완전히 동작한다.
  * 데이터가 바뀌면 CACHE 버전을 올려서 배포한다.
  */
-var CACHE = 'totk-boss-tracker-v1';
+var CACHE = 'totk-boss-tracker-v2';
 
 var ASSETS = [
   './',
@@ -16,6 +16,10 @@ var ASSETS = [
   './assets/routeCalculator.js',
   './data/bosses.json',
   './data/waypoints.json',
+  './data/map.json',
+  './data/map-surface.webp',
+  './data/map-sky.webp',
+  './data/map-depths.webp',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-512.png'

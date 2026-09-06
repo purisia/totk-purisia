@@ -28,6 +28,8 @@
     filter: { type: 'all', layer: 'all', state: 'all', q: '' },
     wpFilter: { wpType: 'all', q: '' },
     sort: 'time',
+    map: null,           // data/map.json (좌표 → 픽셀 기준값)
+    view: null,          // 지도 viewBox {x, y, w, h}
     mapLayer: 'Surface',
     selected: null
   };
@@ -107,8 +109,8 @@
     if (f.state === 'alive' && state.kills.has(b.id)) return false;
     if (f.state === 'killed' && !state.kills.has(b.id)) return false;
     if (f.q) {
-      var hay = (b.name + ' ' + b.nameKo + ' ' + b.region + ' ' + b.id + ' ' +
-                 TYPE_KO[b.type] + ' ' + LAYER_KO[b.layer]).toLowerCase();
+      var hay = (b.name + ' ' + b.nameKo + ' ' + b.region + ' ' + b.regionKo + ' ' +
+                 b.id + ' ' + TYPE_KO[b.type] + ' ' + LAYER_KO[b.layer]).toLowerCase();
       if (hay.indexOf(f.q) === -1) return false;
     }
     return true;
@@ -126,13 +128,13 @@
         var d = bestSeconds(a) - bestSeconds(b);
         if (d) return d;
       } else if (by === 'region') {
-        var r = a.region.localeCompare(b.region);
+        var r = a.regionKo.localeCompare(b.regionKo, 'ko');
         if (r) return r;
       } else if (by === 'altitude') {
         var z = b.coords[2] - a.coords[2];
         if (z) return z;
       }
-      return a.name.localeCompare(b.name) || a.id.localeCompare(b.id);
+      return a.nameKo.localeCompare(b.nameKo, 'ko') || a.id.localeCompare(b.id);
     });
   }
 
@@ -167,15 +169,19 @@
       '<div class="card__head">' +
         '<button class="card__check" type="button" data-kill="' + b.id + '" ' +
           'aria-pressed="' + killed + '" aria-label="처치 여부">✔</button>' +
+        '<svg class="card__icon ico--' + b.type + '" aria-hidden="true"><use href="' +
+          TYPE_ICON[b.type] + '"/></svg>' +
         '<div class="card__body">' +
           '<h3 class="card__name">' + esc(b.nameKo) + ' <span class="en">' + esc(b.name) + '</span></h3>' +
           '<div class="card__meta">' +
             '<span class="badge badge--' + b.layer + '">' + LAYER_KO[b.layer] + '</span>' +
             (b.cave ? '<span class="badge badge--cave">동굴</span>' : '') +
-            '<span>' + esc(b.region) + '</span>' +
+            '<span>' + esc(b.regionKo) + '</span>' +
             '<span class="coords">' + coordText(b.coords) + '</span>' +
           '</div>' +
         '</div>' +
+        '<button class="card__map" type="button" data-focus="' + b.id + '" ' +
+          'aria-label="지도에서 보기">🗺</button>' +
       '</div>' +
       routeHtml(b) +
     '</article>';
@@ -194,14 +200,15 @@
     var list = state.waypoints.filter(function (w) {
       if (f.wpType !== 'all' && w.type !== f.wpType) return false;
       if (f.q) {
-        var hay = (w.name + ' ' + w.region + ' ' + LAYER_KO[w.layer]).toLowerCase();
+        var hay = (w.name + ' ' + w.nameKo + ' ' + w.region + ' ' + w.regionKo + ' ' +
+                 LAYER_KO[w.layer]).toLowerCase();
         if (hay.indexOf(f.q) === -1) return false;
       }
       return true;
     });
     list.sort(function (a, b) {
       if (a.type !== b.type) return a.type === 'Tower' ? -1 : 1;
-      return a.name.localeCompare(b.name);
+      return a.nameKo.localeCompare(b.nameKo, 'ko');
     });
 
     var towers = state.waypoints.filter(function (w) { return w.type === 'Tower' && state.unlocked.has(w.id); }).length;
@@ -212,83 +219,191 @@
       var on = state.unlocked.has(w.id);
       return '<div class="wp' + (on ? ' is-on' : '') + '" data-wp="' + w.id + '" role="button" tabindex="0">' +
         '<span class="wp__mark">✔</span>' +
+        '<svg class="ico ico--' + (w.type === 'Tower' ? 'tower' : 'shrine') + '" aria-hidden="true">' +
+          '<use href="' + (w.type === 'Tower' ? '#i-tower' : '#i-shrine') + '"/></svg>' +
         '<span class="wp__name">' + esc(RC.waypointLabel(w)) +
-          '<span>' + esc(w.region) + ' · ' + LAYER_KO[w.layer] + ' · ' + coordText(w.coords) + '</span>' +
+          '<span>' + esc(w.regionKo) + ' · ' + LAYER_KO[w.layer] + ' · ' + coordText(w.coords) +
+          ' · ' + esc(w.name) + '</span>' +
         '</span>' +
       '</div>';
     }).join('') || '<p class="empty">검색 결과가 없습니다.</p>';
   }
 
   /* ───────────────────────────── 지도 ───────────────────────────── */
+  /*
+   * 배경은 data/map-{surface,sky,depths}.webp 이고, data/map.json 이
+   * 게임 좌표 → 이미지 픽셀 변환에 필요한 기준점을 담고 있다.
+   * 화면 표시는 SVG viewBox 를 움직여서 이동·확대한다.
+   */
 
-  var MAP = { x0: -5000, x1: 5000, y0: -4500, y1: 4500, size: 1000 };
+  var TYPE_COLOR = { Lynel: '#e0503c', Hinox: '#c98adb', Talus: '#e0b44a' };
+  var TYPE_ICON = { Lynel: '#i-lynel', Hinox: '#i-hinox', Talus: '#i-talus' };
 
-  function mapX(x) { return (x - MAP.x0) / (MAP.x1 - MAP.x0) * MAP.size; }
-  function mapY(y) { return (MAP.y1 - y) / (MAP.y1 - MAP.y0) * MAP.size; }
+  function toMapX(x) { return (x - state.map.originX) / state.map.metersPerPixel; }
+  function toMapY(y) { return (state.map.originY - y) / state.map.metersPerPixel; }
+
+  /** 화면에서 보고 싶은 마커 크기(px) — 축소했을 때는 작게, 확대하면 크게 */
+  function markerScale() {
+    var zoom = state.map.width / state.view.w;             // 1 = 전체 보기
+    var px = Math.max(11, Math.min(26, 11 * Math.pow(zoom, 0.45)));
+    var rect = $('#mapSvg').getBoundingClientRect();
+    var perPx = (rect.width || 360) / state.view.w;         // 화면 px / 지도 단위
+    return px / perPx / 24;                                 // 심볼 viewBox 가 24
+  }
+
+  function clampView() {
+    var v = state.view;
+    var m = state.map;
+    v.w = Math.max(m.width / 14, Math.min(m.width, v.w));
+    v.h = v.w * (m.height / m.width);
+    v.x = Math.max(-v.w * 0.15, Math.min(m.width - v.w * 0.85, v.x));
+    v.y = Math.max(-v.h * 0.15, Math.min(m.height - v.h * 0.85, v.y));
+  }
+
+  function applyView() {
+    var v = state.view;
+    var svg = $('#mapSvg');
+    svg.setAttribute('viewBox', v.x.toFixed(1) + ' ' + v.y.toFixed(1) + ' ' +
+                                v.w.toFixed(1) + ' ' + v.h.toFixed(1));
+    var s = markerScale();
+    Array.prototype.forEach.call(svg.querySelectorAll('.mk'), function (g) {
+      g.setAttribute('transform', 'translate(' + g.dataset.mx + ',' + g.dataset.my +
+                                  ') scale(' + s.toFixed(3) + ')');
+    });
+    var routes = svg.querySelector('#mapRoutes');
+    if (routes) routes.setAttribute('stroke-width', (v.w / 260).toFixed(2));
+  }
+
+  function resetView() {
+    state.view = { x: 0, y: 0, w: state.map.width, h: state.map.height };
+    clampView();
+  }
+
+  function zoomAt(factor, mx, my) {
+    var v = state.view;
+    var before = v.w;
+    v.w = v.w / factor;
+    clampView();
+    var ratio = v.w / before;
+    v.x = mx - (mx - v.x) * ratio;
+    v.y = my - (my - v.y) * ratio;
+    clampView();
+    applyView();
+  }
+
+  function marker(id, kind, x, y, href, color, opacity, title, extra) {
+    return '<g class="mk' + (extra || '') + '" data-mx="' + x.toFixed(1) + '" data-my="' + y.toFixed(1) + '"' +
+      (kind === 'boss' ? ' data-boss="' + id + '"' : '') + '>' +
+      '<circle r="13" fill="transparent"/>' +
+      '<use href="' + href + '" x="-12" y="-12" width="24" height="24" fill="' + color +
+      '" opacity="' + opacity + '"/>' +
+      '<title>' + esc(title) + '</title></g>';
+  }
 
   function renderMap() {
-    var parts = [];
-    // 1000m 간격 격자
-    for (var v = -4000; v <= 4000; v += 1000) {
-      parts.push('<line x1="' + mapX(v).toFixed(1) + '" y1="0" x2="' + mapX(v).toFixed(1) +
-                 '" y2="1000" stroke="#1a2431" stroke-width="1"/>');
-      parts.push('<line x1="0" y1="' + mapY(v).toFixed(1) + '" x2="1000" y2="' + mapY(v).toFixed(1) +
-                 '" stroke="#1a2431" stroke-width="1"/>');
-    }
-
+    if (!state.map) return;
     var layer = state.mapLayer;
-    // 해금된 워프 포인트
-    state.waypoints.forEach(function (w) {
-      if (!state.unlocked.has(w.id)) return;
-      if (layer === 'Depths') return;                 // 지하에는 워프 지점이 없다
-      if (layer === 'Sky' && w.type !== 'Tower' && w.layer !== 'Sky') return;
-      var fill = w.type === 'Tower' ? '#46d5e8' : '#7f96b8';
-      var r = w.type === 'Tower' ? 5 : 2.6;
-      parts.push('<circle cx="' + mapX(w.coords[0]).toFixed(1) + '" cy="' + mapY(w.coords[1]).toFixed(1) +
-                 '" r="' + r + '" fill="' + fill + '" opacity="' + (w.type === 'Tower' ? .95 : .5) + '">' +
-                 '<title>' + esc(RC.waypointLabel(w)) + '</title></circle>');
-    });
+    var m = state.map;
+    var parts = [
+      '<image class="mapimg mapimg--' + layer + '" href="./data/' + m.layers[layer] +
+      '" x="0" y="0" width="' + m.width + '" height="' + m.height +
+      '" preserveAspectRatio="none"/>',
+      '<g id="mapRoutes" fill="none" stroke="#7ef0ff" stroke-linecap="round"></g>',
+      '<g id="mapMarkers">'
+    ];
+
+    // 워프 포인트 (지저에는 워프 지점이 없다). 아직 해금하지 않은 곳도
+    // 흐리게 같이 그려서, 어디를 열면 되는지 지도에서 바로 보이게 한다.
+    if (layer !== 'Depths') {
+      state.waypoints.forEach(function (w) {
+        if (w.layer !== layer) return;
+        var on = state.unlocked.has(w.id);
+        parts.push(marker(w.id, 'wp', toMapX(w.coords[0]), toMapY(w.coords[1]),
+          w.type === 'Tower' ? '#i-tower' : '#i-shrine',
+          on ? (w.type === 'Tower' ? '#46d5e8' : '#9fb4cc') : '#8896a8',
+          on ? (w.type === 'Tower' ? 0.95 : 0.8) : 0.55,
+          RC.waypointLabel(w) + (on ? '' : ' (미해금)'), ' mk--wp'));
+      });
+    }
 
     // 보스
-    var colors = { Lynel: '#e0503c', Hinox: '#c98adb', Talus: '#e0b44a' };
     state.bosses.forEach(function (b) {
-      if (b.layer !== layer) return;
-      if (!matchesBoss(b)) return;
+      if (b.layer !== layer || !matchesBoss(b)) return;
       var killed = state.kills.has(b.id);
-      parts.push('<circle cx="' + mapX(b.coords[0]).toFixed(1) + '" cy="' + mapY(b.coords[1]).toFixed(1) +
-                 '" r="' + (state.selected === b.id ? 9 : 4.5) + '" ' +
-                 'fill="' + (killed ? '#3a4658' : colors[b.type]) + '" ' +
-                 'stroke="' + (state.selected === b.id ? '#fff' : 'none') + '" stroke-width="1.5" ' +
-                 'data-boss="' + b.id + '"><title>' + esc(b.nameKo + ' · ' + b.region) + '</title></circle>');
+      parts.push(marker(b.id, 'boss', toMapX(b.coords[0]), toMapY(b.coords[1]),
+        TYPE_ICON[b.type], killed ? '#68788d' : TYPE_COLOR[b.type], killed ? 0.45 : 1,
+        b.nameKo + ' · ' + b.regionKo,
+        (state.selected === b.id ? ' is-sel' : '') + (killed ? ' is-dead' : '')));
     });
 
-    // 선택한 보스의 추천 경로
-    if (state.selected) {
-      var boss = state.bosses.find(function (b) { return b.id === state.selected; });
-      var routes = state.routes.get(state.selected) || [];
-      if (boss) {
-        routes.forEach(function (r, i) {
-          parts.push('<line x1="' + mapX(r.waypoint.coords[0]).toFixed(1) + '" y1="' + mapY(r.waypoint.coords[1]).toFixed(1) +
-                     '" x2="' + mapX(boss.coords[0]).toFixed(1) + '" y2="' + mapY(boss.coords[1]).toFixed(1) +
-                     '" stroke="#46d5e8" stroke-width="' + (i === 0 ? 2 : 1) + '" ' +
-                     'stroke-dasharray="' + (i === 0 ? '0' : '6 5') + '" opacity="' + (i === 0 ? .9 : .4) + '"/>');
-        });
-      }
-    }
-
+    parts.push('</g>');
     $('#mapSvg').innerHTML = parts.join('');
+    drawRoutes();
+    applyView();
+  }
+
+  function drawRoutes() {
+    var g = $('#mapSvg').querySelector('#mapRoutes');
+    if (!g) return;
+    if (!state.selected) { g.innerHTML = ''; return; }
+    var boss = state.bosses.find(function (b) { return b.id === state.selected; });
+    var routes = state.routes.get(state.selected) || [];
+    if (!boss) { g.innerHTML = ''; return; }
+    g.innerHTML = routes.map(function (r, i) {
+      return '<line x1="' + toMapX(r.waypoint.coords[0]).toFixed(1) +
+             '" y1="' + toMapY(r.waypoint.coords[1]).toFixed(1) +
+             '" x2="' + toMapX(boss.coords[0]).toFixed(1) +
+             '" y2="' + toMapY(boss.coords[1]).toFixed(1) + '" ' +
+             'stroke-dasharray="' + (i === 0 ? 'none' : '7 6') +
+             '" opacity="' + (i === 0 ? 0.95 : 0.4) + '"/>';
+    }).join('');
+  }
+
+  /** 보스 하나를 지도에서 열어 화면 가운데로 가져온다. */
+  function focusOnMap(id) {
+    var b = state.bosses.find(function (x) { return x.id === id; });
+    if (!b || !state.map) return;
+    var tab = document.querySelector('.tab[data-view="map"]');
+    if (tab) tab.click();
+
+    if (state.mapLayer !== b.layer) {
+      state.mapLayer = b.layer;
+      $$('#mapLayerChips .chip').forEach(function (c) {
+        c.classList.toggle('is-active', c.dataset.value === b.layer);
+      });
+    }
+    state.selected = id;
+    state.view.w = state.map.width / 6;
+    clampView();
+    state.view.x = toMapX(b.coords[0]) - state.view.w / 2;
+    state.view.y = toMapY(b.coords[1]) - state.view.h / 2;
+    clampView();
+    renderMap();
+    renderMapInfo();
   }
 
   function renderMapInfo() {
     var el = $('#mapInfo');
     if (!state.selected) {
-      el.textContent = '지도의 점을 누르면 해당 보스의 추천 경로가 표시됩니다.';
+      var n = state.bosses.filter(function (b) {
+        return b.layer === state.mapLayer && matchesBoss(b);
+      }).length;
+      if (state.mapLayer === 'Sky') {
+        var open = state.waypoints.filter(function (w) {
+          return w.layer === 'Sky' && state.unlocked.has(w.id);
+        }).length;
+        el.textContent = '하늘에는 필드 보스가 없습니다. 하늘 사당 ' + open + '/32곳 해금 — ' +
+          '높은 곳에서 강하하면 지상 보스에 빠르게 닿습니다.';
+        return;
+      }
+      el.textContent = LAYER_KO[state.mapLayer] + ' 보스 ' + n + '기 표시 중. ' +
+        '아이콘을 누르면 추천 경로가 나타납니다. 끌어서 이동, 휠·손가락으로 확대.';
       return;
     }
     var b = state.bosses.find(function (x) { return x.id === state.selected; });
     var routes = state.routes.get(state.selected) || [];
     if (!b) return;
-    el.innerHTML = '<b>' + esc(b.nameKo) + '</b> · ' + esc(b.region) + ' · ' + LAYER_KO[b.layer] +
+    el.innerHTML = '<b>' + esc(b.nameKo) + '</b> · ' + esc(b.regionKo) + ' · ' + LAYER_KO[b.layer] +
       ' <span class="coords">' + coordText(b.coords) + '</span><br>' +
       (routes.length
         ? routes.map(function (r, i) {
@@ -306,6 +421,84 @@
   }
 
   /* ───────────────────────────── 이벤트 ───────────────────────────── */
+
+  /** 끌어서 이동 · 휠/핀치로 확대. viewBox 를 직접 움직인다. */
+  function bindMapGestures() {
+    var svg = $('#mapSvg');
+    var pointers = new Map();
+    var dragged = 0;
+    var pinch = 0;
+
+    function toMapUnits(dx, dy) {
+      var rect = svg.getBoundingClientRect();
+      return [dx * state.view.w / rect.width, dy * state.view.h / rect.height];
+    }
+
+    function eventToMap(clientX, clientY) {
+      var rect = svg.getBoundingClientRect();
+      return [state.view.x + (clientX - rect.left) / rect.width * state.view.w,
+              state.view.y + (clientY - rect.top) / rect.height * state.view.h];
+    }
+
+    svg.addEventListener('pointerdown', function (e) {
+      svg.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      dragged = 0;
+      pinch = 0;
+    });
+
+    svg.addEventListener('pointermove', function (e) {
+      var prev = pointers.get(e.pointerId);
+      if (!prev) return;
+      var pts = Array.from(pointers.values());
+
+      if (pointers.size >= 2) {
+        var before = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        pts = Array.from(pointers.values());
+        var after = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+        if (before > 8 && after > 8) {
+          var mid = eventToMap((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2);
+          pinch = 1;
+          zoomAt(after / before, mid[0], mid[1]);
+        }
+        return;
+      }
+
+      var d = toMapUnits(prev.x - e.clientX, prev.y - e.clientY);
+      state.view.x += d[0];
+      state.view.y += d[1];
+      dragged += Math.abs(prev.x - e.clientX) + Math.abs(prev.y - e.clientY);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      clampView();
+      applyView();
+    });
+
+    function release(e) {
+      pointers.delete(e.pointerId);
+      if (pointers.size === 0 && dragged < 6 && !pinch) {
+        var hit = e.target.closest('[data-boss]');
+        state.selected = hit ? hit.dataset.boss : null;
+        $$('#mapSvg .mk').forEach(function (g) {
+          g.classList.toggle('is-sel', !!hit && g.dataset.boss === hit.dataset.boss);
+        });
+        drawRoutes();
+        renderMapInfo();
+        applyView();
+      }
+    }
+
+    svg.addEventListener('pointerup', release);
+    svg.addEventListener('pointercancel', release);
+
+    svg.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      var at = eventToMap(e.clientX, e.clientY);
+      zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, at[0], at[1]);
+    }, { passive: false });
+
+    svg.addEventListener('dblclick', function () { resetView(); applyView(); });
+  }
 
   function bindChips(container, group, onChange) {
     container.addEventListener('click', function (e) {
@@ -325,6 +518,7 @@
         tab.classList.add('is-active');
         $$('.view').forEach(function (v) { v.hidden = true; });
         $('#view-' + tab.dataset.view).hidden = false;
+        if (tab.dataset.view === 'map' && state.map) applyView();
       });
     });
 
@@ -332,7 +526,12 @@
     bindChips($('#layerChips'), 'layer', function (v) { state.filter.layer = v; renderBosses(); renderMap(); });
     bindChips($('#stateChips'), 'state', function (v) { state.filter.state = v; renderBosses(); renderMap(); });
     bindChips($('#wpTypeChips'), 'wpType', function (v) { state.wpFilter.wpType = v; renderWaypoints(); });
-    bindChips($('#mapLayerChips'), 'mapLayer', function (v) { state.mapLayer = v; state.selected = null; renderMap(); renderMapInfo(); });
+    bindChips($('#mapLayerChips'), 'mapLayer', function (v) {
+      state.mapLayer = v;
+      state.selected = null;
+      renderMap();
+      renderMapInfo();
+    });
 
     $('#search').addEventListener('input', function (e) {
       state.filter.q = e.target.value.trim().toLowerCase();
@@ -410,12 +609,24 @@
       toast('🌑 붉은 달 — 처치 기록 ' + n + '건 초기화');
     });
 
-    // 지도 선택
-    $('#mapSvg').addEventListener('click', function (e) {
-      var c = e.target.closest('[data-boss]');
-      state.selected = c ? c.dataset.boss : null;
-      renderMap();
-      renderMapInfo();
+    bindMapGestures();
+
+    $('#zoomIn').addEventListener('click', function () {
+      zoomAt(1.6, state.view.x + state.view.w / 2, state.view.y + state.view.h / 2);
+    });
+    $('#zoomOut').addEventListener('click', function () {
+      zoomAt(1 / 1.6, state.view.x + state.view.w / 2, state.view.y + state.view.h / 2);
+    });
+    $('#zoomReset').addEventListener('click', function () { resetView(); applyView(); });
+
+    // 카드에서 지도로 보내기
+    $('#bossList').addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-focus]');
+      if (btn) focusOnMap(btn.dataset.focus);
+    });
+
+    window.addEventListener('resize', function () {
+      if (state.map && !$('#view-map').hidden) applyView();
     });
 
     // 내보내기 / 불러오기 / 초기화
@@ -486,18 +697,26 @@
       var chip = document.querySelector('#stateChips .chip[data-value="' + filter + '"]');
       if (chip) chip.click();
     }
+    var layer = params.get('layer');
+    if (layer) {
+      var lchip = document.querySelector('#mapLayerChips .chip[data-value="' + layer + '"]');
+      if (lchip) lchip.click();
+    }
   }
 
   function load() {
     return Promise.all([
       fetch('./data/bosses.json').then(function (r) { return r.json(); }),
-      fetch('./data/waypoints.json').then(function (r) { return r.json(); })
+      fetch('./data/waypoints.json').then(function (r) { return r.json(); }),
+      fetch('./data/map.json').then(function (r) { return r.json(); })
     ]);
   }
 
   load().then(function (res) {
     state.bosses = res[0];
     state.waypoints = res[1];
+    state.map = res[2];
+    resetView();
     state.kills = readSet(KEY.kills);
     state.unlocked = readSet(KEY.unlocked);
 

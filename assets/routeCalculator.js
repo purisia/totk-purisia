@@ -44,18 +44,17 @@
     'Depths>Depths': 0
   };
 
-  var LAYER_KO = { Sky: '하늘', Surface: '지상', Depths: '지하' };
+  var LAYER_KO = { Sky: '하늘', Surface: '지상', Depths: '지저' };
 
   function layerPenalty(from, to) {
     var key = from + '>' + to;
     return Object.prototype.hasOwnProperty.call(LAYER_PENALTY, key) ? LAYER_PENALTY[key] : 300;
   }
 
-  /** 워프 지점의 표시 이름 (예: "Lookout Landing 조망대") */
+  /** 워프 지점의 표시 이름 (예: "감시 요새 조망대") */
   function waypointLabel(w) {
-    if (w.type === 'Tower') {
-      return w.name.replace(/ Skyview Tower$/, '') + ' 조망대';
-    }
+    if (w.nameKo) return w.nameKo;
+    if (w.type === 'Tower') return w.name.replace(/ Skyview Tower$/, '') + ' 조망대';
     return w.name.replace(/ Shrine$/, '') + ' 사당';
   }
 

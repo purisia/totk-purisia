@@ -1,0 +1,13 @@
+{
+ "width": 1470,
+ "height": 1230,
+ "metersPerPixel": 8.0,
+ "originX": -5920.0,
+ "originY": 4960.0,
+ "source": "lud99/totk-unexplored romfs/map/*-small.png",
+ "layers": {
+  "Surface": "map-surface.webp",
+  "Sky": "map-sky.webp",
+  "Depths": "map-depths.webp"
+ }
+}

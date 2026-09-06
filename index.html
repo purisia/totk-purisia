@@ -15,6 +15,29 @@
 </head>
 <body>
 
+<!-- 보스 종류 아이콘: 라이넬=화살, 히녹스=외눈 몬스터, 바위록=수정 -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-lynel" viewBox="0 0 24 24">
+    <path d="M12 1.4 18.6 9.6h-3.5v6.1l2.6 2.9h-3.4L12 21.3l-2.3-2.7H6.3l2.6-2.9V9.6H5.4z"/>
+  </symbol>
+  <symbol id="i-hinox" viewBox="0 0 24 24">
+    <path d="M6.6 5.1 2.6 1.9l1.2 4.7zM17.4 5.1l4-3.2-1.2 4.7zM12 2.6c4.5 0 7.8 3.3 7.8 7.7 0 4.8-3.3 9-7.8 10.7-4.5-1.7-7.8-5.9-7.8-10.7C4.2 5.9 7.5 2.6 12 2.6z"/>
+    <circle cx="12" cy="9.7" r="3.5" fill="#0d1018"/>
+    <circle cx="12" cy="9.7" r="1.5"/>
+    <path d="M8.4 15.4h7.2l-1.2 1.5-1.2-1-1.2 1-1.2-1-1.2 1z" fill="#0d1018"/>
+  </symbol>
+  <symbol id="i-talus" viewBox="0 0 24 24">
+    <path d="M12 1.6 20.4 8.6 12 22.4 3.6 8.6z"/>
+    <path d="M12 1.6 8.6 8.6 12 22.4 15.4 8.6zM3.6 8.6h16.8" fill="none" stroke="#0d1018" stroke-width="1.1" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-tower" viewBox="0 0 24 24">
+    <path d="M12 1.8 16.8 9H7.2zM10.4 10.4h3.2v5.2h-3.2zM6 22l5-6h2l5 6z"/>
+  </symbol>
+  <symbol id="i-shrine" viewBox="0 0 24 24">
+    <path d="M12 3.4 19.4 12 12 20.6 4.6 12z"/>
+  </symbol>
+</svg>
+
 <header class="topbar">
   <div class="topbar__row">
     <h1 class="topbar__title"><span class="topbar__mark">◈</span> 하이랄 필드 보스 트래커</h1>
@@ -42,7 +65,7 @@
   <!-- ─────────────────────────────── 보스 ─────────────────────────────── -->
   <section id="view-bosses" class="view">
     <div class="filters">
-      <input id="search" class="filters__search" type="search" placeholder="이름 · 지역 검색 (예: Lynel, Akkala)" autocomplete="off">
+      <input id="search" class="filters__search" type="search" placeholder="이름 · 지역 검색 (예: 라이넬, 하테노, Lynel)" autocomplete="off">
       <div class="chips" id="typeChips" data-group="type">
         <button class="chip is-active" data-value="all" type="button">전체</button>
         <button class="chip" data-value="Lynel" type="button">라이넬</button>
@@ -53,7 +76,7 @@
         <button class="chip is-active" data-value="all" type="button">전 계층</button>
         <button class="chip" data-value="Sky" type="button">하늘</button>
         <button class="chip" data-value="Surface" type="button">지상</button>
-        <button class="chip" data-value="Depths" type="button">지하</button>
+        <button class="chip" data-value="Depths" type="button">지저</button>
       </div>
       <div class="chips" id="stateChips" data-group="state">
         <button class="chip is-active" data-value="all" type="button">전부</button>
@@ -77,7 +100,7 @@
   <!-- ────────────────────────── 워프 포인트 관리 ────────────────────────── -->
   <section id="view-waypoints" class="view" hidden>
     <div class="filters">
-      <input id="wpSearch" class="filters__search" type="search" placeholder="사당 · 조망대 검색" autocomplete="off">
+      <input id="wpSearch" class="filters__search" type="search" placeholder="사당 · 조망대 검색 (예: 감시 요새, 우코우호)" autocomplete="off">
       <div class="chips" id="wpTypeChips" data-group="wpType">
         <button class="chip is-active" data-value="all" type="button">전체</button>
         <button class="chip" data-value="Tower" type="button">조망대</button>
@@ -96,20 +119,28 @@
   <!-- ─────────────────────────────── 지도 ─────────────────────────────── -->
   <section id="view-map" class="view" hidden>
     <div class="chips chips--wide" id="mapLayerChips" data-group="mapLayer">
-      <button class="chip is-active" data-value="Surface" type="button">지상</button>
       <button class="chip" data-value="Sky" type="button">하늘</button>
-      <button class="chip" data-value="Depths" type="button">지하</button>
+      <button class="chip is-active" data-value="Surface" type="button">지상</button>
+      <button class="chip" data-value="Depths" type="button">지저</button>
     </div>
     <div class="maplegend">
-      <span><i class="dot dot--lynel"></i>라이넬</span>
-      <span><i class="dot dot--hinox"></i>히녹스</span>
-      <span><i class="dot dot--talus"></i>바위록</span>
-      <span><i class="dot dot--tower"></i>조망대</span>
-      <span><i class="dot dot--shrine"></i>해금 사당</span>
-      <span><i class="dot dot--dead"></i>처치 완료</span>
+      <span><svg class="ico ico--Lynel"><use href="#i-lynel"/></svg>라이넬</span>
+      <span><svg class="ico ico--Hinox"><use href="#i-hinox"/></svg>히녹스</span>
+      <span><svg class="ico ico--Talus"><use href="#i-talus"/></svg>바위록</span>
+      <span><svg class="ico ico--tower"><use href="#i-tower"/></svg>조망대</span>
+      <span><svg class="ico ico--shrine"><use href="#i-shrine"/></svg>해금 사당</span>
+      <span><svg class="ico ico--locked"><use href="#i-shrine"/></svg>미해금</span>
+      <span><svg class="ico ico--dead"><use href="#i-hinox"/></svg>처치 완료</span>
     </div>
-    <div class="mapwrap"><svg id="mapSvg" viewBox="0 0 1000 1000" role="img" aria-label="하이랄 보스 분포도"></svg></div>
-    <div id="mapInfo" class="mapinfo">지도의 점을 누르면 해당 보스의 추천 경로가 표시됩니다.</div>
+    <div class="mapwrap">
+      <svg id="mapSvg" role="img" aria-label="하이랄 보스 분포도"></svg>
+      <div class="mapzoom">
+        <button id="zoomIn" class="zbtn" type="button" aria-label="확대">+</button>
+        <button id="zoomOut" class="zbtn" type="button" aria-label="축소">−</button>
+        <button id="zoomReset" class="zbtn" type="button" aria-label="전체 보기">⤢</button>
+      </div>
+    </div>
+    <div id="mapInfo" class="mapinfo">지도의 아이콘을 누르면 추천 경로가 표시됩니다. 끌어서 이동, 휠·손가락으로 확대.</div>
   </section>
 
   <!-- ─────────────────────────────── 정보 ─────────────────────────────── -->
@@ -129,8 +160,9 @@
         <li><b>조망대</b>는 사출 고도 W<sub>z</sub> + 800m에서 출발해 패러세일 활강(수평 12m/s, 강하 4.5m/s → 활강비 약 2.67)으로 접근합니다.</li>
         <li><b>사당</b>은 보스보다 높으면 강하 이동(가중치 0.9배 우대), 낮으면 등반 상승에 3배 패널티를 부여합니다.</li>
         <li>활강으로 닿지 않는 잔여 거리는 도보(5.5m/s)로 계산합니다.</li>
-        <li><b>계층 이동</b> 패널티: 지상→지하 200초, 지하→지상 300초, 지상→하늘 240초 등. 하늘→지상은 그대로 낙하하므로 0초입니다.</li>
+        <li><b>계층 이동</b> 패널티: 지상→지저 200초, 지저→지상 300초, 지상→하늘 240초 등. 하늘→지상은 그대로 낙하하므로 0초입니다.</li>
         <li>동굴 내부 보스는 진입 시간 45초를 더합니다.</li>
+        <li>지도는 계층(하늘 · 지상 · 지저)별로 전환되며, 보스 아이콘을 누르면 추천 경로가 선으로 표시됩니다.</li>
       </ul>
       <p class="muted">
         계산 결과는 순위를 매기기 위한 추정치이며, 실제 지형(절벽·용암·상승기류)은 반영하지 않습니다.
@@ -138,9 +170,13 @@
 
       <h3>데이터 출처</h3>
       <ul>
-        <li><a href="https://github.com/lud99/totk-unexplored" rel="noopener">lud99/totk-unexplored</a> — 사당 152곳, 히녹스 69기, 바위록 87기, 빛뿌리 120곳</li>
+        <li><a href="https://github.com/lud99/totk-unexplored" rel="noopener">lud99/totk-unexplored</a> — 사당 152곳, 히녹스 69기, 바위록 87기, 빛뿌리 120곳, 계층별 지도 이미지</li>
         <li><a href="https://github.com/vetyst/TotK-Object-Map" rel="noopener">vetyst/TotK-Object-Map</a> — 라이넬 배치, 보스 종류 판별, 조망대 15곳</li>
+        <li><a href="https://www.gamertw.com/ko/zelda/totk/shrine" rel="noopener">gamertw.com 한국어판</a> — 사당·조망대·보스·지역의 한국어 표기</li>
       </ul>
+      <p class="muted">
+        지도 이미지와 명칭은 게임에서 추출한 자료입니다. 개인 용도로만 사용하세요.
+      </p>
 
       <h3>데이터 관리</h3>
       <div class="bulk">

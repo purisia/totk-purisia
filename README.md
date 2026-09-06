@@ -13,7 +13,8 @@
 - **붉은 달** — 버튼 한 번으로 처치 기록만 일괄 초기화(워프 해금 상태는 유지)
 - **워프 경로 추천** — 보스 카드마다 `🚀 추천: [Lookout Landing 조망대] (사출 후 활강 약 1분 12초)` 형태의 가이드와 2·3순위 대안
 - **워프 포인트 관리** — 사당 152곳 + 조망대 15곳의 해금 상태 개별/일괄 토글
-- **지도** — 계층별 보스 분포와 선택한 보스의 추천 경로를 SVG로 표시(외부 타일 없음)
+- **지도** — 하늘 · 지상 · 지저 3계층 지도 위에 보스와 워프 포인트를 표시. 끌어서 이동, 휠·핀치 확대, 아이콘을 누르면 추천 경로가 선으로 그려집니다. 보스 카드의 🗺 버튼을 누르면 지도가 해당 위치로 이동합니다.
+- **한국어 표기** — 사당 152곳, 조망대 15곳, 보스 종류, 지역 190곳 모두 게임의 한국어 명칭을 사용합니다
 - **오프라인 / 홈 화면 추가** — 서비스 워커가 앱 셸과 데이터를 전부 캐시
 - **기록 내보내기 / 불러오기** — JSON 파일로 백업·이전
 
@@ -52,11 +53,11 @@ tools/verify.js             데이터 · 계산기 검증 (CI에서 실행)
 
 계층 이동 패널티(초):
 
-| | → 하늘 | → 지상 | → 지하 |
+| | → 하늘 | → 지상 | → 지저 |
 | --- | --- | --- | --- |
 | **하늘에서** | 0 | 0 (그대로 낙하) | 260 |
 | **지상에서** | 240 | 0 | 200 |
-| **지하에서** | 420 | 300 | 0 |
+| **지저에서** | 420 | 300 | 0 |
 
 계산 흐름은 이렇습니다.
 
@@ -72,22 +73,24 @@ tools/verify.js             데이터 · 계산기 검증 (CI에서 실행)
 
 | 파일 | 내용 |
 | --- | --- |
-| `data/bosses.json` | 라이넬 34 · 히녹스 69 · 바위록 87 = **190기**. `id, type, name, nameKo, variant, region, layer, cave, coords[X,Y,Z]` |
-| `data/waypoints.json` | 사당 **152**(지상 120 / 하늘 32) + 조망대 **15**. `id, type, name, internalName, region, layer, coords[X,Y,Z]` |
+| `data/bosses.json` | 라이넬 34 · 히녹스 69 · 바위록 87 = **190기**. `id, type, name, nameKo, variant, region, regionKo, layer, cave, coords[X,Y,Z]` |
+| `data/waypoints.json` | 사당 **152**(지상 120 / 하늘 32) + 조망대 **15**. `id, type, name, nameKo, internalName, region, regionKo, layer, coords[X,Y,Z]` |
+| `data/map.json` + `data/map-*.webp` | 계층별 지도 배경과 좌표 → 픽셀 변환 기준값 |
 
 좌표는 게임 내 표시 좌표계입니다. `X` 동(+)/서(−), `Y` 북(+)/남(−), `Z` 고도.
 
 ### 출처와 재생성
 
-- [lud99/totk-unexplored](https://github.com/lud99/totk-unexplored) `romfs/map_data.json` — 사당 152, 빛뿌리 120, 히녹스 69, 바위록 87
+- [lud99/totk-unexplored](https://github.com/lud99/totk-unexplored) `romfs/map_data.json` — 사당 152, 빛뿌리 120, 히녹스 69, 바위록 87 / `romfs/map/*-small.png` — 계층별 지도 이미지
 - [vetyst/TotK-Object-Map](https://github.com/vetyst/TotK-Object-Map) `data/v1.2.0/` — 라이넬 배치, 보스 종류(액터명) 판별, 조망대 15곳, 지역명
+- [gamertw.com 한국어판](https://www.gamertw.com/ko/zelda/totk/shrine) — 페이지에 실린 i18n 사전에서 영문 → 한국어 표기 1,856쌍을 받아 `tools/ko-dict.json` 으로 고정. 사당 152/152, 조망대 15/15, 지역 190/190 이 이 사전으로 한글화된다
 
 두 덤프는 좌표계가 서로 다릅니다. 교차 대조로 확인한 변환은 이렇습니다.
 
 - `map_data.json`(엔진 좌표, y가 고도, 마커 오프셋 +105.5) → `(X, Y, Z) = (x, −z, y − 105.5)`
 - vetyst 덤프 → `(X, Y, Z) = (y, x, z)`
 
-사당의 계층은 **지상 사당 120곳이 지하의 빛뿌리 120곳과 1:1로 수직 대응한다**는
+사당의 계층은 **지상 사당 120곳이 지저의 빛뿌리 120곳과 1:1로 수직 대응한다**는
 성질을 이용해 판정합니다. 일대일 매칭 후 남는 32곳이 하늘 사당입니다.
 
 재생성하려면 원본 덤프를 받아 두고:
@@ -102,10 +105,24 @@ curl -LO $base/layers/depths.json
 curl -LO $base/layers/sky.json
 curl -LO $base/layers/cave.json
 
+# 지도 이미지
+curl -LO https://raw.githubusercontent.com/lud99/totk-unexplored/main/romfs/map/surface-small.png
+curl -LO https://raw.githubusercontent.com/lud99/totk-unexplored/main/romfs/map/sky-small.png
+curl -LO https://raw.githubusercontent.com/lud99/totk-unexplored/main/romfs/map/depths-small.png
+
 cd -                       # 저장소 루트로
 python tools/build_data.py /tmp/totk
+python tools/make_maps.py /tmp/totk
 node tools/verify.js
 ```
+
+### 지도 좌표 보정
+
+지도 이미지는 1500×1500 이고 게임 좌표 −6000..6000 을 덮는다(1픽셀 = 8m,
+이미지 중심 = 원점). `tools/make_maps.py` 가 여백을 잘라 1470×1230 WebP 로
+다시 인코딩하고, 그때의 기준점을 `data/map.json` 에 적어 둔다. 보정값은
+감시 요새 · 고론 시티 · 리토 마을 · 카카리코 · 하테노 · 루렐린 · 타레이 타운의
+좌표를 지도 위에 얹어 실제 위치와 일치하는 것을 확인해 정했다.
 
 ## 로컬 실행
 
@@ -135,6 +152,9 @@ node tools/verify.js
 
 ## 라이선스
 
-코드는 MIT입니다. 좌표 데이터는 위 오픈소스 프로젝트의 덤프에서 가공했으며,
-젤다의 전설 및 관련 명칭은 닌텐도의 상표입니다. 이 프로젝트는 팬 제작물로
+코드는 MIT입니다. 좌표 데이터는 위 오픈소스 프로젝트의 덤프에서 가공했습니다.
+
+`data/map-*.webp` 의 지도 이미지와 게임 내 명칭은 닌텐도의 저작물을 추출·가공한
+것이므로 재배포·상업적 이용에는 적합하지 않습니다. 개인 용도로만 사용하세요.
+젤다의 전설 및 관련 명칭은 닌텐도의 상표이며, 이 프로젝트는 팬 제작물로
 닌텐도와 무관합니다.

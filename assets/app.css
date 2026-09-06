@@ -415,41 +415,117 @@ main { padding: .5rem 1rem 0; }
 .wp__type { font-size: .7rem; color: var(--text-faint); }
 
 /* ───────────────────────────── 지도 ───────────────────────────── */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.ico {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  fill: currentColor;
+}
+
+.ico--Lynel { color: var(--lynel); }
+.ico--Hinox { color: var(--hinox); }
+.ico--Talus { color: var(--talus); }
+.ico--tower { color: var(--tower); }
+.ico--shrine { color: var(--shrine); }
+.ico--dead { color: #4a5668; }
+
+.card__icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin-top: .15rem;
+  fill: currentColor;
+}
+
+.card__map {
+  flex: none;
+  align-self: flex-start;
+  padding: .1rem .3rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: var(--bg-soft);
+  color: var(--text-faint);
+  font-size: .85rem;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.card__map:hover { border-color: var(--accent-dim); color: var(--accent); }
+
 .maplegend {
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem .9rem;
+  gap: .4rem .9rem;
   margin-bottom: .5rem;
   font-size: .74rem;
   color: var(--text-dim);
 }
 
-.maplegend span { display: inline-flex; align-items: center; gap: .3rem; }
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.dot--lynel { background: var(--lynel); }
-.dot--hinox { background: var(--hinox); }
-.dot--talus { background: var(--talus); }
-.dot--tower { background: var(--tower); }
-.dot--shrine { background: var(--shrine); }
-.dot--dead { background: #3a4658; }
+.maplegend span { display: inline-flex; align-items: center; gap: .28rem; }
+.ico--locked { color: #5d6a7d; }
 
 .mapwrap {
+  position: relative;
+  aspect-ratio: 1470 / 1230;
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
-  background:
-    radial-gradient(circle at 50% 45%, #16202e 0%, #0d131c 75%);
+  background: #05070c;
   overflow: hidden;
+  touch-action: none;
 }
 
-#mapSvg { display: block; width: 100%; height: auto; touch-action: manipulation; }
-#mapSvg circle { cursor: pointer; }
+#mapSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+#mapSvg:active { cursor: grabbing; }
+/* 지저 지도는 원본이 밝은 장기(瘴気) 표현이라 어둡게 눌러 마커를 살린다 */
+#mapSvg .mapimg--Depths { filter: brightness(.52) saturate(.55); }
+#mapSvg .mapimg--Sky { filter: brightness(1.05) saturate(1.1); }
+#mapSvg .mk { cursor: pointer; }
+
+/* 지도 배경은 밝은 곳도 어두운 곳도 있으니, 아이콘마다 어두운 테두리를
+   둘러 어디에서든 읽히게 한다 */
+#mapSvg .mk use {
+  stroke: rgba(5, 9, 15, .85);
+  stroke-width: 1.4;
+  paint-order: stroke;
+}
+#mapSvg .mk--wp { pointer-events: none; }
+
+#mapSvg .mk.is-sel use {
+  stroke: #fff;
+  stroke-width: 1.6;
+  paint-order: stroke;
+}
+
+.mapzoom {
+  position: absolute;
+  right: .5rem;
+  bottom: .5rem;
+  display: grid;
+  gap: .25rem;
+}
+
+.zbtn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(11, 16, 24, .82);
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.zbtn:hover { border-color: var(--accent-dim); color: var(--accent); }
 
 .mapinfo {
   margin: .6rem 0 0;
