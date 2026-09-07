@@ -673,12 +673,83 @@
     $('#coordBox').textContent = Math.round(g[0]) + ' | ' + Math.round(g[1]);
   }
 
+  /* ─────────────────────── zeldamaps 링크 호환 ─────────────────────── */
+  /*
+   * zeldamaps.com 은 우리와 같은 게임 좌표(X 동+, Y 북+)를 주소에 쓴다.
+   *   https://zeldamaps.com/?game=TotK&map=2101&subMap=2101&zoom=5&x=-2755&y=2503
+   * map 번호는 zeldamaps 의 ajax.php?command=get_map&game=21 응답에서 확인했다.
+   */
+  var ZM_LAYER = { '2101': 'Surface', '2102': 'Sky', '2103': 'Depths' };
+
+  // zeldamaps 는 Leaflet 플랫맵이라 zoom 0 에서 12000 게임 유닛이 타일 256px 에
+  // 들어간다. 화면 폭에 맞춰 같은 축척이 되도록 환산한다(근사치).
+  var ZM_WORLD = 12000, ZM_TILE = 256;
+
+  function zmViewWidth(zoom) {
+    var rect = $('#mapSvg').getBoundingClientRect();
+    var px = rect.width || 430;
+    var spanUnits = px * ZM_WORLD / (ZM_TILE * Math.pow(2, zoom));
+    return spanUnits / state.map.metersPerPixel;
+  }
+
+  /** 주소(또는 붙여넣은 URL)의 zeldamaps 파라미터를 읽는다. */
+  function parseZeldaMaps(params) {
+    var mapId = params.get('map') || params.get('subMap');
+    var x = parseFloat(params.get('x'));
+    var y = parseFloat(params.get('y'));
+    var zoom = parseFloat(params.get('zoom'));
+    if (!isFinite(x) || !isFinite(y)) return null;
+    return {
+      layer: ZM_LAYER[mapId] || null,
+      x: x,
+      y: y,
+      zoom: isFinite(zoom) ? zoom : null
+    };
+  }
+
+  /** 좌표(+계층)로 지도를 옮긴다. */
+  function goTo(spot) {
+    if (spot.layer && state.mapLayer !== spot.layer) {
+      state.mapLayer = spot.layer;
+      $$('#mapLayerChips .chip').forEach(function (c) {
+        c.classList.toggle('is-active', c.dataset.value === spot.layer);
+      });
+    }
+    if (spot.zoom !== null && spot.zoom !== undefined) state.view.w = zmViewWidth(spot.zoom);
+    clampView();
+    state.view.x = toMapX(spot.x) - state.view.w / 2;
+    state.view.y = toMapY(spot.y) - state.view.h / 2;
+    clampView();
+    state.sel = null;
+    renderMap();
+    renderMapInfo();
+  }
+
   /* ─────────────────────────── 지도 검색 ─────────────────────────── */
 
   function renderSearch(q) {
     var box = $('#mapSearchResults');
     q = (q || '').trim().toLowerCase();
     if (!q) { box.innerHTML = ''; return; }
+
+    // zeldamaps 링크(또는 x/y 가 든 주소)를 붙여넣으면 그 지점으로 보낸다
+    if (q.indexOf('x=') >= 0 && q.indexOf('y=') >= 0) {
+      var spot = null;
+      try {
+        var qs = q.slice(q.indexOf('?') + 1);
+        spot = parseZeldaMaps(new URLSearchParams(qs));
+      } catch (e) { spot = null; }
+      if (spot) {
+        box.innerHTML = '<button class="sr" type="button" data-spot="' +
+          esc(JSON.stringify(spot)) + '">' +
+          '<span class="sr__pin" style="background:#46d5e8"><svg><use href="#i-tower"/></svg></span>' +
+          '<span class="sr__txt"><b>이 좌표로 이동</b><span>' +
+          (spot.layer ? LAYER_KO[spot.layer] + ' · ' : '') +
+          Math.round(spot.x) + ', ' + Math.round(spot.y) +
+          (spot.zoom !== null ? ' · zoom ' + spot.zoom : '') + '</span></span></button>';
+        return;
+      }
+    }
 
     var hits = [];
     state.bosses.forEach(function (b) {
@@ -994,6 +1065,15 @@
     $('#mapSearch').addEventListener('input', function (e) { renderSearch(e.target.value); });
 
     $('#mapSearchResults').addEventListener('click', function (e) {
+      var spotBtn = e.target.closest('[data-spot]');
+      if (spotBtn) {
+        var spot = JSON.parse(spotBtn.dataset.spot);
+        clearSearch();
+        openDrawer(false);
+        goTo(spot);
+        toast('zeldamaps 좌표로 이동했습니다');
+        return;
+      }
       var btn = e.target.closest('[data-goto]');
       if (!btn) return;
       var parts = btn.dataset.goto.split(':');
@@ -1124,6 +1204,12 @@
       var parts = sel.split(':');
       var found = parts[0] === 'boss' ? findBoss(parts[1]) : findWaypoint(parts[1]);
       if (found) state.sel = { kind: parts[0], id: parts[1] };
+    }
+
+    // zeldamaps 주소(map=2101&zoom=5&x=..&y=..)를 그대로 붙여넣어도 열린다
+    if (params.get('map') || params.get('zoom')) {
+      var spot = parseZeldaMaps(params);
+      if (spot) { goTo(spot); return; }
     }
 
     var x = parseFloat(params.get('x'));

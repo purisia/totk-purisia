@@ -256,6 +256,14 @@ check('마커 선택을 pointerdown 시점의 대상으로 판정',
 check('새 서비스 워커가 뜨면 새로고침해 최신 코드를 씀',
   appJs.includes('controllerchange') && appJs.includes('location.reload'));
 
+// zeldamaps 링크 호환 — map 번호는 그쪽 API 에서 확인한 값이다
+check('zeldamaps map 번호가 계층에 대응',
+  /'2101': 'Surface'/.test(appJs) && /'2102': 'Sky'/.test(appJs) &&
+  /'2103': 'Depths'/.test(appJs));
+check('zeldamaps 주소를 열거나 붙여넣으면 이동',
+  appJs.includes('parseZeldaMaps') && appJs.includes('data-spot') &&
+  appJs.includes('zmViewWidth'));
+
 check('지도 상태가 주소창에 반영됨',
   appJs.includes('syncUrl') && appJs.includes('history.replaceState'));
 check('주소창의 layer/x/y/z/sel 을 복원함',
