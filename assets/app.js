@@ -23,6 +23,7 @@
   var state = {
     bosses: [],
     waypoints: [],
+    labels: [],          // 지도에 얹는 지명
     kills: new Set(),
     unlocked: new Set(),
     routes: new Map(),      // bossId -> 추천 경로 배열
@@ -153,10 +154,13 @@
     return !(state.hideDone && state.kills.has(b.id));
   }
 
-  /** 지도에 이 워프 지점을 그릴지 */
+  /**
+   * 지도에 이 워프 지점을 그릴지.
+   * "처치 완료 숨기기"는 처치한 보스만 숨긴다. 워프 지점까지 숨기면
+   * 전부 해금한 상태에서 지도가 텅 비어 버린다.
+   */
   function mapShowsWaypoint(w) {
-    if (w.layer !== state.mapLayer || !state.cats[w.type]) return false;
-    return !(state.hideDone && state.unlocked.has(w.id));
+    return w.layer === state.mapLayer && state.cats[w.type];
   }
 
   function bestSeconds(b) {
@@ -288,10 +292,10 @@
   /** 화면에서 보고 싶은 마커 크기(px) — 축소했을 때는 작게, 확대하면 크게 */
   function markerScale() {
     var zoom = fitWidth() / state.view.w;                  // 1 = 전체 보기
-    var px = Math.max(11, Math.min(26, 11 * Math.pow(zoom, 0.45)));
+    var px = Math.max(14, Math.min(34, 14 * Math.pow(zoom, 0.45)));
     var rect = $('#mapSvg').getBoundingClientRect();
     var perPx = (rect.width || 360) / state.view.w;         // 화면 px / 지도 단위
-    return px / perPx / 24;                                 // 심볼 viewBox 가 24
+    return px / perPx / 34;                                 // 핀 높이가 34
   }
 
   /** 지도 영역의 화면 비율 (세로/가로) */
@@ -341,6 +345,8 @@
     var routes = svg.querySelector('#mapRoutes');
     if (routes) routes.setAttribute('stroke-width', (v.w / 260).toFixed(2));
 
+    renderLabels();
+
     var c = viewCenterGame();
     $('#coordBox').textContent = Math.round(c[0]) + ' | ' + Math.round(c[1]);
     syncUrl();
@@ -373,18 +379,77 @@
   }
 
   /**
-   * 지도 마커 한 개. 색 원 안에 흰 글리프를 넣은 핀 모양이라
-   * 밝은 지저 지도에서도 어두운 지상 지도에서도 똑같이 읽힌다.
+   * 지도 마커 한 개. 색 핀에 흰 글리프를 얹은 물방울 모양이라
+   * 밝은 지저 지도에서도 어두운 지상 지도에서도 똑같이 읽히고,
+   * 핀의 뾰족한 끝이 실제 좌표를 정확히 가리킨다.
    */
   function marker(id, kind, x, y, opts) {
-    var done = opts.done;
     return '<g class="mk' + (opts.extra || '') + '" data-mx="' + x.toFixed(1) +
       '" data-my="' + y.toFixed(1) + '" data-kind="' + kind + '" data-id="' + id + '">' +
-      '<circle class="mk__pin" r="12" fill="' + opts.color +
-        '" opacity="' + (opts.dim ? 0.5 : 1) + '"/>' +
-      '<use class="mk__ico" href="' + opts.icon + '" x="-8" y="-8" width="16" height="16" ' +
-        'fill="' + (opts.dark ? '#cfd8e6' : '#0d141f') + '" opacity="' + (opts.dim ? 0.85 : 1) + '"/>' +
+      '<use class="mk__pin" href="#i-pin" x="-14" y="-34" width="28" height="34" fill="' +
+        opts.color + '" opacity="' + (opts.dim ? 0.55 : 1) + '"/>' +
+      '<use class="mk__ico" href="' + opts.icon + '" x="-7.4" y="-27.2" width="14.8" height="14.8" ' +
+        'fill="#fff" opacity="' + (opts.dim ? 0.75 : 1) + '"/>' +
+      '<circle class="mk__hit" cy="-19" r="14" fill="transparent"/>' +
       '<title>' + esc(opts.title) + '</title></g>';
+  }
+
+  /**
+   * 지명을 지도에 얹는다. 화면 좌표로 일정 간격 이상 떨어진 것만 남겨
+   * 확대할수록 촘촘한 지명이 드러나게 한다.
+   */
+  var lastLabelView = null;
+
+  function renderLabels(force) {
+    var g = $('#mapSvg').querySelector('#mapLabels');
+    if (!g || !state.labels.length) return;
+
+    var v = state.view;
+    // 라벨은 지도 좌표에 놓이므로 viewBox 를 움직이면 저절로 따라간다.
+    // 새 영역이 드러났거나 배율이 바뀔 때만 다시 고르면 된다.
+    if (!force && lastLabelView &&
+        lastLabelView.w === v.w &&
+        Math.abs(lastLabelView.x - v.x) < v.w * 0.25 &&
+        Math.abs(lastLabelView.y - v.y) < v.h * 0.25) {
+      return;
+    }
+    lastLabelView = { x: v.x, y: v.y, w: v.w };
+
+    var rect = $('#mapSvg').getBoundingClientRect();
+    var perPx = (rect.width || 430) / v.w;          // 화면 px / 지도 단위
+    var zoom = fitWidth() / v.w;
+
+    if (zoom < 1.6) { g.innerHTML = ''; return; }   // 많이 축소하면 글씨를 뺀다
+
+    var fontPx = Math.max(10, Math.min(14, 9 + zoom));
+    var font = fontPx / perPx;                      // 지도 단위 글자 크기
+    var minGap = 74 / perPx;                        // 라벨끼리 최소 간격
+
+    var kept = [];
+    var parts = [];
+    for (var i = 0; i < state.labels.length; i++) {
+      var l = state.labels[i];
+      if (l.layer !== state.mapLayer) continue;
+      var x = toMapX(l.coords[0]);
+      var y = toMapY(l.coords[1]);
+      var padX = v.w * 0.3, padY = v.h * 0.3;
+      if (x < v.x - padX || x > v.x + v.w + padX ||
+          y < v.y - padY || y > v.y + v.h + padY) continue;
+
+      var clash = false;
+      for (var k = 0; k < kept.length; k++) {
+        if (Math.abs(kept[k][0] - x) < minGap && Math.abs(kept[k][1] - y) < minGap * 0.5) {
+          clash = true;
+          break;
+        }
+      }
+      if (clash) continue;
+      kept.push([x, y]);
+      parts.push('<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) +
+                 '" font-size="' + font.toFixed(2) + '">' + esc(l.nameKo) + '</text>');
+      if (kept.length > 90) break;
+    }
+    g.innerHTML = parts.join('');
   }
 
   function renderMap() {
@@ -399,6 +464,7 @@
         'markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">' +
         '<path d="M0 0 L10 5 L0 10 Z" fill="#7ef0ff"/></marker></defs>',
       '<g id="mapRoutes" fill="none" stroke="#7ef0ff" stroke-linecap="round"></g>',
+      '<g id="mapLabels" text-anchor="middle"></g>',
       '<g id="mapMarkers">'
     ];
 
@@ -409,8 +475,7 @@
       var on = state.unlocked.has(w.id);
       parts.push(marker(w.id, 'wp', toMapX(w.coords[0]), toMapY(w.coords[1]), {
         icon: w.type === 'Tower' ? '#i-tower' : '#i-shrine',
-        color: on ? (w.type === 'Tower' ? '#46d5e8' : '#a8bcd6') : '#3d4859',
-        dark: !on,          // 미해금 핀은 어두우니 글리프를 밝게
+        color: on ? (w.type === 'Tower' ? '#2fb6d6' : '#7f9fc4') : '#46536a',
         dim: !on,
         title: RC.waypointLabel(w) + (on ? '' : ' (미해금)'),
         extra: ' mk--wp' + (selected('wp', w.id) ? ' is-sel' : '') + (on ? '' : ' is-locked')
@@ -423,8 +488,7 @@
       var killed = state.kills.has(b.id);
       parts.push(marker(b.id, 'boss', toMapX(b.coords[0]), toMapY(b.coords[1]), {
         icon: TYPE_ICON[b.type],
-        color: killed ? '#4d5a6d' : TYPE_COLOR[b.type],
-        dark: killed,
+        color: killed ? '#46536a' : TYPE_COLOR[b.type],
         dim: killed,
         title: b.nameKo + ' · ' + b.regionKo,
         extra: (selected('boss', b.id) ? ' is-sel' : '') + (killed ? ' is-dead' : '')
@@ -433,6 +497,7 @@
 
     parts.push('</g>');
     $('#mapSvg').innerHTML = parts.join('');
+    lastLabelView = null;
     drawRoutes();
     applyView();
   }
@@ -681,14 +746,14 @@
    */
   var ZM_LAYER = { '2101': 'Surface', '2102': 'Sky', '2103': 'Depths' };
 
-  // zeldamaps 는 Leaflet 플랫맵이라 zoom 0 에서 12000 게임 유닛이 타일 256px 에
-  // 들어간다. 화면 폭에 맞춰 같은 축척이 되도록 환산한다(근사치).
-  var ZM_WORLD = 12000, ZM_TILE = 256;
+  // zeldamaps 의 게임 설정(ajax.php?command=get_container&game=21)에 있는
+  // scaleP = 0.0117188 이 "줌 0에서 1픽셀당 게임 유닛"의 역수다.
+  var ZM_UNITS_PER_PX0 = 1 / 0.0117188;   // 약 85.33
 
   function zmViewWidth(zoom) {
     var rect = $('#mapSvg').getBoundingClientRect();
     var px = rect.width || 430;
-    var spanUnits = px * ZM_WORLD / (ZM_TILE * Math.pow(2, zoom));
+    var spanUnits = px * ZM_UNITS_PER_PX0 / Math.pow(2, zoom);
     return spanUnits / state.map.metersPerPixel;
   }
 
@@ -1230,7 +1295,8 @@
     return Promise.all([
       fetch('./data/bosses.json').then(function (r) { return r.json(); }),
       fetch('./data/waypoints.json').then(function (r) { return r.json(); }),
-      fetch('./data/map.json').then(function (r) { return r.json(); })
+      fetch('./data/map.json').then(function (r) { return r.json(); }),
+      fetch('./data/labels.json').then(function (r) { return r.json(); })
     ]);
   }
 
@@ -1238,6 +1304,7 @@
     state.bosses = res[0];
     state.waypoints = res[1];
     state.map = res[2];
+    state.labels = res[3];
     resetView();
     state.kills = readSet(KEY.kills);
     state.unlocked = readSet(KEY.unlocked);

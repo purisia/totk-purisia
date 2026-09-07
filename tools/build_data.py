@@ -247,8 +247,31 @@ for i, (raw, name, P) in enumerate(towers, 1):
         "coords": list(P),
     })
 
+# ------------------------------------------------------------- 지역 이름 ---
+# 지도에 얹을 지명. 계층은 vetyst 의 locations.json 이 계층별로 나뉘어 있으니
+# 이름을 맞춰 가져온다. 한국어 표기가 없는 이름은 싣지 않는다.
+name_layer = {}
+for lay, entries in loc.items():
+    for e in entries:
+        name_layer.setdefault(e["name"], lay.capitalize())
+
+labels = []
+for e in md["locations"]:
+    name = e["display_name"]
+    if name in NOT_A_REGION or name not in KO:
+        continue
+    P = md_ig(e["position"])
+    labels.append({
+        "name": name,
+        "nameKo": KO[name],
+        "layer": name_layer.get(name, layer_of(P)),
+        "coords": list(P),
+    })
+labels.sort(key=lambda l: (l["layer"], l["nameKo"]))
+
 os.makedirs(OUT, exist_ok=True)
-for name, payload in [("bosses.json", bosses), ("waypoints.json", waypoints)]:
+for name, payload in [("bosses.json", bosses), ("waypoints.json", waypoints),
+                      ("labels.json", labels)]:
     with open(os.path.join(OUT, name), "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
@@ -257,3 +280,4 @@ print("bosses", len(bosses), dict(Counter(b["type"] for b in bosses)),
       dict(Counter(b["layer"] for b in bosses)))
 print("waypoints", len(waypoints), dict(Counter(w["type"] for w in waypoints)),
       dict(Counter(w["layer"] for w in waypoints)))
+print("labels", len(labels), dict(Counter(l["layer"] for l in labels)))

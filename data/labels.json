@@ -1,0 +1,2942 @@
+[
+ {
+  "name": "Corvash Canyon Mine",
+  "nameKo": "가마기 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -3322.2,
+   2359.3,
+   -775.8
+  ]
+ },
+ {
+  "name": "Canyon of Awakening Mine",
+  "nameKo": "각성의 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   2934.8,
+   -1403.9,
+   -839.4
+  ]
+ },
+ {
+  "name": "Giant's Grove",
+  "nameKo": "거인의 수해",
+  "layer": "Depths",
+  "coords": [
+   -1165.4,
+   -151.7,
+   -601.9
+  ]
+ },
+ {
+  "name": "Abandoned Gerudo Mine",
+  "nameKo": "겔드 폐광",
+  "layer": "Depths",
+  "coords": [
+   -3815.9,
+   -2889.5,
+   -382.6
+  ]
+ },
+ {
+  "name": "Gerudo Dark Skeleton",
+  "nameKo": "겔드의 어둠 화석",
+  "layer": "Depths",
+  "coords": [
+   -4619.0,
+   -3684.9,
+   -529.9
+  ]
+ },
+ {
+  "name": "Gerudo Underground Cemetery",
+  "nameKo": "겔드의 지하 묘지",
+  "layer": "Depths",
+  "coords": [
+   -4098.5,
+   -3737.2,
+   -529.5
+  ]
+ },
+ {
+  "name": "Ancient Observation Deck",
+  "nameKo": "고대 지하 전망대",
+  "layer": "Depths",
+  "coords": [
+   2589.3,
+   -3504.1,
+   -629.8
+  ]
+ },
+ {
+  "name": "Ancient Underground Fortress",
+  "nameKo": "고대의 지하 요새",
+  "layer": "Depths",
+  "coords": [
+   3310.3,
+   1523.0,
+   -478.2
+  ]
+ },
+ {
+  "name": "Lone Island Coliseum",
+  "nameKo": "고도의 투기장",
+  "layer": "Depths",
+  "coords": [
+   4563.1,
+   -3603.6,
+   -348.8
+  ]
+ },
+ {
+  "name": "Construct Factory",
+  "nameKo": "골렘 제조실",
+  "layer": "Depths",
+  "coords": [
+   868.7,
+   -2174.2,
+   -570.7
+  ]
+ },
+ {
+  "name": "Crenel Canyon Mine",
+  "nameKo": "공글 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   1154.1,
+   381.1,
+   -522.7
+  ]
+ },
+ {
+  "name": "Gustaf Canyon Mine",
+  "nameKo": "구스타프 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -962.4,
+   210.1,
+   -593.5
+  ]
+ },
+ {
+  "name": "Gleeok Den",
+  "nameKo": "그리오크의 둥지",
+  "layer": "Depths",
+  "coords": [
+   331.0,
+   3111.2,
+   -458.1
+  ]
+ },
+ {
+  "name": "Ginner Grove",
+  "nameKo": "기너비의 수해",
+  "layer": "Depths",
+  "coords": [
+   3219.9,
+   -2056.7,
+   -594.7
+  ]
+ },
+ {
+  "name": "Nabooru Canyon Mine",
+  "nameKo": "나볼 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -1801.6,
+   -2088.7,
+   -602.8
+  ]
+ },
+ {
+  "name": "Abandoned Lurelin Mine",
+  "nameKo": "나크시 폐광",
+  "layer": "Depths",
+  "coords": [
+   2967.0,
+   -3605.9,
+   -305.5
+  ]
+ },
+ {
+  "name": "South Lomei Depths Labyrinth",
+  "nameKo": "남쪽 로미 지하층",
+  "layer": "Depths",
+  "coords": [
+   -1795,
+   -3579.2,
+   -538.8
+  ]
+ },
+ {
+  "name": "Ploymus Canyon Mine",
+  "nameKo": "뇌수 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   3780.9,
+   504.1,
+   -1036.3
+  ]
+ },
+ {
+  "name": "Daphnes Canyon Mine",
+  "nameKo": "다프네스 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -1065.4,
+   -573.9,
+   -481.9
+  ]
+ },
+ {
+  "name": "Cliff Bargainer Statue",
+  "nameKo": "단애의 마인상",
+  "layer": "Depths",
+  "coords": [
+   -1034.0,
+   2679.1,
+   -237.9
+  ]
+ },
+ {
+  "name": "Dalite Grove",
+  "nameKo": "달라이트 수해",
+  "layer": "Depths",
+  "coords": [
+   -2119.9,
+   -1088.8,
+   -444.6
+  ]
+ },
+ {
+  "name": "Smithing Construct",
+  "nameKo": "대장장이 골렘",
+  "layer": "Depths",
+  "coords": [
+   1356.9,
+   -3375.8,
+   -737.5
+  ]
+ },
+ {
+  "name": "Dunsel Canyon Mine",
+  "nameKo": "더스키 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   3152.5,
+   -3276.3,
+   -709.3
+  ]
+ },
+ {
+  "name": "Midla Grove",
+  "nameKo": "도르미의 수해",
+  "layer": "Depths",
+  "coords": [
+   3114.3,
+   -2187.1,
+   -572.8
+  ]
+ },
+ {
+  "name": "Lanayru Canyon Mine",
+  "nameKo": "라넬 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   4003.3,
+   -1379.2,
+   -743.1
+  ]
+ },
+ {
+  "name": "Abandoned Lanayru Mine",
+  "nameKo": "라넬 폐광",
+  "layer": "Depths",
+  "coords": [
+   3170.5,
+   935.9,
+   -676.8
+  ]
+ },
+ {
+  "name": "Lindor Canyon Mine",
+  "nameKo": "라브라 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -2006.4,
+   1326.7,
+   -711.0
+  ]
+ },
+ {
+  "name": "Lomei Depths Labyrinth",
+  "nameKo": "로미섬 지하층",
+  "layer": "Depths",
+  "coords": [
+   4661.6,
+   3564.7,
+   -401.0
+  ]
+ },
+ {
+  "name": "Rhoam Canyon Mine",
+  "nameKo": "로암 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -2687.2,
+   785.1,
+   -783.2
+  ]
+ },
+ {
+  "name": "Rozudo Canyon Mine",
+  "nameKo": "로즈우드 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   2367.6,
+   -2200.7,
+   -597.2
+  ]
+ },
+ {
+  "name": "Blupee Burrow",
+  "nameKo": "루미의 굴",
+  "layer": "Depths",
+  "coords": [
+   -2288.0,
+   -367.0,
+   -893.6
+  ]
+ },
+ {
+  "name": "Ruto Canyon Mine",
+  "nameKo": "루토 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   3294.3,
+   -31.5,
+   -840.7
+  ]
+ },
+ {
+  "name": "Madorna Canyon Mine",
+  "nameKo": "마드로나 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   3888.8,
+   -1668.5,
+   -865.4
+  ]
+ },
+ {
+  "name": "Granajh Canyon Mine",
+  "nameKo": "모르가나 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -1380.5,
+   -3363.5,
+   -952.3
+  ]
+ },
+ {
+  "name": "Daval Canyon Mine",
+  "nameKo": "모르다바 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -1390.6,
+   -3603.9,
+   -917.5
+  ]
+ },
+ {
+  "name": "Goflam's Lavafalls",
+  "nameKo": "민블러의 용암 폭포",
+  "layer": "Depths",
+  "coords": [
+   -3398.9,
+   3612,
+   -810.1
+  ]
+ },
+ {
+  "name": "Forest Coliseum",
+  "nameKo": "밀림의 투기장",
+  "layer": "Depths",
+  "coords": [
+   -114.7,
+   2433,
+   -633.3
+  ]
+ },
+ {
+  "name": "Secluded Coliseum",
+  "nameKo": "벽지의 투기장",
+  "layer": "Depths",
+  "coords": [
+   2242.3,
+   -1877.9,
+   -345.4
+  ]
+ },
+ {
+  "name": "Bubinga Grove",
+  "nameKo": "부빈가의 수해",
+  "layer": "Depths",
+  "coords": [
+   2019.7,
+   -2102.3,
+   -601.3
+  ]
+ },
+ {
+  "name": "North Lomei Depths Labyrinth",
+  "nameKo": "북쪽 로미 지하층",
+  "layer": "Depths",
+  "coords": [
+   -814.8,
+   3434.0,
+   -682.8
+  ]
+ },
+ {
+  "name": "Applean Grove",
+  "nameKo": "사과의 수해",
+  "layer": "Depths",
+  "coords": [
+   553.5,
+   259.8,
+   -610.3
+  ]
+ },
+ {
+  "name": "Desert Coliseum",
+  "nameKo": "사막의 투기장",
+  "layer": "Depths",
+  "coords": [
+   -4314,
+   -3802.1,
+   -361.6
+  ]
+ },
+ {
+  "name": "Floating Coliseum",
+  "nameKo": "수상 투기장",
+  "layer": "Depths",
+  "coords": [
+   -1151.5,
+   -1205.0,
+   -376.7
+  ]
+ },
+ {
+  "name": "Rist Mine",
+  "nameKo": "스핀 갱도",
+  "layer": "Depths",
+  "coords": [
+   4579.9,
+   2143.3,
+   -286.8
+  ]
+ },
+ {
+  "name": "Grove of Time",
+  "nameKo": "시간의 수해",
+  "layer": "Depths",
+  "coords": [
+   -383.4,
+   -1544.1,
+   -515.7
+  ]
+ },
+ {
+  "name": "Abandoned Tarrey Mine",
+  "nameKo": "시자기 폐광",
+  "layer": "Depths",
+  "coords": [
+   3968.8,
+   1715.3,
+   -305.5
+  ]
+ },
+ {
+  "name": "Dueling Canyons Mine",
+  "nameKo": "쌍둥이 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   1294.5,
+   -1850.1,
+   -685.7
+  ]
+ },
+ {
+  "name": "Agaat Canyon Mine",
+  "nameKo": "아게트 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -4785.7,
+   -728.3,
+   -1214.8
+  ]
+ },
+ {
+  "name": "Ebon Canyon Mine",
+  "nameKo": "에보니 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   3328.7,
+   -2513.9,
+   -777.1
+  ]
+ },
+ {
+  "name": "Retsam Grove",
+  "nameKo": "엑스퍼의 수해",
+  "layer": "Depths",
+  "coords": [
+   3832.1,
+   -2027.7,
+   -458.2
+  ]
+ },
+ {
+  "name": "Drena Canyon Mine",
+  "nameKo": "오르나 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -561.3,
+   2583.9,
+   -843.7
+  ]
+ },
+ {
+  "name": "Right-Leg Depot",
+  "nameKo": "오른발의 창고",
+  "layer": "Depths",
+  "coords": [
+   1143.6,
+   -2116.6,
+   -440.1
+  ]
+ },
+ {
+  "name": "Right-Arm Depot",
+  "nameKo": "오른팔의 창고",
+  "layer": "Depths",
+  "coords": [
+   569.1,
+   -2111.6,
+   -508.9
+  ]
+ },
+ {
+  "name": "Rok Grove",
+  "nameKo": "옥타의 수해",
+  "layer": "Depths",
+  "coords": [
+   3358.7,
+   3079.3,
+   -604.7
+  ]
+ },
+ {
+  "name": "Abandoned Eldin Mine",
+  "nameKo": "올딘 폐광",
+  "layer": "Depths",
+  "coords": [
+   1649.1,
+   2363.9,
+   -749.2
+  ]
+ },
+ {
+  "name": "Eldin Dark Skeleton",
+  "nameKo": "올딘의 어둠 화석",
+  "layer": "Depths",
+  "coords": [
+   1518.1,
+   3707.1,
+   -668.5
+  ]
+ },
+ {
+  "name": "Left-Leg Depot",
+  "nameKo": "왼발의 창고",
+  "layer": "Depths",
+  "coords": [
+   1016.4,
+   -2292.6,
+   -533.3
+  ]
+ },
+ {
+  "name": "Left-Arm Depot",
+  "nameKo": "왼팔의 창고",
+  "layer": "Depths",
+  "coords": [
+   706.1,
+   -2431.7,
+   -524.1
+  ]
+ },
+ {
+  "name": "Wellspring of Courage",
+  "nameKo": "용기의 원천",
+  "layer": "Depths",
+  "coords": [
+   903.5,
+   -2488.3,
+   -358.5
+  ]
+ },
+ {
+  "name": "Ulri Canyon Mine",
+  "nameKo": "울리 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   3682.9,
+   2043.7,
+   -660.0
+  ]
+ },
+ {
+  "name": "Walnot Canyon Mine",
+  "nameKo": "월넛 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   4222.8,
+   -1911.8,
+   -803.9
+  ]
+ },
+ {
+  "name": "Dracozu Altar",
+  "nameKo": "이무기의 제단",
+  "layer": "Depths",
+  "coords": [
+   906.0,
+   -2556.3,
+   -467.3
+  ]
+ },
+ {
+  "name": "Scorching Coliseum",
+  "nameKo": "작열의 투기장",
+  "layer": "Depths",
+  "coords": [
+   2142.9,
+   3173.8,
+   -714.5
+  ]
+ },
+ {
+  "name": "Grove of Spirits",
+  "nameKo": "정령의 수해",
+  "layer": "Depths",
+  "coords": [
+   -945.2,
+   -1680.4,
+   -669.7
+  ]
+ },
+ {
+  "name": "Sherfin's Lavafalls",
+  "nameKo": "제카의 용암 폭포",
+  "layer": "Depths",
+  "coords": [
+   -4342.8,
+   3465.2,
+   -920.6
+  ]
+ },
+ {
+  "name": "Great Abandoned Central Mine",
+  "nameKo": "중앙 대폐광",
+  "layer": "Depths",
+  "coords": [
+   -730.8,
+   -1861.2,
+   -404.6
+  ]
+ },
+ {
+  "name": "Wellspring of Wisdom",
+  "nameKo": "지혜의 원천",
+  "layer": "Depths",
+  "coords": [
+   3836.8,
+   -1272.8,
+   -519.5
+  ]
+ },
+ {
+  "name": "Akkala House of Bones",
+  "nameKo": "추낙 뼈 무덤",
+  "layer": "Depths",
+  "coords": [
+   3253.9,
+   3493.1,
+   -319.8
+  ]
+ },
+ {
+  "name": "Minshi Grove",
+  "nameKo": "치로리의 수해",
+  "layer": "Depths",
+  "coords": [
+   1042.2,
+   1544.5,
+   -632.6
+  ]
+ },
+ {
+  "name": "Abandoned Kara Kara Mine",
+  "nameKo": "카라카라 폐광",
+  "layer": "Depths",
+  "coords": [
+   -3171.5,
+   -2311.0,
+   -475.5
+  ]
+ },
+ {
+  "name": "Abandoned Kakariko Mine",
+  "nameKo": "카카리코 폐광",
+  "layer": "Depths",
+  "coords": [
+   1818.8,
+   -1299.1,
+   -566.4
+  ]
+ },
+ {
+  "name": "Faloraa Canyon Mine",
+  "nameKo": "카포레 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -970.6,
+   -2601.3,
+   -682.8
+  ]
+ },
+ {
+  "name": "Tuft Canyon Mine",
+  "nameKo": "컬 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   2557.1,
+   -3611.4,
+   -515.8
+  ]
+ },
+ {
+  "name": "Korok Grove",
+  "nameKo": "코로그의 수해",
+  "layer": "Depths",
+  "coords": [
+   405.7,
+   2100,
+   -560.2
+  ]
+ },
+ {
+  "name": "Cuho Canyon Mine",
+  "nameKo": "쿠호 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -3810.9,
+   1407.3,
+   -577.5
+  ]
+ },
+ {
+  "name": "Sturnida Lavafalls",
+  "nameKo": "쿰의 용암 폭포",
+  "layer": "Depths",
+  "coords": [
+   -4083.9,
+   2714.7,
+   -563.1
+  ]
+ },
+ {
+  "name": "Cresia Pit Mine",
+  "nameKo": "크레시아 갱도",
+  "layer": "Depths",
+  "coords": [
+   3728.8,
+   -3734.8,
+   -606.8
+  ]
+ },
+ {
+  "name": "Tabahl Grove",
+  "nameKo": "타발 수해",
+  "layer": "Depths",
+  "coords": [
+   2618.5,
+   171.6,
+   -631.1
+  ]
+ },
+ {
+  "name": "Taran Canyon Mine",
+  "nameKo": "테르메 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   2500.5,
+   -2672.9,
+   -733.1
+  ]
+ },
+ {
+  "name": "Floria Canyon Mine",
+  "nameKo": "펠리아 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   1936.4,
+   -2779.3,
+   -854.1
+  ]
+ },
+ {
+  "name": "Plains Bargainer Statue",
+  "nameKo": "평원의 마인상",
+  "layer": "Depths",
+  "coords": [
+   456.0,
+   -830.9,
+   -456.6
+  ]
+ },
+ {
+  "name": "Hylia Canyon Mine",
+  "nameKo": "하일리아 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -1293.4,
+   -2193.8,
+   -604.7
+  ]
+ },
+ {
+  "name": "Abandoned Hateno Mine",
+  "nameKo": "하테노 폐광",
+  "layer": "Depths",
+  "coords": [
+   3548.3,
+   -2228.5,
+   -485.1
+  ]
+ },
+ {
+  "name": "Hebra Canyon Mine",
+  "nameKo": "헤브라 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   -2766.6,
+   2897.9,
+   -875.0
+  ]
+ },
+ {
+  "name": "Abandoned Hebra Mine",
+  "nameKo": "헤브라 폐광",
+  "layer": "Depths",
+  "coords": [
+   -3457.4,
+   1862.2,
+   -315.7
+  ]
+ },
+ {
+  "name": "Hebra Dark Skeleton",
+  "nameKo": "헤브라의 어둠 화석",
+  "layer": "Depths",
+  "coords": [
+   -3850.5,
+   3635.7,
+   -941.0
+  ]
+ },
+ {
+  "name": "Secret Spring of Revival",
+  "nameKo": "회생의 비밀 온천",
+  "layer": "Depths",
+  "coords": [
+   -1098.5,
+   -1898.0,
+   -744.8
+  ]
+ },
+ {
+  "name": "Meda Canyon Mine",
+  "nameKo": "히메이다 계곡의 채굴장",
+  "layer": "Depths",
+  "coords": [
+   2512.0,
+   -2483.2,
+   -502.7
+  ]
+ },
+ {
+  "name": "Meda Lavafalls",
+  "nameKo": "히메이다의 용암 폭포",
+  "layer": "Depths",
+  "coords": [
+   2253,
+   -2366,
+   -555.5
+  ]
+ },
+ {
+  "name": "Hickaly Grove",
+  "nameKo": "히코리 수해",
+  "layer": "Depths",
+  "coords": [
+   1943.2,
+   -2391.8,
+   -595.1
+  ]
+ },
+ {
+  "name": "Wellspring of Power",
+  "nameKo": "힘의 원천",
+  "layer": "Depths",
+  "coords": [
+   3733.1,
+   2562.8,
+   -351.6
+  ]
+ },
+ {
+  "name": "South Lanayru Sky Archipelago",
+  "nameKo": "남라넬 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   4368.4,
+   -1254.6,
+   1894.5
+  ]
+ },
+ {
+  "name": "South Eldin Sky Archipelago",
+  "nameKo": "남올딘 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   1924.8,
+   798.7,
+   1894.5
+  ]
+ },
+ {
+  "name": "South Lomei Castle Top Floor",
+  "nameKo": "남쪽 로미 성 상층",
+  "layer": "Sky",
+  "coords": [
+   -1795,
+   -3605.5,
+   1185.1
+  ]
+ },
+ {
+  "name": "Sokkala Sky Archipelago",
+  "nameKo": "남추낙 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   3739.0,
+   1688.6,
+   1894.5
+  ]
+ },
+ {
+  "name": "South Hyrule Sky Archipelago",
+  "nameKo": "남하이랄 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -901.2,
+   -1380,
+   1894.5
+  ]
+ },
+ {
+  "name": "South Necluda Sky Archipelago",
+  "nameKo": "남하테르 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   2559.2,
+   -3751.4,
+   894.5
+  ]
+ },
+ {
+  "name": "South Hebra Sky Archipelago",
+  "nameKo": "남헤브라 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -3137.0,
+   2019.1,
+   1894.5
+  ]
+ },
+ {
+  "name": "Thunderhead Isles",
+  "nameKo": "뇌명의 섬",
+  "layer": "Sky",
+  "coords": [
+   911.7,
+   -3064.7,
+   1894.5
+  ]
+ },
+ {
+  "name": "Valor Island",
+  "nameKo": "대용을 시험하는 섬",
+  "layer": "Sky",
+  "coords": [
+   4579.1,
+   -919.5,
+   2618.5
+  ]
+ },
+ {
+  "name": "Death Mountain West Site",
+  "nameKo": "데스마운틴 서쪽 작업장",
+  "layer": "Sky",
+  "coords": [
+   2169,
+   2729.9,
+   530.0
+  ]
+ },
+ {
+  "name": "East Gerudo Sky Archipelago",
+  "nameKo": "동겔드 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -1866.3,
+   -2316.2,
+   1894.5
+  ]
+ },
+ {
+  "name": "East Hebra Sky Archipelago",
+  "nameKo": "동헤브라 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -1729.5,
+   3171.4,
+   1894.5
+  ]
+ },
+ {
+  "name": "Lanayru Sky Archipelago",
+  "nameKo": "라넬 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   3010.1,
+   83.2,
+   1894.5
+  ]
+ },
+ {
+  "name": "Lomei Sky Labyrinth",
+  "nameKo": "로미섬 상층",
+  "layer": "Sky",
+  "coords": [
+   4656.2,
+   3789.0,
+   1007.8
+  ]
+ },
+ {
+  "name": "Wellspring Island",
+  "nameKo": "물이 샘솟는 섬",
+  "layer": "Sky",
+  "coords": [
+   3520.2,
+   535.5,
+   1894.5
+  ]
+ },
+ {
+  "name": "Starview Island",
+  "nameKo": "별맞이 섬",
+  "layer": "Sky",
+  "coords": [
+   -3488.5,
+   -317,
+   1906.2
+  ]
+ },
+ {
+  "name": "North Gerudo Sky Archipelago",
+  "nameKo": "북겔드 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -3573.2,
+   -607.9,
+   1894.5
+  ]
+ },
+ {
+  "name": "North Lomei Castle Top Floor",
+  "nameKo": "북쪽 로미 성 상층",
+  "layer": "Sky",
+  "coords": [
+   -825,
+   3370,
+   1184.5
+  ]
+ },
+ {
+  "name": "North Akkala Sky Archipelago",
+  "nameKo": "북추낙 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   3703.7,
+   2998.7,
+   1744.5
+  ]
+ },
+ {
+  "name": "North Tabantha Sky Archipelago",
+  "nameKo": "북타반타 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -3600.5,
+   1333.9,
+   1894.5
+  ]
+ },
+ {
+  "name": "North Hyrule Sky Archipelago",
+  "nameKo": "북하이랄 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   349.9,
+   2354.3,
+   1894.5
+  ]
+ },
+ {
+  "name": "North Necluda Sky Archipelago",
+  "nameKo": "북하테르 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   1795.1,
+   -864.0,
+   1894.5
+  ]
+ },
+ {
+  "name": "Floating Scales Island",
+  "nameKo": "비늘이 춤추는 섬",
+  "layer": "Sky",
+  "coords": [
+   4077.1,
+   535.5,
+   895.5
+  ]
+ },
+ {
+  "name": "West Hyrule Sky Archipelago",
+  "nameKo": "서하이랄 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -2292.0,
+   -538.7,
+   894.5
+  ]
+ },
+ {
+  "name": "West Necluda Sky Archipelago",
+  "nameKo": "서하테르 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   1295.4,
+   -2346.8,
+   1896.1
+  ]
+ },
+ {
+  "name": "West Hebra Sky Archipelago",
+  "nameKo": "서헤브라 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -3845.8,
+   2300,
+   1894.5
+  ]
+ },
+ {
+  "name": "Selmie's Spot",
+  "nameKo": "셀미의 집",
+  "layer": "Sky",
+  "coords": [
+   -2952.0,
+   3142.9,
+   550.7
+  ]
+ },
+ {
+  "name": "Temple of Time",
+  "nameKo": "시간의 신전",
+  "layer": "Sky",
+  "coords": [
+   453.5,
+   -800.4,
+   1556.0
+  ]
+ },
+ {
+  "name": "Great Sky Island",
+  "nameKo": "시작의 하늘섬",
+  "layer": "Sky",
+  "coords": [
+   394.5,
+   -1259.8,
+   1832.0
+  ]
+ },
+ {
+  "name": "Lightcast Island",
+  "nameKo": "어둠을 무찌르는 섬",
+  "layer": "Sky",
+  "coords": [
+   -3607.2,
+   1032,
+   1894.5
+  ]
+ },
+ {
+  "name": "Bridge of Eldin",
+  "nameKo": "올딘 다리",
+  "layer": "Sky",
+  "coords": [
+   2213.6,
+   2356.3,
+   526.0
+  ]
+ },
+ {
+  "name": "Eldin Sky Archipelago",
+  "nameKo": "올딘 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   1777,
+   2705.5,
+   1894.5
+  ]
+ },
+ {
+  "name": "Courage Island",
+  "nameKo": "용기를 시험하는 섬",
+  "layer": "Sky",
+  "coords": [
+   -2266,
+   728,
+   1894.5
+  ]
+ },
+ {
+  "name": "Dragonhead Island",
+  "nameKo": "용머리섬",
+  "layer": "Sky",
+  "coords": [
+   1460,
+   -3380.8,
+   1894.5
+  ]
+ },
+ {
+  "name": "Zonaite Forge Island",
+  "nameKo": "조나니움 제련의 섬",
+  "layer": "Sky",
+  "coords": [
+   2349.0,
+   -1869.3,
+   10894.5
+  ]
+ },
+ {
+  "name": "Central Hyrule Sky Archipelago",
+  "nameKo": "중앙 하이랄 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   131.8,
+   -92.0,
+   1949.2
+  ]
+ },
+ {
+  "name": "Sky Mine",
+  "nameKo": "채석의 섬",
+  "layer": "Sky",
+  "coords": [
+   4603.2,
+   2129.3,
+   1302.0
+  ]
+ },
+ {
+  "name": "Akkala Citadel Ruins",
+  "nameKo": "추낙 요새 옛터",
+  "layer": "Sky",
+  "coords": [
+   3323.9,
+   1534.9,
+   508.0
+  ]
+ },
+ {
+  "name": "Tabantha Sky Archipelago",
+  "nameKo": "타반타 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -2942.5,
+   558.4,
+   1894.5
+  ]
+ },
+ {
+  "name": "Faron Sky Archipelago",
+  "nameKo": "필로네 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   -68.0,
+   -2751.1,
+   894.5
+  ]
+ },
+ {
+  "name": "Necluda Sky Archipelago",
+  "nameKo": "하테르 하늘제도",
+  "layer": "Sky",
+  "coords": [
+   2540.9,
+   -2270.7,
+   1894.5
+  ]
+ },
+ {
+  "name": "Bravery Island",
+  "nameKo": "호용을 시험하는 섬",
+  "layer": "Sky",
+  "coords": [
+   206.7,
+   1937,
+   1984.2
+  ]
+ },
+ {
+  "name": "Lookout Landing",
+  "nameKo": "감시 요새",
+  "layer": "Surface",
+  "coords": [
+   -254.1,
+   101.6,
+   18.0
+  ]
+ },
+ {
+  "name": "Lockup",
+  "nameKo": "감옥",
+  "layer": "Surface",
+  "coords": [
+   -443.9,
+   1062.3,
+   24.6
+  ]
+ },
+ {
+  "name": "Castle Town Prison",
+  "nameKo": "감옥 옛터",
+  "layer": "Surface",
+  "coords": [
+   -676.8,
+   837.0,
+   -13.1
+  ]
+ },
+ {
+  "name": "Gerudo Canyon Stable",
+  "nameKo": "겔드 캐니언 마구간",
+  "layer": "Surface",
+  "coords": [
+   -2803.8,
+   -2225.8,
+   73.1
+  ]
+ },
+ {
+  "name": "Gerudo Canyon Pass",
+  "nameKo": "겔드 캐니언 입구",
+  "layer": "Surface",
+  "coords": [
+   -1665,
+   -2028,
+   -25.5
+  ]
+ },
+ {
+  "name": "Gerudo Desert Gateway",
+  "nameKo": "겔드사막 입구",
+  "layer": "Surface",
+  "coords": [
+   -2924.1,
+   -2329.4,
+   32.9
+  ]
+ },
+ {
+  "name": "Gerudo Town",
+  "nameKo": "겔드의 마을",
+  "layer": "Surface",
+  "coords": [
+   -3859.0,
+   -2940.5,
+   32.8
+  ]
+ },
+ {
+  "name": "Ancient Columns",
+  "nameKo": "고대 돌기둥군",
+  "layer": "Surface",
+  "coords": [
+   -3574.3,
+   436.9,
+   363.7
+  ]
+ },
+ {
+  "name": "Stolock Bridge",
+  "nameKo": "고론 다리",
+  "layer": "Surface",
+  "coords": [
+   1627.2,
+   2478,
+   453.9
+  ]
+ },
+ {
+  "name": "Goron City",
+  "nameKo": "고론 시티",
+  "layer": "Surface",
+  "coords": [
+   1657.2,
+   2440,
+   340.1
+  ]
+ },
+ {
+  "name": "Ring Ruins",
+  "nameKo": "고리 유적",
+  "layer": "Surface",
+  "coords": [
+   1810.4,
+   -906.7,
+   185.2
+  ]
+ },
+ {
+  "name": "Highland Stable",
+  "nameKo": "고원의 마구간",
+  "layer": "Surface",
+  "coords": [
+   529.6,
+   -3450.9,
+   95.1
+  ]
+ },
+ {
+  "name": "Ultra Ball Haul Check-In",
+  "nameKo": "공 운반하기 접수처",
+  "layer": "Surface",
+  "coords": [
+   -3128.2,
+   611.1,
+   -79.2
+  ]
+ },
+ {
+  "name": "Exchange Ruins",
+  "nameKo": "교역소 옛터",
+  "layer": "Surface",
+  "coords": [
+   -750.0,
+   -859.7,
+   190.8
+  ]
+ },
+ {
+  "name": "Guchini Plain Barrows",
+  "nameKo": "구치니자 평원 고분군",
+  "layer": "Surface",
+  "coords": [
+   1004.2,
+   -3457.0,
+   -91.1
+  ]
+ },
+ {
+  "name": "Gleeok Bridge",
+  "nameKo": "그리오 다리",
+  "layer": "Surface",
+  "coords": [
+   -1310.0,
+   -786.9,
+   -8.8
+  ]
+ },
+ {
+  "name": "Gut Check Rock",
+  "nameKo": "근성 절벽",
+  "layer": "Surface",
+  "coords": [
+   2685.9,
+   3471.2,
+   196.6
+  ]
+ },
+ {
+  "name": "Gisa Crater",
+  "nameKo": "기샤의 크레이터",
+  "layer": "Surface",
+  "coords": [
+   -3930.9,
+   1067.8,
+   92.8
+  ]
+ },
+ {
+  "name": "Floret Sandbar",
+  "nameKo": "꽃의 모래섬",
+  "layer": "Surface",
+  "coords": [
+   853.6,
+   -837.3,
+   -45.7
+  ]
+ },
+ {
+  "name": "Lurelin Village",
+  "nameKo": "나크시 마을",
+  "layer": "Surface",
+  "coords": [
+   3007.3,
+   -3473.6,
+   37.0
+  ]
+ },
+ {
+  "name": "South Lomei Labyrinth",
+  "nameKo": "남쪽 로미 성 옛터",
+  "layer": "Surface",
+  "coords": [
+   -1795,
+   -3541,
+   85.6
+  ]
+ },
+ {
+  "name": "Southern Oasis Training Area",
+  "nameKo": "남쪽 오아시스 훈련장",
+  "layer": "Surface",
+  "coords": [
+   -3647.4,
+   -3668.2,
+   15.8
+  ]
+ },
+ {
+  "name": "Southern Mine",
+  "nameKo": "남쪽 채굴장",
+  "layer": "Surface",
+  "coords": [
+   1657.9,
+   1973.8,
+   273.0
+  ]
+ },
+ {
+  "name": "Sokkala Bridge",
+  "nameKo": "남추낙 다리",
+  "layer": "Surface",
+  "coords": [
+   3686.3,
+   1004.0,
+   205.9
+  ]
+ },
+ {
+  "name": "South Akkala Stable",
+  "nameKo": "남추낙 마구간",
+  "layer": "Surface",
+  "coords": [
+   3148.7,
+   1691.5,
+   233.1
+  ]
+ },
+ {
+  "name": "Pappetto Grove",
+  "nameKo": "네즈포의 숲",
+  "layer": "Surface",
+  "coords": [
+   -343.5,
+   -3539.6,
+   -574.6
+  ]
+ },
+ {
+  "name": "Inogo Bridge",
+  "nameKo": "덜블 다리",
+  "layer": "Surface",
+  "coords": [
+   2344.2,
+   249.5,
+   14.0
+  ]
+ },
+ {
+  "name": "Maw of Death Mountain",
+  "nameKo": "데스마운틴 등산로",
+  "layer": "Surface",
+  "coords": [
+   2390.9,
+   1316.3,
+   40.6
+  ]
+ },
+ {
+  "name": "Library",
+  "nameKo": "도서실",
+  "layer": "Surface",
+  "coords": [
+   -157.9,
+   1067.5,
+   218.0
+  ]
+ },
+ {
+  "name": "East Gerudo Ruins",
+  "nameKo": "동겔드 유적",
+  "layer": "Surface",
+  "coords": [
+   -2696.0,
+   -2843.4,
+   98.5
+  ]
+ },
+ {
+  "name": "East Passage",
+  "nameKo": "동쪽 갱도",
+  "layer": "Surface",
+  "coords": [
+   -120.4,
+   974.5,
+   27.0
+  ]
+ },
+ {
+  "name": "East Sokkala Bridge",
+  "nameKo": "동쪽 남추낙 다리",
+  "layer": "Surface",
+  "coords": [
+   3860.8,
+   1095.1,
+   205.7
+  ]
+ },
+ {
+  "name": "East Post Ruins",
+  "nameKo": "동쪽 역참 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   17.6,
+   -1560.7,
+   -47.5
+  ]
+ },
+ {
+  "name": "East Reservoir Lake",
+  "nameKo": "동쪽 저수지",
+  "layer": "Surface",
+  "coords": [
+   3667.8,
+   179.8,
+   218.8
+  ]
+ },
+ {
+  "name": "East Akkala Stable",
+  "nameKo": "동추낙 마구간",
+  "layer": "Surface",
+  "coords": [
+   4230.5,
+   2745.6,
+   169.8
+  ]
+ },
+ {
+  "name": "Thyphlo Ruins",
+  "nameKo": "드인블라 유적",
+  "layer": "Surface",
+  "coords": [
+   327,
+   3080.0,
+   -105.5
+  ]
+ },
+ {
+  "name": "Digdogg Suspension Bridge",
+  "nameKo": "디그독 나무 다리",
+  "layer": "Surface",
+  "coords": [
+   -1661.4,
+   -1531.3,
+   54.8
+  ]
+ },
+ {
+  "name": "Lanayru Road - East Gate",
+  "nameKo": "라넬 로드 동쪽 입구",
+  "layer": "Surface",
+  "coords": [
+   3186.6,
+   -1152.4,
+   239.2
+  ]
+ },
+ {
+  "name": "Lanayru Road - West Gate",
+  "nameKo": "라넬 로드 서쪽 입구",
+  "layer": "Surface",
+  "coords": [
+   2299.2,
+   -713.9,
+   191.8
+  ]
+ },
+ {
+  "name": "Lanayru Promenade",
+  "nameKo": "라넬 로드 중앙 광장",
+  "layer": "Surface",
+  "coords": [
+   2718.2,
+   -1116.6,
+   -23.8
+  ]
+ },
+ {
+  "name": "Luto's Crossing",
+  "nameKo": "라루토대교",
+  "layer": "Surface",
+  "coords": [
+   3067.8,
+   3.1,
+   157.5
+  ]
+ },
+ {
+  "name": "Rauru Settlement Ruins",
+  "nameKo": "라울 촌락 옛터",
+  "layer": "Surface",
+  "coords": [
+   675.8,
+   1282.7,
+   40.1
+  ]
+ },
+ {
+  "name": "Rebonae Bridge",
+  "nameKo": "레보나 다리",
+  "layer": "Surface",
+  "coords": [
+   823.6,
+   -20.5,
+   -0.3
+  ]
+ },
+ {
+  "name": "Lakeside Stable",
+  "nameKo": "레이크 사이드 마구간",
+  "layer": "Surface",
+  "coords": [
+   1552.0,
+   -3537.8,
+   105.1
+  ]
+ },
+ {
+  "name": "Sand-Seal Rental Shop",
+  "nameKo": "렌탈 표범 가게",
+  "layer": "Surface",
+  "coords": [
+   -2995.2,
+   -2325.0,
+   -0.5
+  ]
+ },
+ {
+  "name": "Lomei Labyrinth Island",
+  "nameKo": "로미섬",
+  "layer": "Surface",
+  "coords": [
+   4655.4,
+   3527.4,
+   51.4
+  ]
+ },
+ {
+  "name": "Riverside Stable",
+  "nameKo": "리버 사이드 마구간",
+  "layer": "Surface",
+  "coords": [
+   339.2,
+   -1095.3,
+   39.8
+  ]
+ },
+ {
+  "name": "Rito Village",
+  "nameKo": "리토의 마을",
+  "layer": "Surface",
+  "coords": [
+   -3620.8,
+   1799.8,
+   103.2
+  ]
+ },
+ {
+  "name": "Mini Stable",
+  "nameKo": "마구간 출장소",
+  "layer": "Surface",
+  "coords": [
+   -1693.2,
+   -1664.0,
+   10.7
+  ]
+ },
+ {
+  "name": "Maritta Exchange Ruins",
+  "nameKo": "마리타 교역소 옛터",
+  "layer": "Surface",
+  "coords": [
+   -1781.6,
+   1685.1,
+   94.5
+  ]
+ },
+ {
+  "name": "Horse God Bridge",
+  "nameKo": "마신교",
+  "layer": "Surface",
+  "coords": [
+   597.0,
+   -3722.4,
+   57.2
+  ]
+ },
+ {
+  "name": "Malanya Spring",
+  "nameKo": "마용의 샘",
+  "layer": "Surface",
+  "coords": [
+   4296.1,
+   3218.7,
+   149.1
+  ]
+ },
+ {
+  "name": "Orsedd Bridge",
+  "nameKo": "마즈라 다리",
+  "layer": "Surface",
+  "coords": [
+   517.1,
+   497.2,
+   -15.1
+  ]
+ },
+ {
+  "name": "Mabe Village Ruins",
+  "nameKo": "메베의 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   -37.2,
+   -185.7,
+   -105.5
+  ]
+ },
+ {
+  "name": "Boneyard Bridge",
+  "nameKo": "묘치 다리",
+  "layer": "Surface",
+  "coords": [
+   270.3,
+   711.9,
+   4.2
+  ]
+ },
+ {
+  "name": "Gatepost Town Ruins",
+  "nameKo": "문전 역참 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   -537.9,
+   -1445.5,
+   1.2
+  ]
+ },
+ {
+  "name": "Thims Bridge",
+  "nameKo": "미스미 다리",
+  "layer": "Surface",
+  "coords": [
+   1283.7,
+   690.1,
+   21.5
+  ]
+ },
+ {
+  "name": "Mipha Court",
+  "nameKo": "미파 공원",
+  "layer": "Surface",
+  "coords": [
+   3837.9,
+   566.5,
+   490.6
+  ]
+ },
+ {
+  "name": "Goflam's Secret Hot Spring",
+  "nameKo": "민블러의 비밀 온천",
+  "layer": "Surface",
+  "coords": [
+   -3442.4,
+   3545.5,
+   -105.5
+  ]
+ },
+ {
+  "name": "Bedrock Bistro",
+  "nameKo": "바루다스의 레스토랑",
+  "layer": "Surface",
+  "coords": [
+   1750.5,
+   1549,
+   285.0
+  ]
+ },
+ {
+  "name": "Thundra Plateau",
+  "nameKo": "번개의 대지",
+  "layer": "Surface",
+  "coords": [
+   -2265.9,
+   921.8,
+   -105.5
+  ]
+ },
+ {
+  "name": "Sanctum",
+  "nameKo": "본관",
+  "layer": "Surface",
+  "coords": [
+   -254,
+   1076.9,
+   339.3
+  ]
+ },
+ {
+  "name": "North Gerudo Ruins",
+  "nameKo": "북겔드 유적",
+  "layer": "Surface",
+  "coords": [
+   -3763,
+   -2530,
+   44.5
+  ]
+ },
+ {
+  "name": "North Lomei Labyrinth",
+  "nameKo": "북쪽 로미 성 옛터",
+  "layer": "Surface",
+  "coords": [
+   -824.3,
+   3407.2,
+   236.6
+  ]
+ },
+ {
+  "name": "Northern Icehouse",
+  "nameKo": "북쪽 얼음 창고",
+  "layer": "Surface",
+  "coords": [
+   -3748.9,
+   -2290.9,
+   26.3
+  ]
+ },
+ {
+  "name": "Break-a-Part Shop",
+  "nameKo": "분해숍",
+  "layer": "Surface",
+  "coords": [
+   3995,
+   1637,
+   129.7
+  ]
+ },
+ {
+  "name": "Flight Range",
+  "nameKo": "비행 훈련장",
+  "layer": "Surface",
+  "coords": [
+   -3852.7,
+   2290.0,
+   -10.2
+  ]
+ },
+ {
+  "name": "Sanidin Park Ruins",
+  "nameKo": "사딘 공원 옛터",
+  "layer": "Surface",
+  "coords": [
+   -1630,
+   -695.6,
+   141.2
+  ]
+ },
+ {
+  "name": "Desert Rift",
+  "nameKo": "사막의 갈라진 틈",
+  "layer": "Surface",
+  "coords": [
+   -3515.1,
+   -2731.4,
+   -26.3
+  ]
+ },
+ {
+  "name": "Eventide Island",
+  "nameKo": "사이하테노섬",
+  "layer": "Surface",
+  "coords": [
+   4586.2,
+   -3629.9,
+   34.9
+  ]
+ },
+ {
+  "name": "Foothill Stable",
+  "nameKo": "산기슭의 마구간",
+  "layer": "Surface",
+  "coords": [
+   2613.3,
+   1143.5,
+   148.3
+  ]
+ },
+ {
+  "name": "Shadow Hamlet Ruins",
+  "nameKo": "샤토 촌락 옛터",
+  "layer": "Surface",
+  "coords": [
+   3045.0,
+   2281.3,
+   339.4
+  ]
+ },
+ {
+  "name": "Sarjon Bridge",
+  "nameKo": "서전 다리",
+  "layer": "Surface",
+  "coords": [
+   1025.2,
+   -3235.5,
+   19.5
+  ]
+ },
+ {
+  "name": "West Passage",
+  "nameKo": "서쪽 갱도",
+  "layer": "Surface",
+  "coords": [
+   -449.0,
+   858.3,
+   12.8
+  ]
+ },
+ {
+  "name": "West Sokkala Bridge",
+  "nameKo": "서쪽 남추낙 다리",
+  "layer": "Surface",
+  "coords": [
+   3588,
+   1024,
+   -105.5
+  ]
+ },
+ {
+  "name": "Docks",
+  "nameKo": "선착장",
+  "layer": "Surface",
+  "coords": [
+   -252.2,
+   1188.0,
+   20.9
+  ]
+ },
+ {
+  "name": "Snowfield Stable",
+  "nameKo": "설원의 마구간",
+  "layer": "Surface",
+  "coords": [
+   -1654.9,
+   2572.2,
+   276.5
+  ]
+ },
+ {
+  "name": "Woodland Stable",
+  "nameKo": "숲의 마구간",
+  "layer": "Surface",
+  "coords": [
+   1062.3,
+   1135.3,
+   66.5
+  ]
+ },
+ {
+  "name": "Wetland Stable",
+  "nameKo": "습원의 마구간",
+  "layer": "Surface",
+  "coords": [
+   888.1,
+   -173.7,
+   70.5
+  ]
+ },
+ {
+  "name": "Moor Garrison Ruins",
+  "nameKo": "습원의 주둔지 옛터",
+  "layer": "Surface",
+  "coords": [
+   1527,
+   218,
+   -37.5
+  ]
+ },
+ {
+  "name": "Temple of Time Ruins",
+  "nameKo": "시간의 신전 옛터",
+  "layer": "Surface",
+  "coords": [
+   -818.1,
+   -2002,
+   116.5
+  ]
+ },
+ {
+  "name": "Castle Town Watchtower",
+  "nameKo": "시내 타워 옛터",
+  "layer": "Surface",
+  "coords": [
+   80.5,
+   411.0,
+   11.7
+  ]
+ },
+ {
+  "name": "Tarrey Town Race",
+  "nameKo": "시자기 랠리",
+  "layer": "Surface",
+  "coords": [
+   3744.3,
+   1679.5,
+   92.7
+  ]
+ },
+ {
+  "name": "Tarrey Town",
+  "nameKo": "시자기 마을",
+  "layer": "Surface",
+  "coords": [
+   3965.6,
+   1611.2,
+   127.7
+  ]
+ },
+ {
+  "name": "Great Plateau",
+  "nameKo": "시작의 대지",
+  "layer": "Surface",
+  "coords": [
+   -938.1,
+   -1905.7,
+   130.0
+  ]
+ },
+ {
+  "name": "Dining Hall",
+  "nameKo": "식당",
+  "layer": "Surface",
+  "coords": [
+   -111.9,
+   852.1,
+   104.9
+  ]
+ },
+ {
+  "name": "New Serenne Stable",
+  "nameKo": "신마리타 마구간",
+  "layer": "Surface",
+  "coords": [
+   -1293.8,
+   678.6,
+   83.2
+  ]
+ },
+ {
+  "name": "Little Twin Bridge",
+  "nameKo": "쌍둥이 동생 다리",
+  "layer": "Surface",
+  "coords": [
+   1714,
+   -2147.9,
+   9.8
+  ]
+ },
+ {
+  "name": "Dueling Peaks Stable",
+  "nameKo": "쌍둥이 마구간",
+  "layer": "Surface",
+  "coords": [
+   1756.5,
+   -1924.4,
+   53.5
+  ]
+ },
+ {
+  "name": "Big Twin Bridge",
+  "nameKo": "쌍둥이 형 다리",
+  "layer": "Surface",
+  "coords": [
+   1673.1,
+   -2032.8,
+   -21.5
+  ]
+ },
+ {
+  "name": "Ancient Tree Stump",
+  "nameKo": "썩은 천년수",
+  "layer": "Surface",
+  "coords": [
+   -1112.0,
+   -415.2,
+   63.4
+  ]
+ },
+ {
+  "name": "Deya Village Ruins",
+  "nameKo": "아데야 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   354.5,
+   -1962.5,
+   9.5
+  ]
+ },
+ {
+  "name": "Owlan Bridge",
+  "nameKo": "아울 다리",
+  "layer": "Surface",
+  "coords": [
+   325.5,
+   -1273.4,
+   -42.4
+  ]
+ },
+ {
+  "name": "Aquame Bridge",
+  "nameKo": "아쿠오 다리",
+  "layer": "Surface",
+  "coords": [
+   -1128.8,
+   -1017.0,
+   7.0
+  ]
+ },
+ {
+  "name": "Palmorae Ruins",
+  "nameKo": "야시노 유적",
+  "layer": "Surface",
+  "coords": [
+   3462.3,
+   -3378.5,
+   -101.7
+  ]
+ },
+ {
+  "name": "Statue of the Eighth Heroine",
+  "nameKo": "여덟 번째 영웅상",
+  "layer": "Surface",
+  "coords": [
+   -4362.7,
+   -502,
+   465.0
+  ]
+ },
+ {
+  "name": "Oren Bridge",
+  "nameKo": "오렌 다리",
+  "layer": "Surface",
+  "coords": [
+   2875.4,
+   -19.9,
+   82.0
+  ]
+ },
+ {
+  "name": "Eldin Great Skeleton",
+  "nameKo": "올딘의 대화석",
+  "layer": "Surface",
+  "coords": [
+   1502.2,
+   3763.0,
+   103.5
+  ]
+ },
+ {
+  "name": "Royal Ancient Lab Ruins",
+  "nameKo": "왕립 고대 연구소 옛터",
+  "layer": "Surface",
+  "coords": [
+   -1249.5,
+   1023.4,
+   94.5
+  ]
+ },
+ {
+  "name": "King's Study",
+  "nameKo": "왕의 서재",
+  "layer": "Surface",
+  "coords": [
+   -173.5,
+   1119.8,
+   215.0
+  ]
+ },
+ {
+  "name": "Dragon Bone Mire",
+  "nameKo": "용골늪",
+  "layer": "Surface",
+  "coords": [
+   -4144.5,
+   1698.5,
+   108.5
+  ]
+ },
+ {
+  "name": "Spring of Courage",
+  "nameKo": "용기의 샘",
+  "layer": "Surface",
+  "coords": [
+   879.5,
+   -2371.8,
+   -2.5
+  ]
+ },
+ {
+  "name": "YunoboCo HQ",
+  "nameKo": "윤돌반 본부",
+  "layer": "Surface",
+  "coords": [
+   1601.6,
+   2832.4,
+   412.0
+  ]
+ },
+ {
+  "name": "Yiga Clan Hideout",
+  "nameKo": "이가단의 아지트",
+  "layer": "Surface",
+  "coords": [
+   -3611.6,
+   -1353.3,
+   330.8
+  ]
+ },
+ {
+  "name": "Eagus Bridge",
+  "nameKo": "이글스 다리",
+  "layer": "Surface",
+  "coords": [
+   969.7,
+   -942.8,
+   -6.4
+  ]
+ },
+ {
+  "name": "East Hill",
+  "nameKo": "이스트 동산",
+  "layer": "Surface",
+  "coords": [
+   1867.9,
+   -804.0,
+   61.2
+  ]
+ },
+ {
+  "name": "Forgotten Temple",
+  "nameKo": "잊혀진 신전",
+  "layer": "Surface",
+  "coords": [
+   -1387.7,
+   2293.2,
+   -105.5
+  ]
+ },
+ {
+  "name": "Water Reservoir",
+  "nameKo": "저수지 옛터",
+  "layer": "Surface",
+  "coords": [
+   -596.7,
+   525.3,
+   -9.5
+  ]
+ },
+ {
+  "name": "Observation Room",
+  "nameKo": "전망실",
+  "layer": "Surface",
+  "coords": [
+   -254.0,
+   778.5,
+   98.0
+  ]
+ },
+ {
+  "name": "Jeddo Bridge",
+  "nameKo": "제드 다리",
+  "layer": "Surface",
+  "coords": [
+   -1689.9,
+   -130.8,
+   84.5
+  ]
+ },
+ {
+  "name": "Sherfin's Secret Hot Spring",
+  "nameKo": "제카의 비밀 온천",
+  "layer": "Surface",
+  "coords": [
+   -4319.5,
+   3495,
+   355.0
+  ]
+ },
+ {
+  "name": "Princess Zelda's Room",
+  "nameKo": "젤다의 방",
+  "layer": "Surface",
+  "coords": [
+   -327.7,
+   995.2,
+   301.0
+  ]
+ },
+ {
+  "name": "Princess Zelda's Study",
+  "nameKo": "젤다의 연구실",
+  "layer": "Surface",
+  "coords": [
+   -384.1,
+   991.9,
+   314.4
+  ]
+ },
+ {
+  "name": "Zonai Ruins",
+  "nameKo": "조나우 유적군",
+  "layer": "Surface",
+  "coords": [
+   889.9,
+   -2937.3,
+   -31.4
+  ]
+ },
+ {
+  "name": "Zora's Domain",
+  "nameKo": "조라의 마을",
+  "layer": "Surface",
+  "coords": [
+   3330.6,
+   545.1,
+   137.2
+  ]
+ },
+ {
+  "name": "Central Square",
+  "nameKo": "중앙 광장 옛터",
+  "layer": "Surface",
+  "coords": [
+   -254.2,
+   416.7,
+   25.3
+  ]
+ },
+ {
+  "name": "Spring of Wisdom",
+  "nameKo": "지혜의 샘",
+  "layer": "Surface",
+  "coords": [
+   3926.4,
+   -1335.5,
+   450.5
+  ]
+ },
+ {
+  "name": "Gerudo Canyon Mine",
+  "nameKo": "채석장의 갱도",
+  "layer": "Surface",
+  "coords": [
+   -4175.2,
+   -738.8,
+   -1063.4
+  ]
+ },
+ {
+  "name": "Arbiter's Grounds",
+  "nameKo": "처형장 옛터",
+  "layer": "Surface",
+  "coords": [
+   -4157.4,
+   -3803.1,
+   27.9
+  ]
+ },
+ {
+  "name": "Akkala Parade Ground Ruins",
+  "nameKo": "추낙 연병장 옛터",
+  "layer": "Surface",
+  "coords": [
+   3307.8,
+   1235.5,
+   112.0
+  ]
+ },
+ {
+  "name": "Akkala Bridge Ruins",
+  "nameKo": "추낙 요새 연락교 옛터",
+  "layer": "Surface",
+  "coords": [
+   3161.6,
+   1416.6,
+   277.4
+  ]
+ },
+ {
+  "name": "Akkala Span",
+  "nameKo": "추낙대교",
+  "layer": "Surface",
+  "coords": [
+   3009.3,
+   1231.6,
+   225.7
+  ]
+ },
+ {
+  "name": "Kara Kara Bazaar",
+  "nameKo": "카라카라 바자",
+  "layer": "Surface",
+  "coords": [
+   -3237,
+   -2556,
+   -105.5
+  ]
+ },
+ {
+  "name": "Carok Bridge",
+  "nameKo": "카로크 다리",
+  "layer": "Surface",
+  "coords": [
+   -1087.8,
+   474.6,
+   24.5
+  ]
+ },
+ {
+  "name": "Kakariko Bridge",
+  "nameKo": "카카리코 다리",
+  "layer": "Surface",
+  "coords": [
+   1785,
+   -1532.9,
+   -7.1
+  ]
+ },
+ {
+  "name": "Kakariko Village",
+  "nameKo": "카카리코 마을",
+  "layer": "Surface",
+  "coords": [
+   1817.4,
+   -988.0,
+   119.0
+  ]
+ },
+ {
+  "name": "Proxim Bridge",
+  "nameKo": "카카온 다리",
+  "layer": "Surface",
+  "coords": [
+   207.1,
+   -1604.4,
+   -42.4
+  ]
+ },
+ {
+  "name": "Korok Forest",
+  "nameKo": "코로그의 숲",
+  "layer": "Surface",
+  "coords": [
+   419,
+   2140,
+   -105.5
+  ]
+ },
+ {
+  "name": "Kolomo Garrison Ruins",
+  "nameKo": "코모로 주둔지 옛터",
+  "layer": "Surface",
+  "coords": [
+   -464.4,
+   -1272.5,
+   23.5
+  ]
+ },
+ {
+  "name": "Goponga Village Ruins",
+  "nameKo": "코퐁가 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   1619.9,
+   -281.9,
+   4.3
+  ]
+ },
+ {
+  "name": "Sturnida Secret Hot Spring",
+  "nameKo": "쿰의 비밀 온천",
+  "layer": "Surface",
+  "coords": [
+   -4089,
+   2731.5,
+   -22.0
+  ]
+ },
+ {
+  "name": "Tabantha Village Ruins",
+  "nameKo": "타반타 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   -2324,
+   1895,
+   171.5
+  ]
+ },
+ {
+  "name": "Tabantha Great Bridge",
+  "nameKo": "타반타대교",
+  "layer": "Surface",
+  "coords": [
+   -3110.8,
+   583.6,
+   158.7
+  ]
+ },
+ {
+  "name": "Tabantha Bridge Stable",
+  "nameKo": "타반타대교 마구간",
+  "layer": "Surface",
+  "coords": [
+   -2931.6,
+   547.6,
+   213.7
+  ]
+ },
+ {
+  "name": "Manhala Bridge",
+  "nameKo": "테스타 다리",
+  "layer": "Surface",
+  "coords": [
+   -1611.0,
+   -1023.4,
+   3.1
+  ]
+ },
+ {
+  "name": "Lucky Clover Gazette",
+  "nameKo": "토끼풀 신문사",
+  "layer": "Surface",
+  "coords": [
+   -3255.8,
+   1757.6,
+   151.1
+  ]
+ },
+ {
+  "name": "Coliseum Ruins",
+  "nameKo": "투기장 옛터",
+  "layer": "Surface",
+  "coords": [
+   -1151,
+   -1262.5,
+   -55.5
+  ]
+ },
+ {
+  "name": "Helmhead Bridge",
+  "nameKo": "펜서 다리",
+  "layer": "Surface",
+  "coords": [
+   398.3,
+   1167.3,
+   4.8
+  ]
+ },
+ {
+  "name": "Floria Bridge",
+  "nameKo": "펠리아 다리",
+  "layer": "Surface",
+  "coords": [
+   1731.4,
+   -3454.8,
+   54.3
+  ]
+ },
+ {
+  "name": "Outskirt Stable",
+  "nameKo": "평원 변두리의 마구간",
+  "layer": "Surface",
+  "coords": [
+   -1449.5,
+   -1269.0,
+   75.9
+  ]
+ },
+ {
+  "name": "Faron Woods",
+  "nameKo": "필로네 수해 입구",
+  "layer": "Surface",
+  "coords": [
+   413.5,
+   -3030.4,
+   -39.0
+  ]
+ },
+ {
+  "name": "Hyrule Cathedral",
+  "nameKo": "하이랄 대성당 옛터",
+  "layer": "Surface",
+  "coords": [
+   80.0,
+   628.2,
+   -5.7
+  ]
+ },
+ {
+  "name": "Hyrule Forest Park",
+  "nameKo": "하이랄 삼림 공원 옛터",
+  "layer": "Surface",
+  "coords": [
+   192.4,
+   937.8,
+   -0.0
+  ]
+ },
+ {
+  "name": "Hyrule Castle",
+  "nameKo": "하이랄 성",
+  "layer": "Surface",
+  "coords": [
+   -253.9,
+   1061.9,
+   380.0
+  ]
+ },
+ {
+  "name": "Hyrule Castle Town Ruins",
+  "nameKo": "하이랄 성 시내 옛터",
+  "layer": "Surface",
+  "coords": [
+   -254.4,
+   375.6,
+   -147.4
+  ]
+ },
+ {
+  "name": "Outpost Ruins",
+  "nameKo": "하이랄 역참 마을 옛터",
+  "layer": "Surface",
+  "coords": [
+   -248.4,
+   -1688.3,
+   -105.5
+  ]
+ },
+ {
+  "name": "Military Training Camp",
+  "nameKo": "하이랄군 연습장 옛터",
+  "layer": "Surface",
+  "coords": [
+   855,
+   1427,
+   91.0
+  ]
+ },
+ {
+  "name": "Hyrule Garrison Ruins",
+  "nameKo": "하이랄군 주둔지 옛터",
+  "layer": "Surface",
+  "coords": [
+   -596.5,
+   -571.5,
+   -53.0
+  ]
+ },
+ {
+  "name": "Bridge of Hylia",
+  "nameKo": "하일리아대교",
+  "layer": "Surface",
+  "coords": [
+   -37.4,
+   -2518.5,
+   26.3
+  ]
+ },
+ {
+  "name": "Hateno Ancient Tech Lab",
+  "nameKo": "하테노 고대 연구소",
+  "layer": "Surface",
+  "coords": [
+   3777.7,
+   -2127.4,
+   229.8
+  ]
+ },
+ {
+  "name": "Hateno Village",
+  "nameKo": "하테노 마을",
+  "layer": "Surface",
+  "coords": [
+   3545.0,
+   -2089.9,
+   231.5
+  ]
+ },
+ {
+  "name": "Fort Hateno",
+  "nameKo": "하테노 요새",
+  "layer": "Surface",
+  "coords": [
+   2323.9,
+   -1837.4,
+   -28.4
+  ]
+ },
+ {
+  "name": "Moat Bridge",
+  "nameKo": "해자 다리",
+  "layer": "Surface",
+  "coords": [
+   -613.2,
+   666.9,
+   3.1
+  ]
+ },
+ {
+  "name": "Hudson Construction Site",
+  "nameKo": "허드슨 건설 작업장",
+  "layer": "Surface",
+  "coords": [
+   3723.7,
+   1611.9,
+   113.7
+  ]
+ },
+ {
+  "name": "Hebra Trailhead Lodge",
+  "nameKo": "헤브라 산맥 등산로의 집",
+  "layer": "Surface",
+  "coords": [
+   -3572.0,
+   2258.1,
+   122.3
+  ]
+ },
+ {
+  "name": "Sage Temple Ruins",
+  "nameKo": "현자의 신전 옛터",
+  "layer": "Surface",
+  "coords": [
+   -1352.4,
+   -216.8,
+   -105.5
+  ]
+ },
+ {
+  "name": "Horwell Bridge",
+  "nameKo": "호넬 다리",
+  "layer": "Surface",
+  "coords": [
+   680.2,
+   -977.9,
+   -19.1
+  ]
+ },
+ {
+  "name": "Guards' Chamber",
+  "nameKo": "훈련소",
+  "layer": "Surface",
+  "coords": [
+   -368.7,
+   846.6,
+   71.7
+  ]
+ },
+ {
+  "name": "Spring of Power",
+  "nameKo": "힘의 샘",
+  "layer": "Surface",
+  "coords": [
+   3756.1,
+   2672.1,
+   -4.3
+  ]
+ },
+ {
+  "name": "Second Gatehouse",
+  "nameKo": "２관",
+  "layer": "Surface",
+  "coords": [
+   -166.6,
+   859.5,
+   283.3
+  ]
+ },
+ {
+  "name": "First Gatehouse",
+  "nameKo": "３관",
+  "layer": "Surface",
+  "coords": [
+   -356.2,
+   829.2,
+   109.6
+  ]
+ }
+]

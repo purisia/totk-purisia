@@ -546,7 +546,7 @@ a { color: var(--accent); }
 }
 
 .cat__pin svg,
-.sr__pin svg { width: 16px; height: 16px; fill: #0d141f; }
+.sr__pin svg { width: 15px; height: 15px; fill: #fff; }
 .cat__num { font-variant-numeric: tabular-nums; font-size: .64rem; }
 
 /* ── 찾기 ── */
@@ -598,11 +598,30 @@ a { color: var(--accent); }
 #mapSvg .mapimg--Depths { filter: brightness(.52) saturate(.55); }
 #mapSvg .mapimg--Sky { filter: brightness(1.05) saturate(1.1); }
 
+/* 지명 — 게임 지도처럼 금빛 글씨에 어두운 외곽선 */
+#mapSvg #mapLabels text {
+  fill: #f0dfae;
+  stroke: rgba(6, 10, 16, .92);
+  stroke-width: 3.2;
+  paint-order: stroke;
+  font-weight: 600;
+  letter-spacing: .01em;
+  pointer-events: none;
+  vector-effect: non-scaling-stroke;
+}
+
 #mapSvg .mk { cursor: pointer; }
-#mapSvg .mk__pin { stroke: rgba(6, 10, 16, .8); stroke-width: 1.6; }
-#mapSvg .mk--wp.is-locked .mk__pin { stroke-dasharray: 3 2.5; opacity: .75; }
+#mapSvg .mk__pin {
+  stroke: rgba(5, 9, 15, .85);
+  stroke-width: 1.5;
+  paint-order: stroke;
+}
+
+#mapSvg .mk { filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, .55)); }
+#mapSvg .mk--wp.is-locked .mk__pin { stroke-dasharray: 3 2.5; }
 #mapSvg .mk.is-sel .mk__pin { stroke: #fff; stroke-width: 2.6; }
-#mapSvg .mk.is-sel { filter: drop-shadow(0 0 6px rgba(126, 240, 255, .9)); }
+#mapSvg .mk.is-sel { filter: drop-shadow(0 0 7px rgba(126, 240, 255, .95)); }
+#mapSvg .mk.is-sel .mk__ico { opacity: 1; }
 
 /* ── 지도 위 컨트롤 ── */
 .chips--seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3rem; }
