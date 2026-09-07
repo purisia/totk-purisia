@@ -232,13 +232,24 @@ check('manifest 경로가 상대 경로 (하위 경로 배포 대응)',
 check('manifest 바로가기의 쿼리를 app.js 가 처리',
   appJs.includes('applyLaunchParams') && appJs.includes('URLSearchParams'));
 
-// 지도 카테고리가 실제 데이터의 종류와 맞는지
+// 지도 카테고리 — 보스 3종 + 상위 변종 4종 + 워프 2종
 const catKeys = [...appJs.matchAll(/\{ key: '(\w+)'/g)].map(m => m[1]);
-const realTypes = new Set([...bosses.map(b => b.type), ...waypoints.map(w => w.type)]);
-check('지도 카테고리 5종이 데이터의 종류와 일치',
-  catKeys.length === 5 && catKeys.every(k => realTypes.has(k)) &&
-  realTypes.size === catKeys.length,
-  catKeys.join(',') + ' vs ' + [...realTypes].join(','));
+check('지도 카테고리 9종', catKeys.length === 9, catKeys.join(','));
+check('상위 변종 4종이 따로 분류됨',
+  ['LynelWhite', 'HinoxBlack', 'TalusLum', 'TalusRare'].every(k => catKeys.includes(k)));
+
+// 상위 변종 이름이 데이터에 실제로 존재해야 분류가 먹는다
+const specials = ['White-Maned Lynel', 'Black Hinox', 'Luminous Talus', 'Rare Talus'];
+for (const name of specials) {
+  const n = bosses.filter(b => b.name.replace(' (Colosseum)', '') === name).length;
+  check('데이터에 ' + name + ' 존재 (' + n + '기)', n > 0);
+  check('app.js 가 ' + name + ' 을 분류', appJs.includes("'" + name + "'"));
+}
+
+// 상위 변종을 뺀 나머지 종류는 기본 카테고리로 떨어져야 한다
+const baseTypes = new Set([...bosses.map(b => b.type), ...waypoints.map(w => w.type)]);
+check('기본 카테고리가 데이터의 종류를 모두 덮음',
+  [...baseTypes].every(t => catKeys.includes(t)), [...baseTypes].join(','));
 
 // 지도에서 조작하는 버튼들이 실제로 처리되는지
 for (const [attr, handler] of [['data-kill', 'toggleKill'], ['data-unlock', 'toggleWaypoint'],

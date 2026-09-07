@@ -507,6 +507,10 @@ a { color: var(--accent); }
 .ico--tower { color: var(--tower); }
 .ico--shrine { color: var(--shrine); }
 
+/* 카테고리가 9종이라 두 줄로 접힌다 */
+.cats { grid-template-columns: repeat(5, 1fr); }
+.cat__name { white-space: nowrap; }
+
 /* ── 카테고리 토글 (서랍 안) ── */
 .cats {
   display: grid;

@@ -33,19 +33,49 @@
     map: null,           // data/map.json (좌표 → 픽셀 기준값)
     view: null,          // 지도 viewBox {x, y, w, h}
     mapLayer: 'Surface',
-    cats: { Lynel: true, Hinox: true, Talus: true, Tower: true, Shrine: true },
+    cats: {
+      Lynel: true, LynelWhite: true,
+      Hinox: true, HinoxBlack: true,
+      Talus: true, TalusLum: true, TalusRare: true,
+      Tower: true, Shrine: true
+    },
     hideDone: false,
     sel: null            // 지도에서 선택한 대상 { kind: 'boss'|'wp', id }
   };
 
-  /** 지도 카테고리 정의 — 토글 버튼과 마커가 같은 표를 쓴다 */
+  /**
+   * 지도 카테고리 정의 — 토글 버튼과 마커가 같은 표를 쓴다.
+   * 소재값이 큰 상위 변종(흰 갈기 라이넬 · 블랙 히녹스 · 야광/레어 바위록)은
+   * 아이콘과 색을 따로 줘서 지도에서 바로 골라낼 수 있게 했다.
+   */
   var CATS = [
     { key: 'Lynel', ko: '라이넬', icon: '#i-lynel', color: '#e0503c', kind: 'boss' },
+    { key: 'LynelWhite', ko: '흰 갈기', icon: '#i-lynel-white', color: '#d8356f', kind: 'boss' },
     { key: 'Hinox', ko: '히녹스', icon: '#i-hinox', color: '#c98adb', kind: 'boss' },
+    { key: 'HinoxBlack', ko: '블랙', icon: '#i-hinox-black', color: '#7b4fd0', kind: 'boss' },
     { key: 'Talus', ko: '바위록', icon: '#i-talus', color: '#e0b44a', kind: 'boss' },
-    { key: 'Tower', ko: '조망대', icon: '#i-tower', color: '#46d5e8', kind: 'wp' },
-    { key: 'Shrine', ko: '사당', icon: '#i-shrine', color: '#8fa6c4', kind: 'wp' }
+    { key: 'TalusLum', ko: '야광', icon: '#i-talus-lum', color: '#31b07a', kind: 'boss' },
+    { key: 'TalusRare', ko: '레어', icon: '#i-talus-rare', color: '#e07820', kind: 'boss' },
+    { key: 'Tower', ko: '조망대', icon: '#i-tower', color: '#2fb6d6', kind: 'wp' },
+    { key: 'Shrine', ko: '사당', icon: '#i-shrine', color: '#7f9fc4', kind: 'wp' }
   ];
+
+  var CAT_BY_KEY = {};
+  CATS.forEach(function (c) { CAT_BY_KEY[c.key] = c; });
+
+  /** 영문 이름 → 상위 변종 카테고리. "(Colosseum)" 접미어는 떼고 본다. */
+  var SPECIAL_CAT = {
+    'White-Maned Lynel': 'LynelWhite',
+    'Black Hinox': 'HinoxBlack',
+    'Luminous Talus': 'TalusLum',
+    'Rare Talus': 'TalusRare'
+  };
+
+  /** 이 대상이 속한 카테고리 키 */
+  function catOf(o) {
+    if (o.type === 'Shrine' || o.type === 'Tower') return o.type;
+    return SPECIAL_CAT[o.name.replace(' (Colosseum)', '')] || o.type;
+  }
 
   function selected(kind, id) {
     return !!state.sel && state.sel.kind === kind && state.sel.id === id;
@@ -136,13 +166,14 @@
 
   function matchesBoss(b) {
     var f = state.filter;
-    if (f.type !== 'all' && b.type !== f.type) return false;
+    if (f.type !== 'all' && catOf(b) !== f.type) return false;
     if (f.layer !== 'all' && b.layer !== f.layer) return false;
     if (f.state === 'alive' && state.kills.has(b.id)) return false;
     if (f.state === 'killed' && !state.kills.has(b.id)) return false;
     if (f.q) {
       var hay = (b.name + ' ' + b.nameKo + ' ' + b.region + ' ' + b.regionKo + ' ' +
-                 b.id + ' ' + TYPE_KO[b.type] + ' ' + LAYER_KO[b.layer]).toLowerCase();
+                 b.id + ' ' + TYPE_KO[b.type] + ' ' + CAT_BY_KEY[catOf(b)].ko + ' ' +
+                 LAYER_KO[b.layer]).toLowerCase();
       if (hay.indexOf(f.q) === -1) return false;
     }
     return true;
@@ -150,7 +181,7 @@
 
   /** 지도에 이 보스를 그릴지 */
   function mapShowsBoss(b) {
-    if (b.layer !== state.mapLayer || !state.cats[b.type]) return false;
+    if (b.layer !== state.mapLayer || !state.cats[catOf(b)]) return false;
     return !(state.hideDone && state.kills.has(b.id));
   }
 
@@ -160,7 +191,7 @@
    * 전부 해금한 상태에서 지도가 텅 비어 버린다.
    */
   function mapShowsWaypoint(w) {
-    return w.layer === state.mapLayer && state.cats[w.type];
+    return w.layer === state.mapLayer && state.cats[catOf(w)];
   }
 
   function bestSeconds(b) {
@@ -216,8 +247,8 @@
       '<div class="card__head">' +
         '<button class="card__check" type="button" data-kill="' + b.id + '" ' +
           'aria-pressed="' + killed + '" aria-label="처치 여부">✔</button>' +
-        '<svg class="card__icon ico--' + b.type + '" aria-hidden="true"><use href="' +
-          TYPE_ICON[b.type] + '"/></svg>' +
+        '<svg class="card__icon" style="color:' + catColor(b) + '" aria-hidden="true">' +
+          '<use href="' + catIcon(b) + '"/></svg>' +
         '<div class="card__body">' +
           '<h3 class="card__name">' + esc(b.nameKo) + ' <span class="en">' + esc(b.name) + '</span></h3>' +
           '<div class="card__meta">' +
@@ -283,8 +314,8 @@
    * 화면 표시는 SVG viewBox 를 움직여서 이동·확대한다.
    */
 
-  var TYPE_COLOR = { Lynel: '#e0503c', Hinox: '#c98adb', Talus: '#e0b44a' };
-  var TYPE_ICON = { Lynel: '#i-lynel', Hinox: '#i-hinox', Talus: '#i-talus' };
+  function catColor(o) { return CAT_BY_KEY[catOf(o)].color; }
+  function catIcon(o) { return CAT_BY_KEY[catOf(o)].icon; }
 
   function toMapX(x) { return (x - state.map.originX) / state.map.metersPerPixel; }
   function toMapY(y) { return (state.map.originY - y) / state.map.metersPerPixel; }
@@ -474,8 +505,8 @@
       if (!mapShowsWaypoint(w)) return;
       var on = state.unlocked.has(w.id);
       parts.push(marker(w.id, 'wp', toMapX(w.coords[0]), toMapY(w.coords[1]), {
-        icon: w.type === 'Tower' ? '#i-tower' : '#i-shrine',
-        color: on ? (w.type === 'Tower' ? '#2fb6d6' : '#7f9fc4') : '#46536a',
+        icon: catIcon(w),
+        color: on ? catColor(w) : '#46536a',
         dim: !on,
         title: RC.waypointLabel(w) + (on ? '' : ' (미해금)'),
         extra: ' mk--wp' + (selected('wp', w.id) ? ' is-sel' : '') + (on ? '' : ' is-locked')
@@ -487,8 +518,8 @@
       if (!mapShowsBoss(b)) return;
       var killed = state.kills.has(b.id);
       parts.push(marker(b.id, 'boss', toMapX(b.coords[0]), toMapY(b.coords[1]), {
-        icon: TYPE_ICON[b.type],
-        color: killed ? '#46536a' : TYPE_COLOR[b.type],
+        icon: catIcon(b),
+        color: killed ? '#46536a' : catColor(b),
         dim: killed,
         title: b.nameKo + ' · ' + b.regionKo,
         extra: (selected('boss', b.id) ? ' is-sel' : '') + (killed ? ' is-dead' : '')
@@ -540,7 +571,7 @@
   function nearestBosses(w, limit) {
     var out = [];
     state.bosses.forEach(function (b) {
-      if (state.kills.has(b.id) || !state.cats[b.type]) return;
+      if (state.kills.has(b.id) || !state.cats[catOf(b)]) return;
       out.push({ boss: b, route: RC.estimateRoute(w, b) });
     });
     out.sort(function (a, b) { return a.route.seconds - b.route.seconds; });
@@ -562,8 +593,8 @@
       });
     }
     // 카테고리가 꺼져 있으면 켜 줘야 마커가 보인다
-    if (!state.cats[o.type]) {
-      state.cats[o.type] = true;
+    if (!state.cats[catOf(o)]) {
+      state.cats[catOf(o)] = true;
       renderCats();
     }
     state.sel = { kind: kind, id: id };
@@ -588,7 +619,7 @@
     var routes = state.routes.get(b.id) || [];
     var killed = state.kills.has(b.id);
     return '<div class="panel__head">' +
-        '<svg class="panel__icon ico--' + b.type + '"><use href="' + TYPE_ICON[b.type] + '"/></svg>' +
+        '<svg class="panel__icon" style="color:' + catColor(b) + '"><use href="' + catIcon(b) + '"/></svg>' +
         '<div class="panel__title"><b>' + esc(b.nameKo) + '</b> ' +
           '<span class="en">' + esc(b.name) + '</span>' +
           '<div class="panel__meta">' +
@@ -621,8 +652,8 @@
     var on = state.unlocked.has(w.id);
     var near = on ? nearestBosses(w, 3) : [];
     return '<div class="panel__head">' +
-        '<svg class="panel__icon ico--' + (w.type === 'Tower' ? 'tower' : 'shrine') + '">' +
-          '<use href="' + (w.type === 'Tower' ? '#i-tower' : '#i-shrine') + '"/></svg>' +
+        '<svg class="panel__icon" style="color:' + catColor(w) + '">' +
+          '<use href="' + catIcon(w) + '"/></svg>' +
         '<div class="panel__title"><b>' + esc(w.nameKo) + '</b> ' +
           '<span class="en">' + esc(w.name) + '</span>' +
           '<div class="panel__meta">' +
@@ -657,11 +688,11 @@
     $('#mapCats').innerHTML = CATS.map(function (c) {
       var total, done;
       if (c.kind === 'boss') {
-        var list = state.bosses.filter(function (b) { return b.type === c.key; });
+        var list = state.bosses.filter(function (b) { return catOf(b) === c.key; });
         total = list.length;
         done = list.filter(function (b) { return state.kills.has(b.id); }).length;
       } else {
-        var wps = state.waypoints.filter(function (w) { return w.type === c.key; });
+        var wps = state.waypoints.filter(function (w) { return catOf(w) === c.key; });
         total = wps.length;
         done = wps.filter(function (w) { return state.unlocked.has(w.id); }).length;
       }
@@ -820,14 +851,13 @@
     state.bosses.forEach(function (b) {
       if ((b.nameKo + ' ' + b.name + ' ' + b.regionKo + ' ' + b.region).toLowerCase().indexOf(q) >= 0) {
         hits.push({ kind: 'boss', id: b.id, name: b.nameKo, sub: b.regionKo + ' · ' + LAYER_KO[b.layer],
-                    icon: TYPE_ICON[b.type], color: TYPE_COLOR[b.type] });
+                    icon: catIcon(b), color: catColor(b) });
       }
     });
     state.waypoints.forEach(function (w) {
       if ((w.nameKo + ' ' + w.name + ' ' + w.regionKo + ' ' + w.region).toLowerCase().indexOf(q) >= 0) {
         hits.push({ kind: 'wp', id: w.id, name: w.nameKo, sub: w.regionKo + ' · ' + LAYER_KO[w.layer],
-                    icon: w.type === 'Tower' ? '#i-tower' : '#i-shrine',
-                    color: w.type === 'Tower' ? '#46d5e8' : '#a8bcd6' });
+                    icon: catIcon(w), color: catColor(w) });
       }
     });
 
@@ -1113,7 +1143,7 @@
       state.cats[key] = !state.cats[key];
       if (state.sel) {
         var o = state.sel.kind === 'boss' ? findBoss(state.sel.id) : findWaypoint(state.sel.id);
-        if (o && !state.cats[o.type]) state.sel = null;
+        if (o && !state.cats[catOf(o)]) state.sel = null;
       }
       renderCats();
       renderMap();
