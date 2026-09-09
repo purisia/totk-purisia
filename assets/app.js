@@ -14,7 +14,8 @@
     kills: 'totk-tracker:kills',
     unlocked: 'totk-tracker:unlocked',
     seen: 'totk-tracker:seen',
-    seeded: 'totk-tracker:allwarps'   // 사당까지 기본 해금으로 맞춘 시점 표시
+    seeded: 'totk-tracker:allwarps',  // 사당까지 기본 해금으로 맞춘 시점 표시
+    world: 'totk-tracker:world'       // 적 강화(월드 레벨) 단계
   };
 
   var TYPE_KO = { Lynel: '라이넬', Hinox: '히녹스', Talus: '바위록' };
@@ -24,6 +25,8 @@
     bosses: [],
     waypoints: [],
     labels: [],          // 지도에 얹는 지명
+    scaling: {},         // 적 강화 사슬 (data/scaling.json)
+    world: 0,            // 월드 레벨 0~3. 배치된 종류를 몇 단계 올려 볼지
     kills: new Set(),
     unlocked: new Set(),
     routes: new Map(),      // bossId -> 추천 경로 배열
@@ -74,10 +77,25 @@
     'Rare Talus': 'TalusRare'
   };
 
+  /**
+   * 월드 레벨을 반영한 실제 종류.
+   * 배치 파일에 든 것은 "처음" 단계라, 진행이 된 세이브에서는 같은 계열의
+   * 윗 단계로 올라가 있다. 사슬 끝을 넘지는 않는다.
+   */
+  function stepOf(o) {
+    if (!o.family || !state.world) return null;
+    var chain = state.scaling[o.family];
+    if (!chain) return null;
+    return chain[Math.min(o.tier + state.world, chain.length - 1)];
+  }
+
+  function nameOf(o) { var st = stepOf(o); return st ? st.name : o.name; }
+  function nameKoOf(o) { var st = stepOf(o); return st ? st.nameKo : o.nameKo; }
+
   /** 이 대상이 속한 카테고리 키 */
   function catOf(o) {
     if (o.type === 'Shrine' || o.type === 'Tower') return o.type;
-    return SPECIAL_CAT[o.name.replace(' (Colosseum)', '')] || o.type;
+    return SPECIAL_CAT[nameOf(o).replace(' (Colosseum)', '')] || o.type;
   }
 
   function selected(kind, id) {
@@ -174,7 +192,7 @@
     if (f.state === 'alive' && state.kills.has(b.id)) return false;
     if (f.state === 'killed' && !state.kills.has(b.id)) return false;
     if (f.q) {
-      var hay = (b.name + ' ' + b.nameKo + ' ' + b.region + ' ' + b.regionKo + ' ' +
+      var hay = (nameOf(b) + ' ' + nameKoOf(b) + ' ' + b.region + ' ' + b.regionKo + ' ' +
                  b.id + ' ' + TYPE_KO[b.type] + ' ' + CAT_BY_KEY[catOf(b)].ko + ' ' +
                  LAYER_KO[b.layer]).toLowerCase();
       if (hay.indexOf(f.q) === -1) return false;
@@ -215,7 +233,7 @@
         var z = b.coords[2] - a.coords[2];
         if (z) return z;
       }
-      return a.nameKo.localeCompare(b.nameKo, 'ko') || a.id.localeCompare(b.id);
+      return nameKoOf(a).localeCompare(nameKoOf(b), 'ko') || a.id.localeCompare(b.id);
     });
   }
 
@@ -253,7 +271,7 @@
         '<svg class="card__icon" style="color:' + catColor(b) + '" aria-hidden="true">' +
           '<use href="' + catIcon(b) + '"/></svg>' +
         '<div class="card__body">' +
-          '<h3 class="card__name">' + esc(b.nameKo) + ' <span class="en">' + esc(b.name) + '</span></h3>' +
+          '<h3 class="card__name">' + esc(nameKoOf(b)) + ' <span class="en">' + esc(nameOf(b)) + '</span></h3>' +
           '<div class="card__meta">' +
             '<span class="badge badge--' + b.layer + '">' + LAYER_KO[b.layer] + '</span>' +
             (b.cave ? '<span class="badge badge--cave">동굴</span>' : '') +
@@ -527,7 +545,7 @@
         color: killed ? '#46536a' : catColor(b),
         glyph: killed ? '#fff' : catGlyph(b),
         dim: killed,
-        title: b.nameKo + ' · ' + b.regionKo,
+        title: nameKoOf(b) + ' · ' + b.regionKo,
         extra: (selected('boss', b.id) ? ' is-sel' : '') + (killed ? ' is-dead' : '')
       }));
     });
@@ -626,8 +644,8 @@
     var killed = state.kills.has(b.id);
     return '<div class="panel__head">' +
         '<svg class="panel__icon" style="color:' + catColor(b) + '"><use href="' + catIcon(b) + '"/></svg>' +
-        '<div class="panel__title"><b>' + esc(b.nameKo) + '</b> ' +
-          '<span class="en">' + esc(b.name) + '</span>' +
+        '<div class="panel__title"><b>' + esc(nameKoOf(b)) + '</b> ' +
+          '<span class="en">' + esc(nameOf(b)) + '</span>' +
           '<div class="panel__meta">' +
             '<span class="badge badge--' + b.layer + '">' + LAYER_KO[b.layer] + '</span>' +
             (b.cave ? '<span class="badge badge--cave">동굴</span>' : '') +
@@ -679,7 +697,7 @@
             ? '<div class="panel__label">여기서 가까운 미처치 보스 · 방향</div><ol class="routes">' +
                 near.map(function (n) {
                   return '<li>' +
-                    '<div class="rt__top"><b>' + esc(n.boss.nameKo) + '</b>' +
+                    '<div class="rt__top"><b>' + esc(nameKoOf(n.boss)) + '</b>' +
                     '<span class="rt__time">' + esc(RC.formatDuration(n.route.seconds)) + '</span></div>' +
                     '<div class="rt__dir">' + bearingLine(n.route) + ' · ' + esc(n.boss.regionKo) + '</div>' +
                     '<button class="rt__go" type="button" data-focus="' + n.boss.id + '">보기</button>' +
@@ -875,8 +893,9 @@
 
     var hits = [];
     state.bosses.forEach(function (b) {
-      if ((b.nameKo + ' ' + b.name + ' ' + b.regionKo + ' ' + b.region).toLowerCase().indexOf(q) >= 0) {
-        hits.push({ kind: 'boss', id: b.id, name: b.nameKo, sub: b.regionKo + ' · ' + LAYER_KO[b.layer],
+      if ((nameKoOf(b) + ' ' + nameOf(b) + ' ' + b.regionKo + ' ' + b.region)
+            .toLowerCase().indexOf(q) >= 0) {
+        hits.push({ kind: 'boss', id: b.id, name: nameKoOf(b), sub: b.regionKo + ' · ' + LAYER_KO[b.layer],
                     icon: catIcon(b), color: catColor(b) });
       }
     });
@@ -1176,6 +1195,13 @@
       renderMapInfo();
     });
 
+    bindChips($('#worldChips'), 'world', function (v) {
+      state.world = parseInt(v, 10) || 0;
+      try { localStorage.setItem(KEY.world, String(state.world)); } catch (e) { /* 무시 */ }
+      recomputeRoutes();
+      renderAll();
+    });
+
     $('#toggleAllBtn').addEventListener('click', function () {
       var anyOn = bossCats().some(function (k) { return state.cats[k]; });
       bossCats().forEach(function (k) { state.cats[k] = !anyOn; });
@@ -1324,6 +1350,10 @@
       if (chip) chip.click();
     }
 
+    $$('#worldChips .chip').forEach(function (c) {
+      c.classList.toggle('is-active', c.dataset.value === String(state.world));
+    });
+
     var layer = params.get('layer');
     if (layer && ['Sky', 'Surface', 'Depths'].indexOf(layer) >= 0) {
       state.mapLayer = layer;
@@ -1364,7 +1394,8 @@
       fetch('./data/bosses.json').then(function (r) { return r.json(); }),
       fetch('./data/waypoints.json').then(function (r) { return r.json(); }),
       fetch('./data/map.json').then(function (r) { return r.json(); }),
-      fetch('./data/labels.json').then(function (r) { return r.json(); })
+      fetch('./data/labels.json').then(function (r) { return r.json(); }),
+      fetch('./data/scaling.json').then(function (r) { return r.json(); })
     ]);
   }
 
@@ -1373,6 +1404,8 @@
     state.waypoints = res[1];
     state.map = res[2];
     state.labels = res[3];
+    state.scaling = res[4];
+    state.world = Math.max(0, Math.min(3, parseInt(localStorage.getItem(KEY.world), 10) || 0));
     resetView();
     state.kills = readSet(KEY.kills);
     state.unlocked = readSet(KEY.unlocked);

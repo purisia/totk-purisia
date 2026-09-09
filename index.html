@@ -111,6 +111,22 @@
     </section>
 
     <section class="drawer__sec">
+      <h2 class="drawer__h">적 강화 단계</h2>
+      <div class="chips chips--seg chips--seg4" id="worldChips" data-group="world">
+        <button class="chip is-active" data-value="0" type="button">기본</button>
+        <button class="chip" data-value="1" type="button">강화 1</button>
+        <button class="chip" data-value="2" type="button">강화 2</button>
+        <button class="chip" data-value="3" type="button">최대</button>
+      </div>
+      <p class="drawer__note">
+        게임은 쓰러뜨린 적이 쌓이면 배치된 개체를 같은 계열의 윗 단계로 올립니다
+        (라이넬 → 푸른 갈기 → 하얀 갈기 → 실버). 데이터에 든 것은 <b>처음 배치</b>이니,
+        진행이 된 세이브라면 단계를 올려 두세요. 마그록 · 꽁꽁록 · 하우스록 ·
+        스탈 히녹스는 계열이 달라 강화되지 않습니다.
+      </p>
+    </section>
+
+    <section class="drawer__sec">
       <h2 class="drawer__h">보스 표시</h2>
       <div class="cats" id="mapCats"></div>
       <button id="toggleAllBtn" class="btn btn--ghost btn--wide" type="button">보스 전체 끄기</button>

@@ -255,6 +255,36 @@ const baseTypes = new Set([...bosses.map(b => b.type), ...waypoints.map(w => w.t
 check('기본 카테고리가 데이터의 종류를 모두 덮음',
   [...baseTypes].every(t => catKeys.includes(t)), [...baseTypes].join(','));
 
+// 적 강화(월드 레벨) 사슬
+const scaling = readJson('data/scaling.json');
+check('강화 사슬 4계열', Object.keys(scaling).length === 4,
+  Object.keys(scaling).join(','));
+check('라이넬 사슬이 실버까지 이어짐',
+  scaling.Lynel.length === 4 && scaling.Lynel[3].name === 'Silver Lynel',
+  scaling.Lynel.map(x => x.nameKo).join(' → '));
+check('히녹스 · 바위록 사슬 3단계',
+  scaling.Hinox.length === 3 && scaling.Talus.length === 3,
+  scaling.Hinox.map(x => x.nameKo).join(' → ') + ' / ' +
+  scaling.Talus.map(x => x.nameKo).join(' → '));
+check('보스의 family · tier 가 사슬과 맞음', bosses.every(b => {
+  if (!b.family) return b.tier === 0;
+  const chain = scaling[b.family];
+  return chain && chain[b.tier] && chain[b.tier].variant === b.variant;
+}));
+check('강화되지 않는 계열은 family 가 없음',
+  bosses.filter(b => /Bone|KeyCrystal|Golem_(Fire|Ice|Fort)/.test(b.variant))
+        .every(b => b.family === null));
+check('최대 강화에서 라이넬 34기가 전부 실버', (() => {
+  const lynels = bosses.filter(b => b.type === 'Lynel');
+  return lynels.every(b => {
+    const chain = scaling[b.family];
+    return chain[Math.min(b.tier + 3, chain.length - 1)].name.indexOf('Silver Lynel') === 0;
+  });
+})());
+check('app.js 가 월드 레벨을 반영',
+  appJs.includes('stepOf') && appJs.includes('state.world') &&
+  appJs.includes('worldChips'));
+
 // 워프 지점은 끌 수 없어야 한다
 check('사당·조망대는 끄는 기능이 없음',
   /function mapShowsWaypoint\([\s\S]{0,160}return w\.layer === state\.mapLayer;/.test(appJs) &&

@@ -629,6 +629,16 @@ a { color: var(--accent); }
 
 /* ── 지도 위 컨트롤 ── */
 .chips--seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3rem; }
+.chips--seg4 { grid-template-columns: repeat(4, 1fr); }
+
+.drawer__note {
+  margin: .5rem 0 0;
+  font-size: .72rem;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+.drawer__note b { color: var(--text-dim); }
 .chips--seg .chip { text-align: center; }
 
 .coordbox { font-variant-numeric: tabular-nums; }

@@ -126,6 +126,23 @@ ACTOR_NAME = {
 }
 TYPE_KO = {"Lynel": "라이넬", "Hinox": "히녹스", "Talus": "바위록"}
 
+# 게임의 적 강화(월드 레벨) 사슬. 링크가 쓰러뜨린 적이 쌓이면 배치된 개체가
+# 같은 계열의 윗 단계로 올라간다. 배치 파일에 들어 있는 것은 "처음" 단계라,
+# 진행이 된 세이브에서는 실제로 보이는 종류가 더 위일 수 있다.
+# _KeyCrystal(퀘스트 연동)과 마그록·꽁꽁록·하우스록·스탈 히녹스는 계열이
+# 따로라 강화되지 않는다.
+SCALE_CHAINS = {
+    "Lynel": ["Enemy_Lynel_Junior", "Enemy_Lynel_Middle",
+              "Enemy_Lynel_Senior", "Enemy_Lynel_Dark"],
+    "LynelBoss": ["Enemy_Lynel_Boss", "Enemy_Lynel_Boss_Middle",
+                  "Enemy_Lynel_Boss_Senior", "Enemy_Lynel_Boss_Dark"],
+    "Hinox": ["Enemy_Giant_Junior", "Enemy_Giant_Middle", "Enemy_Giant_Senior"],
+    "Talus": ["Enemy_Golem_Junior", "Enemy_Golem_Middle", "Enemy_Golem_Senior"],
+}
+VARIANT_CHAIN = {v: (fam, i)
+                 for fam, chain in SCALE_CHAINS.items()
+                 for i, v in enumerate(chain)}
+
 
 def nearest_actor(P, cand, tol=60.0):
     """Nearest placement in the object dump (3D -- surface and depths bosses
@@ -148,11 +165,14 @@ bosses = []
 def add_boss(btype, actor, P, layer, cave=False):
     en, suffix = ACTOR_NAME.get(actor, (btype, ""))
     region = region_of(P)
+    family, tier = VARIANT_CHAIN.get(actor, (None, 0))
     bosses.append({
         "type": btype,
         "name": en + ("" if not suffix else " (Colosseum)"),
         "nameKo": KO.get(en, TYPE_KO[btype]) + suffix,
         "variant": actor,
+        "family": family,
+        "tier": tier,
         "region": region,
         "regionKo": ko(region),
         "layer": layer or layer_of(P),
@@ -191,7 +211,8 @@ for b in bosses:
     seq[b["type"]] += 1
     b["id"] = "%s-%03d" % (b["type"].lower(), seq[b["type"]])
 bosses = [{"id": b["id"], "type": b["type"], "name": b["name"], "nameKo": b["nameKo"],
-           "variant": b["variant"], "region": b["region"], "regionKo": b["regionKo"],
+           "variant": b["variant"], "family": b["family"], "tier": b["tier"],
+           "region": b["region"], "regionKo": b["regionKo"],
            "layer": b["layer"], "cave": b["cave"], "coords": b["coords"]} for b in bosses]
 
 # ------------------------------------------------------------- waypoints ---
@@ -269,9 +290,21 @@ for e in md["locations"]:
     })
 labels.sort(key=lambda l: (l["layer"], l["nameKo"]))
 
+scaling = {}
+for fam, chain in SCALE_CHAINS.items():
+    steps = []
+    for actor in chain:
+        en, suffix = ACTOR_NAME[actor]
+        steps.append({
+            "variant": actor,
+            "name": en + ("" if not suffix else " (Colosseum)"),
+            "nameKo": KO.get(en, en) + suffix,
+        })
+    scaling[fam] = steps
+
 os.makedirs(OUT, exist_ok=True)
 for name, payload in [("bosses.json", bosses), ("waypoints.json", waypoints),
-                      ("labels.json", labels)]:
+                      ("labels.json", labels), ("scaling.json", scaling)]:
     with open(os.path.join(OUT, name), "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
         fh.write("\n")

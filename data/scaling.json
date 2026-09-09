@@ -1,0 +1,80 @@
+{
+ "Lynel": [
+  {
+   "variant": "Enemy_Lynel_Junior",
+   "name": "Lynel",
+   "nameKo": "라이넬"
+  },
+  {
+   "variant": "Enemy_Lynel_Middle",
+   "name": "Blue-Maned Lynel",
+   "nameKo": "푸른 갈기의 라이넬"
+  },
+  {
+   "variant": "Enemy_Lynel_Senior",
+   "name": "White-Maned Lynel",
+   "nameKo": "하얀 갈기의 라이넬"
+  },
+  {
+   "variant": "Enemy_Lynel_Dark",
+   "name": "Silver Lynel",
+   "nameKo": "실버 라이넬"
+  }
+ ],
+ "LynelBoss": [
+  {
+   "variant": "Enemy_Lynel_Boss",
+   "name": "Lynel (Colosseum)",
+   "nameKo": "라이넬 (기갑)"
+  },
+  {
+   "variant": "Enemy_Lynel_Boss_Middle",
+   "name": "Blue-Maned Lynel (Colosseum)",
+   "nameKo": "푸른 갈기의 라이넬 (기갑)"
+  },
+  {
+   "variant": "Enemy_Lynel_Boss_Senior",
+   "name": "White-Maned Lynel (Colosseum)",
+   "nameKo": "하얀 갈기의 라이넬 (기갑)"
+  },
+  {
+   "variant": "Enemy_Lynel_Boss_Dark",
+   "name": "Silver Lynel (Colosseum)",
+   "nameKo": "실버 라이넬 (기갑)"
+  }
+ ],
+ "Hinox": [
+  {
+   "variant": "Enemy_Giant_Junior",
+   "name": "Hinox",
+   "nameKo": "히녹스"
+  },
+  {
+   "variant": "Enemy_Giant_Middle",
+   "name": "Blue Hinox",
+   "nameKo": "블루 히녹스"
+  },
+  {
+   "variant": "Enemy_Giant_Senior",
+   "name": "Black Hinox",
+   "nameKo": "블랙 히녹스"
+  }
+ ],
+ "Talus": [
+  {
+   "variant": "Enemy_Golem_Junior",
+   "name": "Stone Talus",
+   "nameKo": "바위록"
+  },
+  {
+   "variant": "Enemy_Golem_Middle",
+   "name": "Luminous Talus",
+   "nameKo": "바위록(야광)"
+  },
+  {
+   "variant": "Enemy_Golem_Senior",
+   "name": "Rare Talus",
+   "nameKo": "바위록(레어)"
+  }
+ ]
+}
