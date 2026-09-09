@@ -5,7 +5,7 @@
  * 한 번 설치되면 네트워크 없이도 완전히 동작한다.
  * 데이터가 바뀌면 CACHE 버전을 올려서 배포한다.
  */
-var CACHE = 'totk-boss-tracker-v9';
+var CACHE = 'totk-boss-tracker-v10';
 
 var ASSETS = [
   './',

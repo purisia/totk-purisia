@@ -232,24 +232,35 @@ check('manifest 경로가 상대 경로 (하위 경로 배포 대응)',
 check('manifest 바로가기의 쿼리를 app.js 가 처리',
   appJs.includes('applyLaunchParams') && appJs.includes('URLSearchParams'));
 
-// 지도 카테고리 — 보스 3종 + 상위 변종 4종 + 워프 2종
+// 지도 카테고리 — 보스 8종(기본 3 + 상위 5) + 워프 2종(범례 전용)
 const catKeys = [...appJs.matchAll(/\{ key: '(\w+)'/g)].map(m => m[1]);
-check('지도 카테고리 9종', catKeys.length === 9, catKeys.join(','));
-check('상위 변종 4종이 따로 분류됨',
-  ['LynelWhite', 'HinoxBlack', 'TalusLum', 'TalusRare'].every(k => catKeys.includes(k)));
+check('지도 카테고리 10종', catKeys.length === 10, catKeys.join(','));
 
-// 상위 변종 이름이 데이터에 실제로 존재해야 분류가 먹는다
-const specials = ['White-Maned Lynel', 'Black Hinox', 'Luminous Talus', 'Rare Talus'];
-for (const name of specials) {
+const specials = {
+  'White-Maned Lynel': 'LynelWhite',
+  'Silver Lynel': 'LynelSilver',
+  'Black Hinox': 'HinoxBlack',
+  'Luminous Talus': 'TalusLum',
+  'Rare Talus': 'TalusRare'
+};
+check('상위 변종 5종이 따로 분류됨',
+  Object.values(specials).every(k => catKeys.includes(k)));
+
+for (const [name, key] of Object.entries(specials)) {
   const n = bosses.filter(b => b.name.replace(' (Colosseum)', '') === name).length;
-  check('데이터에 ' + name + ' 존재 (' + n + '기)', n > 0);
-  check('app.js 가 ' + name + ' 을 분류', appJs.includes("'" + name + "'"));
+  check(name + ' → ' + key + ' (' + n + '기)', n > 0 && appJs.includes("'" + name + "'"));
 }
 
-// 상위 변종을 뺀 나머지 종류는 기본 카테고리로 떨어져야 한다
 const baseTypes = new Set([...bosses.map(b => b.type), ...waypoints.map(w => w.type)]);
 check('기본 카테고리가 데이터의 종류를 모두 덮음',
   [...baseTypes].every(t => catKeys.includes(t)), [...baseTypes].join(','));
+
+// 워프 지점은 끌 수 없어야 한다
+check('사당·조망대는 끄는 기능이 없음',
+  /function mapShowsWaypoint\([\s\S]{0,160}return w\.layer === state\.mapLayer;/.test(appJs) &&
+  !/cats: \{[^}]*Shrine/.test(appJs));
+check('보스 필터를 한 번에 끄고 켤 수 있음',
+  appJs.includes('toggleAllBtn') && appJs.includes('bossCats'));
 
 // 지도에서 조작하는 버튼들이 실제로 처리되는지
 for (const [attr, handler] of [['data-kill', 'toggleKill'], ['data-unlock', 'toggleWaypoint'],

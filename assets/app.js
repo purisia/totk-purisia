@@ -34,10 +34,9 @@
     view: null,          // 지도 viewBox {x, y, w, h}
     mapLayer: 'Surface',
     cats: {
-      Lynel: true, LynelWhite: true,
+      Lynel: true, LynelWhite: true, LynelSilver: true,
       Hinox: true, HinoxBlack: true,
-      Talus: true, TalusLum: true, TalusRare: true,
-      Tower: true, Shrine: true
+      Talus: true, TalusLum: true, TalusRare: true
     },
     hideDone: false,
     sel: null            // 지도에서 선택한 대상 { kind: 'boss'|'wp', id }
@@ -51,11 +50,14 @@
   var CATS = [
     { key: 'Lynel', ko: '라이넬', icon: '#i-lynel', color: '#e0503c', kind: 'boss' },
     { key: 'LynelWhite', ko: '흰 갈기', icon: '#i-lynel-white', color: '#d8356f', kind: 'boss' },
+    { key: 'LynelSilver', ko: '실버', icon: '#i-lynel-silver', color: '#dde5f2',
+      glyph: '#1b2536', kind: 'boss' },
     { key: 'Hinox', ko: '히녹스', icon: '#i-hinox', color: '#c98adb', kind: 'boss' },
     { key: 'HinoxBlack', ko: '블랙', icon: '#i-hinox-black', color: '#7b4fd0', kind: 'boss' },
     { key: 'Talus', ko: '바위록', icon: '#i-talus', color: '#e0b44a', kind: 'boss' },
     { key: 'TalusLum', ko: '야광', icon: '#i-talus-lum', color: '#31b07a', kind: 'boss' },
     { key: 'TalusRare', ko: '레어', icon: '#i-talus-rare', color: '#e07820', kind: 'boss' },
+    // 워프 지점은 경로 추천의 기준이라 끌 수 없다. 범례로만 보여준다.
     { key: 'Tower', ko: '조망대', icon: '#i-tower', color: '#2fb6d6', kind: 'wp' },
     { key: 'Shrine', ko: '사당', icon: '#i-shrine', color: '#7f9fc4', kind: 'wp' }
   ];
@@ -66,6 +68,7 @@
   /** 영문 이름 → 상위 변종 카테고리. "(Colosseum)" 접미어는 떼고 본다. */
   var SPECIAL_CAT = {
     'White-Maned Lynel': 'LynelWhite',
+    'Silver Lynel': 'LynelSilver',
     'Black Hinox': 'HinoxBlack',
     'Luminous Talus': 'TalusLum',
     'Rare Talus': 'TalusRare'
@@ -191,7 +194,7 @@
    * 전부 해금한 상태에서 지도가 텅 비어 버린다.
    */
   function mapShowsWaypoint(w) {
-    return w.layer === state.mapLayer && state.cats[catOf(w)];
+    return w.layer === state.mapLayer;
   }
 
   function bestSeconds(b) {
@@ -316,6 +319,7 @@
 
   function catColor(o) { return CAT_BY_KEY[catOf(o)].color; }
   function catIcon(o) { return CAT_BY_KEY[catOf(o)].icon; }
+  function catGlyph(o) { return CAT_BY_KEY[catOf(o)].glyph || '#fff'; }
 
   function toMapX(x) { return (x - state.map.originX) / state.map.metersPerPixel; }
   function toMapY(y) { return (state.map.originY - y) / state.map.metersPerPixel; }
@@ -420,7 +424,7 @@
       '<use class="mk__pin" href="#i-pin" x="-14" y="-34" width="28" height="34" fill="' +
         opts.color + '" opacity="' + (opts.dim ? 0.55 : 1) + '"/>' +
       '<use class="mk__ico" href="' + opts.icon + '" x="-7.4" y="-27.2" width="14.8" height="14.8" ' +
-        'fill="#fff" opacity="' + (opts.dim ? 0.75 : 1) + '"/>' +
+        'fill="' + (opts.glyph || '#fff') + '" opacity="' + (opts.dim ? 0.75 : 1) + '"/>' +
       '<circle class="mk__hit" cy="-19" r="14" fill="transparent"/>' +
       '<title>' + esc(opts.title) + '</title></g>';
   }
@@ -507,6 +511,7 @@
       parts.push(marker(w.id, 'wp', toMapX(w.coords[0]), toMapY(w.coords[1]), {
         icon: catIcon(w),
         color: on ? catColor(w) : '#46536a',
+        glyph: catGlyph(w),
         dim: !on,
         title: RC.waypointLabel(w) + (on ? '' : ' (미해금)'),
         extra: ' mk--wp' + (selected('wp', w.id) ? ' is-sel' : '') + (on ? '' : ' is-locked')
@@ -520,6 +525,7 @@
       parts.push(marker(b.id, 'boss', toMapX(b.coords[0]), toMapY(b.coords[1]), {
         icon: catIcon(b),
         color: killed ? '#46536a' : catColor(b),
+        glyph: killed ? '#fff' : catGlyph(b),
         dim: killed,
         title: b.nameKo + ' · ' + b.regionKo,
         extra: (selected('boss', b.id) ? ' is-sel' : '') + (killed ? ' is-dead' : '')
@@ -683,9 +689,9 @@
         : '<p class="panel__warn">아직 해금하지 않은 곳입니다. 해금하면 추천 경로 계산에 포함됩니다.</p>');
   }
 
-  /** 서랍의 카테고리 토글 (켜기/끄기 + 진행도) */
+  /** 보스 카테고리 토글 그리드 (켜기/끄기 + 진행도) */
   function renderCats() {
-    $('#mapCats').innerHTML = CATS.map(function (c) {
+    $('#mapCats').innerHTML = CATS.filter(function (c) { return c.kind === 'boss'; }).map(function (c) {
       var total, done;
       if (c.kind === 'boss') {
         var list = state.bosses.filter(function (b) { return catOf(b) === c.key; });
@@ -704,9 +710,29 @@
         '<span class="cat__num">' + done + '/' + total + '</span>' +
         '</button>';
     }).join('');
+    // 워프 지점은 끌 수 없으니 범례로만 보여준다
+    $('#wpLegend').innerHTML = CATS.filter(function (c) { return c.kind === 'wp'; })
+      .map(function (c) {
+        var wps = state.waypoints.filter(function (w) { return catOf(w) === c.key; });
+        var done = wps.filter(function (w) { return state.unlocked.has(w.id); }).length;
+        return '<span><span class="wpl__pin" style="background:' + c.color + '">' +
+          '<svg style="fill:' + (c.glyph || '#fff') + '"><use href="' + c.icon + '"/></svg></span>' +
+          c.ko + ' <b>' + done + '/' + wps.length + '</b></span>';
+      }).join('') + '<span class="wpl__note">워프 지점은 항상 표시됩니다</span>';
+
     var hd = $('#hideDoneBtn');
     hd.classList.toggle('btn--on', state.hideDone);
     hd.textContent = state.hideDone ? '완료 항목 표시' : '처치 완료 숨기기';
+
+    var anyOn = bossCats().some(function (k) { return state.cats[k]; });
+    var ta = $('#toggleAllBtn');
+    ta.textContent = anyOn ? '보스 전체 끄기' : '보스 전체 켜기';
+    ta.classList.toggle('btn--on', !anyOn);
+  }
+
+  function bossCats() {
+    return CATS.filter(function (c) { return c.kind === 'boss'; })
+               .map(function (c) { return c.key; });
   }
 
   function renderMapInfo() {
@@ -1144,6 +1170,18 @@
       if (state.sel) {
         var o = state.sel.kind === 'boss' ? findBoss(state.sel.id) : findWaypoint(state.sel.id);
         if (o && !state.cats[catOf(o)]) state.sel = null;
+      }
+      renderCats();
+      renderMap();
+      renderMapInfo();
+    });
+
+    $('#toggleAllBtn').addEventListener('click', function () {
+      var anyOn = bossCats().some(function (k) { return state.cats[k]; });
+      bossCats().forEach(function (k) { state.cats[k] = !anyOn; });
+      if (state.sel && state.sel.kind === 'boss') {
+        var b = findBoss(state.sel.id);
+        if (b && !state.cats[catOf(b)]) state.sel = null;
       }
       renderCats();
       renderMap();
