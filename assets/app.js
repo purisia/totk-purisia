@@ -27,6 +27,7 @@
     labels: [],          // 지도에 얹는 지명
     scaling: {},         // 적 강화 사슬 (data/scaling.json)
     world: 0,            // 월드 레벨 0~3. 배치된 종류를 몇 단계 올려 볼지
+    fixedOnly: false,    // 강화 사슬 밖의 고정 개체만 보기
     kills: new Set(),
     unlocked: new Set(),
     routes: new Map(),      // bossId -> 추천 경로 배열
@@ -88,6 +89,13 @@
     if (!chain) return null;
     return chain[Math.min(o.tier + state.world, chain.length - 1)];
   }
+
+  /**
+   * 강화 사슬 밖이라 진행해도 종류가 바뀌지 않는 개체.
+   * 마그록 · 꽁꽁록 · 하우스록 · 스탈 히녹스는 계열 자체가 다르고,
+   * 퀘스트에 묶인 개체(_KeyCrystal)도 배치가 고정이다.
+   */
+  function isFixed(o) { return o.type !== 'Shrine' && o.type !== 'Tower' && !o.family; }
 
   function nameOf(o) { var st = stepOf(o); return st ? st.name : o.name; }
   function nameKoOf(o) { var st = stepOf(o); return st ? st.nameKo : o.nameKo; }
@@ -203,6 +211,7 @@
   /** 지도에 이 보스를 그릴지 */
   function mapShowsBoss(b) {
     if (b.layer !== state.mapLayer || !state.cats[catOf(b)]) return false;
+    if (state.fixedOnly && !isFixed(b)) return false;
     return !(state.hideDone && state.kills.has(b.id));
   }
 
@@ -275,6 +284,7 @@
           '<div class="card__meta">' +
             '<span class="badge badge--' + b.layer + '">' + LAYER_KO[b.layer] + '</span>' +
             (b.cave ? '<span class="badge badge--cave">동굴</span>' : '') +
+            (isFixed(b) ? '<span class="badge badge--fixed">강화 없음</span>' : '') +
             '<span>' + esc(b.regionKo) + '</span>' +
             '<span class="coords">' + coordText(b.coords) + '</span>' +
           '</div>' +
@@ -439,7 +449,8 @@
   function marker(id, kind, x, y, opts) {
     return '<g class="mk' + (opts.extra || '') + '" data-mx="' + x.toFixed(1) +
       '" data-my="' + y.toFixed(1) + '" data-kind="' + kind + '" data-id="' + id + '">' +
-      '<use class="mk__pin" href="#i-pin" x="-14" y="-34" width="28" height="34" fill="' +
+      '<use class="mk__pin" href="' + (opts.fixed ? '#i-pin-fixed' : '#i-pin') +
+        '" x="-14" y="-34" width="28" height="34" fill="' +
         opts.color + '" opacity="' + (opts.dim ? 0.55 : 1) + '"/>' +
       '<use class="mk__ico" href="' + opts.icon + '" x="-7.4" y="-27.2" width="14.8" height="14.8" ' +
         'fill="' + (opts.glyph || '#fff') + '" opacity="' + (opts.dim ? 0.75 : 1) + '"/>' +
@@ -544,6 +555,7 @@
         icon: catIcon(b),
         color: killed ? '#46536a' : catColor(b),
         glyph: killed ? '#fff' : catGlyph(b),
+        fixed: isFixed(b),
         dim: killed,
         title: nameKoOf(b) + ' · ' + b.regionKo,
         extra: (selected('boss', b.id) ? ' is-sel' : '') + (killed ? ' is-dead' : '')
@@ -649,6 +661,7 @@
           '<div class="panel__meta">' +
             '<span class="badge badge--' + b.layer + '">' + LAYER_KO[b.layer] + '</span>' +
             (b.cave ? '<span class="badge badge--cave">동굴</span>' : '') +
+            (isFixed(b) ? '<span class="badge badge--fixed">강화 없음</span>' : '') +
             esc(b.regionKo) + ' <span class="coords">' + coordText(b.coords) + '</span>' +
           '</div>' +
         '</div>' +
@@ -737,6 +750,13 @@
           '<svg style="fill:' + (c.glyph || '#fff') + '"><use href="' + c.icon + '"/></svg></span>' +
           c.ko + ' <b>' + done + '/' + wps.length + '</b></span>';
       }).join('') + '<span class="wpl__note">워프 지점은 항상 표시됩니다</span>';
+
+    var fo = $('#fixedOnlyBtn');
+    var fixedCount = state.bosses.filter(isFixed).length;
+    fo.classList.toggle('btn--on', state.fixedOnly);
+    fo.textContent = state.fixedOnly
+      ? '전체 보기 (고정 ' + fixedCount + '기만 표시 중)'
+      : '강화 안 되는 개체만 (' + fixedCount + '기)';
 
     var hd = $('#hideDoneBtn');
     hd.classList.toggle('btn--on', state.hideDone);
@@ -1208,6 +1228,17 @@
       if (state.sel && state.sel.kind === 'boss') {
         var b = findBoss(state.sel.id);
         if (b && !state.cats[catOf(b)]) state.sel = null;
+      }
+      renderCats();
+      renderMap();
+      renderMapInfo();
+    });
+
+    $('#fixedOnlyBtn').addEventListener('click', function () {
+      state.fixedOnly = !state.fixedOnly;
+      if (state.sel && state.sel.kind === 'boss') {
+        var b = findBoss(state.sel.id);
+        if (b && state.fixedOnly && !isFixed(b)) state.sel = null;
       }
       renderCats();
       renderMap();

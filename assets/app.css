@@ -414,6 +414,7 @@ a { color: var(--accent); }
 .badge--Surface { color: #9bd8a8; border-color: #2a5138; }
 .badge--Depths { color: #d8a0e8; border-color: #4c2b57; }
 .badge--cave { color: var(--zonai); border-color: #5a4a1e; }
+.badge--fixed { color: #9fb0c6; border-color: #3c4a5e; }
 
 .coords {
   font-variant-numeric: tabular-nums;
@@ -639,6 +640,13 @@ a { color: var(--accent); }
 }
 
 .drawer__note b { color: var(--text-dim); }
+
+.pinlegend {
+  width: 11px;
+  height: 13px;
+  vertical-align: -2px;
+  fill: var(--text-dim);
+}
 .chips--seg .chip { text-align: center; }
 
 .coordbox { font-variant-numeric: tabular-nums; }

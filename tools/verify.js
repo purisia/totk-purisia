@@ -285,6 +285,18 @@ check('app.js 가 월드 레벨을 반영',
   appJs.includes('stepOf') && appJs.includes('state.world') &&
   appJs.includes('worldChips'));
 
+// 강화 사슬 밖의 고정 개체
+const fixed = bosses.filter(b => !b.family);
+check('고정 개체 64기', fixed.length === 64, String(fixed.length));
+check('고정 개체는 마그록 · 꽁꽁록 · 하우스록 · 스탈 히녹스 · 퀘스트 연동뿐',
+  fixed.every(b => /Giant_Bone|Golem_(Fire|Ice|Fort)|KeyCrystal/.test(b.variant)));
+check('강화되는 개체는 모두 사슬에 들어 있음',
+  bosses.filter(b => b.family).every(b => scaling[b.family]));
+check('app.js 가 고정 개체를 다른 핀으로 표시',
+  appJs.includes('isFixed') && appJs.includes('i-pin-fixed') &&
+  appJs.includes('fixedOnlyBtn'));
+check('고정 핀 심볼이 정의됨', html.includes('id="i-pin-fixed"'));
+
 // 워프 지점은 끌 수 없어야 한다
 check('사당·조망대는 끄는 기능이 없음',
   /function mapShowsWaypoint\([\s\S]{0,160}return w\.layer === state\.mapLayer;/.test(appJs) &&
